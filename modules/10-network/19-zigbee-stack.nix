@@ -1,78 +1,144 @@
 # ---NIXMETA
 # ---
 # domain: 10
-# id: "NIXH-10-NET-010"
-# title: "Zigbee Stack"
+# id: "NIXH-10-NET-008"
+# title: "Tailscale Zero-Trust Network"
 # type: module
 # status: draft
-# complexity: 1
+# complexity: 3
 # reviewed: 2026-05-21
-# tags: [network,zigbee,mqtt,iot]
-# description: "Mosquitto MQTT broker + Zigbee2MQTT."
+# tags: [network,tailscale,zerotrust,vpn,tailnet]
+# description: "Tailscale Zero-Trust network with full option interface from MASTER-CONFIG-TAILSCALE."
 # path: "modules/10-network/19-zigbee-stack.nix"
-# provides: [my.network.zigbeeStack]
-# requires: []
+# provides: [my.network.tailscale]
+# requires: [10-network]
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-19-zigbee-stack.md
+#   guide: docs/guides/19-zigbee-stack.md
 #   module: modules/10-network/19-zigbee-stack.nix
+# source: guides/MASTER-CONFIG-TAILSCALE.md
 # ---
 # ---ENDNIXMETA
 
-# ─── KB Nuggets ───
-# ### Kontext
-#
-# Wir benötigen eine robuste Namensauflösung für Dienste auf dem Tower, die sowohl lokal als auch im Tailnet ohne manuelle IP-Eingabe funktioniert.
-# ### Entscheidung
-#
-# Wir implementieren das **Tailscale SplitDNS Pattern**:
-# 1.  **MagicDNS:** Aktivierung für alle Tailnet-Geräte (SSoT für Hostnamen).
-# 2.  **Global Nameserver:** Der Tower (AdGuardHome) wird als globaler Nameserver im Tailscale-Admin-Panel hinterlegt.
-# 3.  **SplitDNS Regel:** Alle Anfragen an `m7c5.de` werden explizit an die Tailscale-IP des Towers geroutet.
-# ─── End KB Nuggets ───
-
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
+let
+  cfg = config.my.network.tailscale;
+in
 {
-  options.my.network.zigbeeStack = {
-    enable = lib.mkOption { type = lib.types.bool; default = false; };
-    mqttPort = lib.mkOption { type = lib.types.port; default = 1883; };
-    zigbeePort = lib.mkOption { type = lib.types.port; default = 8089; };
-    zigbeeDevice = lib.mkOption { type = lib.types.str; default = ""; description = "Zigbee adapter path or socket URL."; };
-    adapter = lib.mkOption {
-      type = lib.types.enum [ "ember" "zstack" "deconz" "ezsp" ];
-      default = "ember";
+  options.my.network.tailscale = {
+    enable = lib.mkEnableOption "Tailscale Zero-Trust VPN";
+
+    # ── Auth ──
+    authKeyFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Path to file containing Tailscale auth key (via SOPS).";
     };
-    dataDir = lib.mkOption { type = lib.types.str; default = "/var/lib/zigbee2mqtt"; };
+
+    # ── Network ──
+    acceptDns = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Accept DNS configuration from the tailnet.";
+    };
+    acceptRoutes = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Accept subnet routes from other nodes.";
+    };
+    advertiseRoutes = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [];
+      description = "Subnet routes to advertise (e.g., ['192.168.1.0/24']).";
+    };
+    advertiseExitNode = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Advertise this node as an exit node.";
+    };
+
+    # ── Security ──
+    allowIngress = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Allow Tailscale ingress from other tailnet nodes.";
+    };
+    allowAdminConsoleRemoteUpdate = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Allow remote admin console updates.";
+    };
+
+    # ── Firewall ──
+    firewallMode = lib.mkOption {
+      type = lib.types.enum [ "auto" "on" "off" ];
+      default = "auto";
+      description = "Tailscale firewall mode.";
+    };
+
+    # ── Debug ──
+    debugEnvFile = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Path to debug environment variables file.";
+    };
+    logLevel = lib.mkOption {
+      type = lib.types.enum [ "verbose" "info" "warn" "error" ];
+      default = "info";
+      description = "Tailscale daemon log level.";
+    };
+
+    # ── Config ──
+    configFilePath = lib.mkOption {
+      type = lib.types.nullOr lib.types.str;
+      default = null;
+      description = "Custom path for Tailscale state file.";
+    };
+    port = lib.mkOption {
+      type = lib.types.nullOr lib.types.port;
+      default = null;
+      description = "Custom UDP port for WireGuard traffic (default 41641).";
+    };
   };
 
-  config = lib.mkIf config.my.network.zigbeeStack.enable {
-    services.mosquitto = {
+  config = lib.mkIf cfg.enable {
+    services.tailscale = {
       enable = true;
-      listeners = [{
-        port = config.my.network.zigbeeStack.mqttPort;
-        address = "127.0.0.1";
-        acl = [ "pattern readwrite #" ];
-        settings.allow_anonymous = true;
-      }];
+      openFirewall = true;
+      port = cfg.port;
+      useRoutingFeatures = if cfg.advertiseExitNode then "server" else "client";
+      extraUpFlags = [
+        "--accept-dns=${if cfg.acceptDns then "true" else "false"}"
+        "--accept-routes=${if cfg.acceptRoutes then "true" else "false"}"
+      ] ++ lib.optionals cfg.advertiseExitNode [ "--advertise-exit-node" ]
+        ++ lib.optionals (cfg.advertiseRoutes != []) [ "--advertise-routes=${lib.concatStringsSep "," cfg.advertiseRoutes}" ];
     };
-    services.zigbee2mqtt = {
-      enable = true;
-      dataDir = config.my.network.zigbeeStack.dataDir;
-      settings = {
-        permit_join = false;
-        mqtt = {
-          base_topic = "zigbee2mqtt";
-          server = "mqtt://127.0.0.1:${toString config.my.network.zigbeeStack.mqttPort}";
-        };
-        serial = {
-          port = config.my.network.zigbeeStack.zigbeeDevice;
-          adapter = config.my.network.zigbeeStack.adapter;
-        };
-        frontend = {
-          port = config.my.network.zigbeeStack.zigbeePort;
-          host = "127.0.0.1";
-        };
-      };
+
+    # Environment variables for tailscaled
+    systemd.services.tailscaled.environment = {
+      TS_AUTHKEY_FILE = lib.mkIf (cfg.authKeyFile != null) cfg.authKeyFile;
+      TS_ACCEPT_DNS = if cfg.acceptDns then "1" else "0";
+      TS_ALLOW_SELF_INGRESS = if cfg.allowIngress then "1" else "0";
+      TS_ALLOW_ADMIN_CONSOLE_REMOTE_UPDATE = if cfg.allowAdminConsoleRemoteUpdate then "1" else "0";
+      TS_DEBUG_ENV_FILE = lib.mkIf (cfg.debugEnvFile != null) cfg.debugEnvFile;
+      TS_DEBUG_LOG_RATE = cfg.logLevel;
+      TS_FIREWALL_MODE = cfg.firewallMode;
+      TS_CONFIGFILE_PATH = lib.mkIf (cfg.configFilePath != null) cfg.configFilePath;
+    };
+
+    # ── Systemd Hardening ──
+    systemd.services.tailscaled.serviceConfig = {
+      ProtectSystem = "strict";
+      ProtectHome = true;
+      NoNewPrivileges = true;
+      PrivateTmp = true;
+      CapabilityBoundingSet = [ "CAP_NET_ADMIN" "CAP_NET_RAW" ];
+    };
+
+    # ── NFTables: Allow tailscale traffic ──
+    networking.firewall = {
+      allowedUDPPorts = lib.mkIf (cfg.port != null) [ cfg.port ];
+      trustedInterfaces = [ "tailscale0" ];
     };
   };
 }
