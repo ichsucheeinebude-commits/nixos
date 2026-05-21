@@ -1,18 +1,18 @@
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-00-COR-001",
-#   "title": "Core Foundation",
-#   "layer": 0,
-#   "category": "core",
-#   "lastReviewed": "YYYY-MM-DD",
-#   "reviewedBy": "moritz",
-#   "status": "draft",
-#   "complexity": 3,
-#   "description": "Core system: identity, nix-tuning, zram-swap, boot-safeguard, shell-premium",
-#   "tags": ["core", "foundation", "nix-tuning", "zram", "boot"]
-# }
-# ---ENDNIXMETA
+# ---NIXMETA---
+# domain: 00-core
+# id: NIXH-00-COR-001
+# status: draft
+# provides:
+#   - my.core.enable
+# requires:
+# adr: ADR-00-core.md
+# guide: 00-core.md
+# complexity: 3
+# reviewed: YYYY-MM-DD
+# ---ENDNIXMETA---
+#
+# PURPOSE: Core system: configs, ports, nix-tuning, zram, boot-safeguard.
+# Key decisions: docs/adr/ADR-00-core.md
 
 { config, lib, pkgs, ... }:
 

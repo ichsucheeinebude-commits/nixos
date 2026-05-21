@@ -1,18 +1,21 @@
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-60-APP-001",
-#   "title": "Applications",
-#   "layer": 60,
-#   "category": "apps",
-#   "lastReviewed": "YYYY-MM-DD",
-#   "reviewedBy": "moritz",
-#   "status": "draft",
-#   "complexity": 2,
-#   "description": "Paperless, n8n, Vaultwarden, and additional web apps",
-#   "tags": ["apps", "paperless", "n8n", "vaultwarden"]
-# }
-# ---ENDNIXMETA
+# ---NIXMETA---
+# domain: 60-apps
+# id: NIXH-60-APP-001
+# status: draft
+# provides:
+#   - my.apps.enable
+# requires:
+#   - 00-core
+#   - 10-network
+#   - 20-security
+# adr: ADR-60-apps.md
+# guide: 60-apps.md
+# complexity: 2
+# reviewed: YYYY-MM-DD
+# ---ENDNIXMETA---
+#
+# PURPOSE: Paperless, n8n, Vaultwarden.
+# Key decisions: docs/adr/ADR-60-apps.md
 
 { config, lib, pkgs, ... }:
 

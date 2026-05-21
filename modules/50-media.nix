@@ -1,18 +1,21 @@
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-50-MED-001",
-#   "title": "Media Stack",
-#   "layer": 50,
-#   "category": "media",
-#   "lastReviewed": "YYYY-MM-DD",
-#   "reviewedBy": "moritz",
-#   "status": "draft",
-#   "complexity": 3,
-#   "description": "Jellyfin, Arr-stack, QuickSync",
-#   "tags": ["media", "jellyfin", "sonarr", "radarr", "prowlarr"]
-# }
-# ---ENDNIXMETA
+# ---NIXMETA---
+# domain: 50-media
+# id: NIXH-50-MED-001
+# status: draft
+# provides:
+#   - my.media.enable
+# requires:
+#   - 00-core
+#   - 10-network
+#   - 30-storage
+# adr: ADR-50-media.md
+# guide: 50-media.md
+# complexity: 3
+# reviewed: YYYY-MM-DD
+# ---ENDNIXMETA---
+#
+# PURPOSE: Jellyfin, Arr-stack, QuickSync.
+# Key decisions: docs/adr/ADR-50-media.md
 
 { config, lib, pkgs, ... }:
 

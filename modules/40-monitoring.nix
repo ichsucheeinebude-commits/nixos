@@ -1,18 +1,20 @@
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-40-MON-001",
-#   "title": "Monitoring #   "title": "Monitoring & Observability", Observability",
-#   "layer": 40,
-#   "category": "monitoring",
-#   "lastReviewed": "YYYY-MM-DD",
-#   "reviewedBy": "moritz",
-#   "status": "draft",
-#   "complexity": 2,
-#   "description": "Netdata, Gatus, Scrutiny",
-#   "tags": ["monitoring", "netdata", "gatus", "scrutiny"]
-# }
-# ---ENDNIXMETA
+# ---NIXMETA---
+# domain: 40-monitoring
+# id: NIXH-40-MON-001
+# status: draft
+# provides:
+#   - my.monitoring.enable
+# requires:
+#   - 00-core
+#   - 10-network
+# adr: ADR-40-monitoring.md
+# guide: 40-monitoring.md
+# complexity: 2
+# reviewed: YYYY-MM-DD
+# ---ENDNIXMETA---
+#
+# PURPOSE: Netdata, Gatus, Scrutiny.
+# Key decisions: docs/adr/ADR-40-monitoring.md
 
 { config, lib, pkgs, ... }:
 

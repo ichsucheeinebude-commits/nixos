@@ -1,18 +1,21 @@
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-80-GAM-001",
-#   "title": "Gaming #   "title": "Gaming & Game Servers", Game Servers",
-#   "layer": 80,
-#   "category": "gaming",
-#   "lastReviewed": "YYYY-MM-DD",
-#   "reviewedBy": "moritz",
-#   "status": "draft",
-#   "complexity": 2,
-#   "description": "FHS environments for game servers, AMP",
-#   "tags": ["gaming", "amp", "fhs", "game-servers"]
-# }
-# ---ENDNIXMETA
+# ---NIXMETA---
+# domain: 80-gaming
+# id: NIXH-80-GAM-001
+# status: draft
+# provides:
+#   - my.gaming.enable
+# requires:
+#   - 00-core
+#   - 10-network
+#   - 30-storage
+# adr: ADR-80-gaming.md
+# guide: 80-gaming.md
+# complexity: 2
+# reviewed: YYYY-MM-DD
+# ---ENDNIXMETA---
+#
+# PURPOSE: FHS game servers, AMP.
+# Key decisions: docs/adr/ADR-80-gaming.md
 
 { config, lib, pkgs, ... }:
 

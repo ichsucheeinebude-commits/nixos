@@ -1,18 +1,20 @@
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-90-POL-001",
-#   "title": "Security Policies",
-#   "layer": 90,
-#   "category": "policy",
-#   "lastReviewed": "YYYY-MM-DD",
-#   "reviewedBy": "moritz",
-#   "status": "draft",
-#   "complexity": 2,
-#   "description": "Binary-only policy, security assertions, compliance checks",
-#   "tags": ["policy", "security", "binary-only", "compliance"]
-# }
-# ---ENDNIXMETA
+# ---NIXMETA---
+# domain: 90-policy
+# id: NIXH-90-POL-001
+# status: draft
+# provides:
+#   - my.policy.enable
+# requires:
+#   - 00-core
+#   - 20-security
+# adr: ADR-90-policy.md
+# guide: 90-policy.md
+# complexity: 2
+# reviewed: YYYY-MM-DD
+# ---ENDNIXMETA---
+#
+# PURPOSE: Binary-only policy, security assertions.
+# Key decisions: docs/adr/ADR-90-policy.md
 
 { config, lib, pkgs, ... }:
 
