@@ -1,40 +1,95 @@
 ---
 title: "50-media: Media Operations"
 domain: 50
+folder: 50-media
 status: draft
-complexity: 1
+complexity: 2
 last_reviewed: YYYY-MM-DD
 links:
-  adr: ADR-50-*.md
+  adr: ADR-50-media.md
   modules:
-    - path: modules/50-*.nix
-      anchor: TODO
+    - path: modules/50-media.nix
+      anchor: media-anchor
 ---
 
-> **One-sentence purpose.**
+# 50-media: Media Operations
+
+> **One-sentence purpose statement.**
 > [TODO]
 
 ---
 
 ## Prerequisites
 
-- [ ] Domain 00-core is deployed
-- [ ] Domain 10-network is deployed
+Before touching anything in this domain:
+
+- [ ] Domain `00-core` is deployed and healthy
+- [ ] Domain `10-network` is deployed and healthy
+- [ ] Secret `NAME_secret` exists in `/run/secrets/` (provisioned via SOPS)
 
 ---
 
-## Operations
+## How It Works (Architecture in Plain Language)
 
-[TODO]
+[TODO — 3–5 sentences. No Nix. No code.]
 
----
-
-## Health Checks
-
-[TODO]
+1. **What starts it:** [TODO]
+2. **What it talks to:** [TODO]
+3. **What depends on it:** [TODO]
 
 ---
 
-## Troubleshooting
+## Operational Procedures
 
-[TODO]
+### Enable / First Deploy
+
+```bash
+systemctl status NAME.service
+ss -tlnp | grep NAME
+curl -sf http://127.0.0.1:PORT/health && echo "OK"
+```
+
+### Disable / Remove
+
+```bash
+systemctl stop NAME.service
+```
+
+### Routine Maintenance
+
+- Log rotation: automatic via systemd
+- Backup verification: `restic snapshots --tag NAME`
+
+---
+
+## Verification Commands
+
+```bash
+systemctl is-active --quiet NAME && echo "PASS: active"
+systemctl --failed | grep NAME || echo "PASS: no failures"
+journalctl -u NAME --no-pager -n 100 | grep -c ERROR | grep -q "^0$" && echo "PASS: clean logs"
+```
+
+---
+
+## Known Failure Modes
+
+| Symptom | Likely Cause | Fix |
+|---------|-------------|-----|
+| Service in restart loop | SOPS secret not decrypted yet | Check `journalctl -u sops-nix` |
+| Add domain-specific rows | — | — |
+
+---
+
+## Cross-Domain Interactions
+
+- **Depends on:** `00-core` (users/groups), `10-network` (firewall)
+- **Used by:** Higher-numbered domains
+- **Shared state:** [TODO]
+
+---
+
+## Decision Reference
+
+Architecture rationale lives in `docs/adr/ADR-50-media.md`.
+This guide deliberately contains no rationale — only operations.

@@ -1,18 +1,18 @@
 ---
-title: "20-security: Security Operations"
-domain: 20
-folder: 20-security
+title: "60-apps: App Operations"
+domain: 60
+folder: 60-apps
 status: draft
 complexity: 2
 last_reviewed: YYYY-MM-DD
 links:
-  adr: ADR-20-security.md
+  adr: ADR-60-apps.md
   modules:
-    - path: modules/20-security.nix
-      anchor: security-anchor
+    - path: modules/60-apps.nix
+      anchor: apps-anchor
 ---
 
-# 20-security: Security Operations
+# 60-apps: App Operations
 
 > **One-sentence purpose statement.**
 > [TODO]
@@ -91,5 +91,5 @@ journalctl -u NAME --no-pager -n 100 | grep -c ERROR | grep -q "^0$" && echo "PA
 
 ## Decision Reference
 
-Architecture rationale lives in `docs/adr/ADR-20-security.md`.
+Architecture rationale lives in `docs/adr/ADR-60-apps.md`.
 This guide deliberately contains no rationale — only operations.
