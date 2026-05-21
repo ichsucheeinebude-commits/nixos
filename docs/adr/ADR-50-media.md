@@ -1,19 +1,27 @@
 ---
-title: "ADR-50: Media Stack"
 domain: 50
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-50-MED-001"
+title: "Media Stack"
+type: adr
+status: draft
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - media
+  - jellyfin
+  - sonarr
+  - radarr
+description: "Jellyfin, Arr-stack, QuickSync"
+provides:
+  - my.media.enable
+requires:
+  - 00-core
+  - 10-network
+  - 30-storage
 links:
+  adr: ADR-50-media.md
   guide: 50-media.md
-  modules:
-    - modules/50-media.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/50-media.nix
 ---
 
 # ADR-50: Media Stack

@@ -1,15 +1,26 @@
 ---
-title: "20-security: Security Operations"
 domain: 20
-folder: 20-security
+id: "NIXH-20-SEC-001"
+title: "Security Hardening"
+type: guide
 status: draft
-complexity: 2
-last_reviewed: YYYY-MM-DD
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - ssh
+  - firewall
+  - nftables
+  - hardening
+description: "Hardened SSH daemon with modern crypto, nftables firewall"
+provides:
+  - my.security.enable
+requires:
+  - 00-core
+  - 10-network
 links:
   adr: ADR-20-security.md
-  modules:
-    - path: modules/20-security.nix
-      anchor: security
+  guide: 20-security.md
+  module: modules/20-security.nix
 ---
 
 # 20-security: Security Operations

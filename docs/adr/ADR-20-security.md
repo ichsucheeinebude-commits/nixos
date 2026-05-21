@@ -1,19 +1,26 @@
 ---
-title: "ADR-20: Security Hardening"
 domain: 20
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-20-SEC-001"
+title: "Security Hardening"
+type: adr
+status: draft
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - ssh
+  - firewall
+  - nftables
+  - hardening
+description: "Hardened SSH daemon with modern crypto, nftables firewall"
+provides:
+  - my.security.enable
+requires:
+  - 00-core
+  - 10-network
 links:
+  adr: ADR-20-security.md
   guide: 20-security.md
-  modules:
-    - modules/20-security.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/20-security.nix
 ---
 
 # ADR-20: Security Hardening

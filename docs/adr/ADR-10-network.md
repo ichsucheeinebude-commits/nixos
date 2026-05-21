@@ -1,19 +1,24 @@
 ---
-title: "ADR-10: Network Configuration"
 domain: 10
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-10-NET-001"
+title: "Network Configuration"
+type: adr
+status: draft
+complexity: 2
+reviewed: YYYY-MM-DD
+tags:
+  - network
+  - dns
+  - tailscale
+description: "DNS, Tailscale, interface configuration"
+provides:
+  - my.network.enable
+requires:
+  - 00-core
 links:
+  adr: ADR-10-network.md
   guide: 10-network.md
-  modules:
-    - modules/10-network.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/10-network.nix
 ---
 
 # ADR-10: Network Configuration

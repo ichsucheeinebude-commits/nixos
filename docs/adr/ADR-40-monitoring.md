@@ -1,19 +1,26 @@
 ---
-title: "ADR-40: Monitoring PLACEHOLDER_TITLE Observability"
 domain: 40
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-40-MON-001"
+title: "Monitoring and Observability"
+type: adr
+status: draft
+complexity: 2
+reviewed: YYYY-MM-DD
+tags:
+  - monitoring
+  - netdata
+  - gatus
+  - scrutiny
+description: "Netdata, Gatus, Scrutiny"
+provides:
+  - my.monitoring.enable
+requires:
+  - 00-core
+  - 10-network
 links:
+  adr: ADR-40-monitoring.md
   guide: 40-monitoring.md
-  modules:
-    - modules/40-monitoring.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/40-monitoring.nix
 ---
 
 # ADR-40: Monitoring PLACEHOLDER_TITLE Observability

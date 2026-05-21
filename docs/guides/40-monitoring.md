@@ -1,15 +1,26 @@
 ---
-title: "40-monitoring: Monitoring Operations"
 domain: 40
-folder: 40-monitoring
+id: "NIXH-40-MON-001"
+title: "Monitoring and Observability"
+type: guide
 status: draft
 complexity: 2
-last_reviewed: YYYY-MM-DD
+reviewed: YYYY-MM-DD
+tags:
+  - monitoring
+  - netdata
+  - gatus
+  - scrutiny
+description: "Netdata, Gatus, Scrutiny"
+provides:
+  - my.monitoring.enable
+requires:
+  - 00-core
+  - 10-network
 links:
   adr: ADR-40-monitoring.md
-  modules:
-    - path: modules/40-monitoring.nix
-      anchor: monitoring
+  guide: 40-monitoring.md
+  module: modules/40-monitoring.nix
 ---
 
 # 40-monitoring: Monitoring Operations

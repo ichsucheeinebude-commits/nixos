@@ -1,19 +1,27 @@
 ---
-title: "ADR-80: Gaming PLACEHOLDER_TITLE Game Servers"
 domain: 80
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-80-GAM-001"
+title: "Gaming and Game Servers"
+type: adr
+status: draft
+complexity: 2
+reviewed: YYYY-MM-DD
+tags:
+  - gaming
+  - amp
+  - fhs
+  - game-servers
+description: "FHS game servers, AMP"
+provides:
+  - my.gaming.enable
+requires:
+  - 00-core
+  - 10-network
+  - 30-storage
 links:
+  adr: ADR-80-gaming.md
   guide: 80-gaming.md
-  modules:
-    - modules/80-gaming.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/80-gaming.nix
 ---
 
 # ADR-80: Gaming PLACEHOLDER_TITLE Game Servers

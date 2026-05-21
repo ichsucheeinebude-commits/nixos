@@ -1,17 +1,31 @@
-# ---NIXMETA---
-# domain: 20-security
-# id: NIXH-20-SEC-001
-# status: draft
-# provides:
-#   - my.security.enable
-# requires:
-#   - 00-core
-#   - 10-network
-# adr: ADR-20-security.md
-# guide: 20-security.md
-# complexity: 3
-# reviewed: YYYY-MM-DD
-# ---ENDNIXMETA---
+# ---NIXMETA
+---
+domain: 20
+id: "NIXH-20-SEC-001"
+title: "Security Hardening"
+type: module
+status: draft
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - ssh
+  - firewall
+  - nftables
+  - hardening
+description: "Hardened SSH daemon with modern crypto, nftables firewall"
+provides:
+  - my.security.enable
+requires:
+  - 00-core
+  - 10-network
+links:
+  adr: ADR-20-security.md
+  guide: 20-security.md
+  module: modules/20-security.nix
+---
+# ---ENDNIXMETA
+
+---
 #
 # PURPOSE: Hardened SSH daemon with modern crypto, nftables firewall.
 # Key decisions: docs/adr/ADR-20-security.md

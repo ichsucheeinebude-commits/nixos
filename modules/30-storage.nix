@@ -1,17 +1,32 @@
-# ---NIXMETA---
-# domain: 30-storage
-# id: NIXH-30-STO-001
-# status: draft
-# provides:
-#   - my.storage.enable
-# requires:
-#   - 00-core
-#   - 10-network
-# adr: ADR-30-storage.md
-# guide: 30-storage.md
-# complexity: 3
-# reviewed: YYYY-MM-DD
-# ---ENDNIXMETA---
+# ---NIXMETA
+---
+domain: 30
+id: "NIXH-30-STO-001"
+title: "Storage Strategy"
+type: module
+status: draft
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - storage
+  - zfs
+  - mergerfs
+  - tiering
+  - backup
+description: "ABC-tiering, mergerfs, ZFS, backup"
+provides:
+  - my.storage.enable
+requires:
+  - 00-core
+  - 10-network
+links:
+  adr: ADR-30-storage.md
+  guide: 30-storage.md
+  module: modules/30-storage.nix
+---
+# ---ENDNIXMETA
+
+---
 #
 # PURPOSE: ABC-tiering, mergerfs, ZFS, backup.
 # Key decisions: docs/adr/ADR-30-storage.md

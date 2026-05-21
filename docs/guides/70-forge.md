@@ -1,15 +1,26 @@
 ---
-title: "70-forge: Forge Operations"
 domain: 70
-folder: 70-forge
+id: "NIXH-70-FOR-001"
+title: "Forge Self-Hosted Git"
+type: guide
 status: draft
 complexity: 2
-last_reviewed: YYYY-MM-DD
+reviewed: YYYY-MM-DD
+tags:
+  - forgejo
+  - git
+  - ci-cd
+description: "Forgejo, CI/CD, sovereign Git"
+provides:
+  - my.forge.enable
+requires:
+  - 00-core
+  - 10-network
+  - 20-security
 links:
   adr: ADR-70-forge.md
-  modules:
-    - path: modules/70-forge.nix
-      anchor: forge
+  guide: 70-forge.md
+  module: modules/70-forge.nix
 ---
 
 # 70-forge: Forge Operations

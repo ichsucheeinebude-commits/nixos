@@ -1,15 +1,27 @@
 ---
-title: "60-apps: App Operations"
 domain: 60
-folder: 60-apps
+id: "NIXH-60-APP-001"
+title: "Applications"
+type: guide
 status: draft
 complexity: 2
-last_reviewed: YYYY-MM-DD
+reviewed: YYYY-MM-DD
+tags:
+  - apps
+  - paperless
+  - n8n
+  - vaultwarden
+description: "Paperless, n8n, Vaultwarden"
+provides:
+  - my.apps.enable
+requires:
+  - 00-core
+  - 10-network
+  - 20-security
 links:
   adr: ADR-60-apps.md
-  modules:
-    - path: modules/60-apps.nix
-      anchor: apps
+  guide: 60-apps.md
+  module: modules/60-apps.nix
 ---
 
 # 60-apps: App Operations

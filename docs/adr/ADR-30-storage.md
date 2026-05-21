@@ -1,19 +1,27 @@
 ---
-title: "ADR-30: Storage Strategy"
 domain: 30
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-30-STO-001"
+title: "Storage Strategy"
+type: adr
+status: draft
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - storage
+  - zfs
+  - mergerfs
+  - tiering
+  - backup
+description: "ABC-tiering, mergerfs, ZFS, backup"
+provides:
+  - my.storage.enable
+requires:
+  - 00-core
+  - 10-network
 links:
+  adr: ADR-30-storage.md
   guide: 30-storage.md
-  modules:
-    - modules/30-storage.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/30-storage.nix
 ---
 
 # ADR-30: Storage Strategy

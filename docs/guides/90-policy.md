@@ -1,15 +1,26 @@
 ---
-title: "90-policy: Policy Operations"
 domain: 90
-folder: 90-policy
+id: "NIXH-90-POL-001"
+title: "Security Policies"
+type: guide
 status: draft
 complexity: 2
-last_reviewed: YYYY-MM-DD
+reviewed: YYYY-MM-DD
+tags:
+  - policy
+  - security
+  - binary-only
+  - compliance
+description: "Binary-only policy, security assertions, compliance checks"
+provides:
+  - my.policy.enable
+requires:
+  - 00-core
+  - 20-security
 links:
   adr: ADR-90-policy.md
-  modules:
-    - path: modules/90-policy.nix
-      anchor: policy
+  guide: 90-policy.md
+  module: modules/90-policy.nix
 ---
 
 # 90-policy: Policy Operations

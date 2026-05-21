@@ -1,15 +1,27 @@
 ---
-title: "50-media: Media Operations"
 domain: 50
-folder: 50-media
+id: "NIXH-50-MED-001"
+title: "Media Stack"
+type: guide
 status: draft
-complexity: 2
-last_reviewed: YYYY-MM-DD
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - media
+  - jellyfin
+  - sonarr
+  - radarr
+description: "Jellyfin, Arr-stack, QuickSync"
+provides:
+  - my.media.enable
+requires:
+  - 00-core
+  - 10-network
+  - 30-storage
 links:
   adr: ADR-50-media.md
-  modules:
-    - path: modules/50-media.nix
-      anchor: media
+  guide: 50-media.md
+  module: modules/50-media.nix
 ---
 
 # 50-media: Media Operations

@@ -1,19 +1,26 @@
 ---
-title: "ADR-70: Forge — Self-Hosted Git"
 domain: 70
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-70-FOR-001"
+title: "Forge Self-Hosted Git"
+type: adr
+status: draft
+complexity: 2
+reviewed: YYYY-MM-DD
+tags:
+  - forgejo
+  - git
+  - ci-cd
+description: "Forgejo, CI/CD, sovereign Git"
+provides:
+  - my.forge.enable
+requires:
+  - 00-core
+  - 10-network
+  - 20-security
 links:
+  adr: ADR-70-forge.md
   guide: 70-forge.md
-  modules:
-    - modules/70-forge.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/70-forge.nix
 ---
 
 # ADR-70: Forge — Self-Hosted Git

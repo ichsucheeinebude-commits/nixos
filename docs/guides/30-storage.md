@@ -1,15 +1,27 @@
 ---
-title: "30-storage: Storage Operations"
 domain: 30
-folder: 30-storage
+id: "NIXH-30-STO-001"
+title: "Storage Strategy"
+type: guide
 status: draft
-complexity: 2
-last_reviewed: YYYY-MM-DD
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - storage
+  - zfs
+  - mergerfs
+  - tiering
+  - backup
+description: "ABC-tiering, mergerfs, ZFS, backup"
+provides:
+  - my.storage.enable
+requires:
+  - 00-core
+  - 10-network
 links:
   adr: ADR-30-storage.md
-  modules:
-    - path: modules/30-storage.nix
-      anchor: storage
+  guide: 30-storage.md
+  module: modules/30-storage.nix
 ---
 
 # 30-storage: Storage Operations

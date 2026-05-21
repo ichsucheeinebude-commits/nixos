@@ -1,19 +1,27 @@
 ---
-title: "ADR-60: Applications"
 domain: 60
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-60-APP-001"
+title: "Applications"
+type: adr
+status: draft
+complexity: 2
+reviewed: YYYY-MM-DD
+tags:
+  - apps
+  - paperless
+  - n8n
+  - vaultwarden
+description: "Paperless, n8n, Vaultwarden"
+provides:
+  - my.apps.enable
+requires:
+  - 00-core
+  - 10-network
+  - 20-security
 links:
+  adr: ADR-60-apps.md
   guide: 60-apps.md
-  modules:
-    - modules/60-apps.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/60-apps.nix
 ---
 
 # ADR-60: Applications

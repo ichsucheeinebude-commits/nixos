@@ -1,15 +1,27 @@
 ---
-title: "80-gaming: Gaming Operations"
 domain: 80
-folder: 80-gaming
+id: "NIXH-80-GAM-001"
+title: "Gaming and Game Servers"
+type: guide
 status: draft
 complexity: 2
-last_reviewed: YYYY-MM-DD
+reviewed: YYYY-MM-DD
+tags:
+  - gaming
+  - amp
+  - fhs
+  - game-servers
+description: "FHS game servers, AMP"
+provides:
+  - my.gaming.enable
+requires:
+  - 00-core
+  - 10-network
+  - 30-storage
 links:
   adr: ADR-80-gaming.md
-  modules:
-    - path: modules/80-gaming.nix
-      anchor: gaming
+  guide: 80-gaming.md
+  module: modules/80-gaming.nix
 ---
 
 # 80-gaming: Gaming Operations

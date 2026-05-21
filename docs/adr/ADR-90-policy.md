@@ -1,19 +1,26 @@
 ---
-title: "ADR-90: Security Policies"
 domain: 90
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-90-POL-001"
+title: "Security Policies"
+type: adr
+status: draft
+complexity: 2
+reviewed: YYYY-MM-DD
+tags:
+  - policy
+  - security
+  - binary-only
+  - compliance
+description: "Binary-only policy, security assertions, compliance checks"
+provides:
+  - my.policy.enable
+requires:
+  - 00-core
+  - 20-security
 links:
+  adr: ADR-90-policy.md
   guide: 90-policy.md
-  modules:
-    - modules/90-policy.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/90-policy.nix
 ---
 
 # ADR-90: Security Policies

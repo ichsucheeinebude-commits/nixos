@@ -1,19 +1,28 @@
 ---
-title: "ADR-00: Core Foundation"
 domain: 00
-status: proposed
-severity: high
-date: YYYY-MM-DD
-deciders: [moritz]
-review_after: YYYY-MM-DD
+id: "NIXH-00-COR-001"
+title: "Core Foundation"
+type: adr
+status: draft
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - core
+  - foundation
+  - nix-tuning
+  - zram
+  - boot
+description: "Core system: configs, ports, nix-tuning, zram-swap, boot-safeguard, shell aliases"
+provides:
+  - my.core.enable
+  - my.core.configs
+  - my.core.ports
+requires:
+ []
 links:
+  adr: ADR-00-core.md
   guide: 00-core.md
-  modules:
-    - modules/00-core.nix
-  related: []
-  issues: []
-  source: []
-supersedes: []
+  module: modules/00-core.nix
 ---
 
 # ADR-00: Core Foundation

@@ -1,17 +1,31 @@
-# ---NIXMETA---
-# domain: 40-monitoring
-# id: NIXH-40-MON-001
-# status: draft
-# provides:
-#   - my.monitoring.enable
-# requires:
-#   - 00-core
-#   - 10-network
-# adr: ADR-40-monitoring.md
-# guide: 40-monitoring.md
-# complexity: 2
-# reviewed: YYYY-MM-DD
-# ---ENDNIXMETA---
+# ---NIXMETA
+---
+domain: 40
+id: "NIXH-40-MON-001"
+title: "Monitoring and Observability"
+type: module
+status: draft
+complexity: 2
+reviewed: YYYY-MM-DD
+tags:
+  - monitoring
+  - netdata
+  - gatus
+  - scrutiny
+description: "Netdata, Gatus, Scrutiny"
+provides:
+  - my.monitoring.enable
+requires:
+  - 00-core
+  - 10-network
+links:
+  adr: ADR-40-monitoring.md
+  guide: 40-monitoring.md
+  module: modules/40-monitoring.nix
+---
+# ---ENDNIXMETA
+
+---
 #
 # PURPOSE: Netdata, Gatus, Scrutiny.
 # Key decisions: docs/adr/ADR-40-monitoring.md

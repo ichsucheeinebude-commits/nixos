@@ -1,18 +1,31 @@
-# ---NIXMETA---
-# domain: 70-forge
-# id: NIXH-70-FOR-001
-# status: draft
-# provides:
-#   - my.forge.enable
-# requires:
-#   - 00-core
-#   - 10-network
-#   - 20-security
-# adr: ADR-70-forge.md
-# guide: 70-forge.md
-# complexity: 2
-# reviewed: YYYY-MM-DD
-# ---ENDNIXMETA---
+# ---NIXMETA
+---
+domain: 70
+id: "NIXH-70-FOR-001"
+title: "Forge Self-Hosted Git"
+type: module
+status: draft
+complexity: 2
+reviewed: YYYY-MM-DD
+tags:
+  - forgejo
+  - git
+  - ci-cd
+description: "Forgejo, CI/CD, sovereign Git"
+provides:
+  - my.forge.enable
+requires:
+  - 00-core
+  - 10-network
+  - 20-security
+links:
+  adr: ADR-70-forge.md
+  guide: 70-forge.md
+  module: modules/70-forge.nix
+---
+# ---ENDNIXMETA
+
+---
 #
 # PURPOSE: Forgejo, CI/CD, sovereign Git.
 # Key decisions: docs/adr/ADR-70-forge.md

@@ -1,15 +1,28 @@
 ---
-title: "00-core: Core Foundation"
 domain: 00
-folder: 00-core
+id: "NIXH-00-COR-001"
+title: "Core Foundation"
+type: guide
 status: draft
-complexity: 2
-last_reviewed: YYYY-MM-DD
+complexity: 3
+reviewed: YYYY-MM-DD
+tags:
+  - core
+  - foundation
+  - nix-tuning
+  - zram
+  - boot
+description: "Core system: configs, ports, nix-tuning, zram-swap, boot-safeguard, shell aliases"
+provides:
+  - my.core.enable
+  - my.core.configs
+  - my.core.ports
+requires:
+ []
 links:
   adr: ADR-00-core.md
-  modules:
-    - path: modules/00-core.nix
-      anchor: core
+  guide: 00-core.md
+  module: modules/00-core.nix
 ---
 
 # 00-core: Core Foundation

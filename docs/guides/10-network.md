@@ -1,15 +1,24 @@
 ---
-title: "10-network: Network Configuration"
 domain: 10
-folder: 10-network
+id: "NIXH-10-NET-001"
+title: "Network Configuration"
+type: guide
 status: draft
 complexity: 2
-last_reviewed: YYYY-MM-DD
+reviewed: YYYY-MM-DD
+tags:
+  - network
+  - dns
+  - tailscale
+description: "DNS, Tailscale, interface configuration"
+provides:
+  - my.network.enable
+requires:
+  - 00-core
 links:
   adr: ADR-10-network.md
-  modules:
-    - path: modules/10-network.nix
-      anchor: network
+  guide: 10-network.md
+  module: modules/10-network.nix
 ---
 
 # 10-network: Network Configuration
