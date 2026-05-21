@@ -25,4 +25,4 @@ my.core.postgresql.enable = true;
 ## KB Nuggets
 
 ### PostgreSQL Tuning
-`shared_buffers = 256MB` + `effective_cache_size = 4GB` für 16GB <HOSTNAME>. Auto-VACUUM für kleine Databases.
+`shared_buffers = 256MB` + `effective_cache_size = 4GB` für 16GB q958. Auto-VACUUM für kleine Databases.

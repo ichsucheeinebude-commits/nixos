@@ -28,7 +28,7 @@
 # Wir implementieren das **Tailscale SplitDNS Pattern**:
 # 1.  **MagicDNS:** Aktivierung für alle Tailnet-Geräte (SSoT für Hostnamen).
 # 2.  **Global Nameserver:** Der Tower (AdGuardHome) wird als globaler Nameserver im Tailscale-Admin-Panel hinterlegt.
-# 3.  **SplitDNS Regel:** Alle Anfragen an `<DOMAIN>` werden explizit an die Tailscale-IP des Towers geroutet.
+# 3.  **SplitDNS Regel:** Alle Anfragen an `m7c5.de` werden explizit an die Tailscale-IP des Towers geroutet.
 # ─── End KB Nuggets ───
 
 { config, lib, ... }:

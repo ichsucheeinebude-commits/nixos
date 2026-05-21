@@ -43,7 +43,7 @@
 # \`\`\`
 # ### 🛡️ SRE-Hardening
 #
-# - Der Dienst wird via Caddy (Layer 20) über \`paperless.<DOMAIN>\` mit mTLS abgesichert.
+# - Der Dienst wird via Caddy (Layer 20) über \`paperless.m7c5.de\` mit mTLS abgesichert.
 # - Der Konsum-Ordner (\`consumptionDir\`) wird für den Scanner im Netzwerk freigegeben.
 # ─── End KB Nuggets ───
 

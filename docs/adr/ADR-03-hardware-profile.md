@@ -23,7 +23,7 @@ Conditional on cpuType and intelGpu options.
 
 ## KB Nuggets
 
-### Fujitsu <HOSTNAME> Hardware-Layout
+### Fujitsu q958 Hardware-Layout
 Intel i3-9100, 16GB RAM, Intel UHD 630 (QuickSync). M.2 Main: Samsung PM961 500GB. M.2 WLAN: Apacer 250GB (SATA). 2× HDD (SATA + DVD-Caddy).
 ### Intel QuickSync Transcoding
 `intel-compute-runtime` (nicht deprecated `intel-media-sdk`) für Hardware-Transcoding in Jellyfin.

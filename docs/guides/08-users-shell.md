@@ -23,4 +23,4 @@ Shell aliases belong in users/<name>/home.nix, NOT here.
 ## KB Nuggets
 
 ### Shell-Aliases gehören in users/
-nixos-rebuild, journalctl Shortcuts, ls-Ersetzungen (eza/bat/ripgrep) → users/<USERNAME>/home.nix
+nixos-rebuild, journalctl Shortcuts, ls-Ersetzungen (eza/bat/ripgrep) → users/moritz/home.nix
