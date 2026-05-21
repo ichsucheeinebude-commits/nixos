@@ -1,48 +1,39 @@
 # ---NIXMETA
 # ---
 # domain: 10
-# id: "NIXH-10-DDN-001"
+# id: "NIXH-10-NET-009"
 # title: "DDNS Updater"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [ddns, dynamic]
-# description: "DDNS Updater module."
+# tags: [network,ddns,dynamic-dns]
+# description: "Dynamic DNS updates."
 # path: "modules/10-network/18-ddns-updater.nix"
-# provides: [my.network.ddns]
-# requires: [10-network/10-network]
+# provides: [my.network.ddnsUpdater]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-10-ddns-updater.md
-#   guide: docs/guides/10-ddns-updater.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/10-network/18-ddns-updater.nix
 # ---
 # ---ENDNIXMETA
+
 { config, lib, ... }:
-let
- 
- domain = config.my.configs.identity.domain;
- port = config.my.ports.ddnsUpdater;
-in
 {
+  options.my.network.ddnsUpdater = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    port = lib.mkOption { type = lib.types.port; default = 8080; };
+    period = lib.mkOption { type = lib.types.str; default = "10m"; };
+  };
 
-
- config = lib.mkIf config.my.services.ddnsUpdater.enable {
- services.ddns-updater = {
- enable = true;
- environment = { LISTENING_ADDRESS = ":${toString port}"; PERIOD = "10m"; };
- };
- 
- systemd.services.ddns-updater.serviceConfig = {
-   OOMScoreAdjust = -500;
-   ProtectSystem = "strict";
-   ProtectHome = true;
-   PrivateTmp = true;
-   NoNewPrivileges = true;
- };
-
- services.caddy.virtualHosts."nix-ddns.${domain}" = {
- extraConfig = "import family_auth\nreverse_proxy 127.0.0.1:${toString port}";
- };
- };
+  config = lib.mkIf config.my.network.ddnsUpdater.enable {
+    services.ddns-updater = {
+      enable = true;
+      environment = {
+        LISTENING_ADDRESS = ":${toString config.my.network.ddnsUpdater.port}";
+        PERIOD = config.my.network.ddnsUpdater.period;
+      };
+    };
+  };
 }

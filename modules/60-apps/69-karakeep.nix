@@ -1,54 +1,39 @@
 # ---NIXMETA
 # ---
 # domain: 60
-# id: "NIXH-60-KRK-001"
-# title: "Karakeep Bookmarks"
+# id: "NIXH-60-APP-010"
+# title: "Karakeep"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [karakeep, bookmarks]
-# description: "Karakeep Bookmarks module."
+# tags: [apps,karakeep,bookmarks]
+# description: "Karakeep bookmark management."
 # path: "modules/60-apps/69-karakeep.nix"
 # provides: [my.apps.karakeep]
-# requires: [10-network/10-network]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-60-karakeep.md
-#   guide: docs/guides/60-karakeep.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/60-apps/69-karakeep.nix
 # ---
 # ---ENDNIXMETA
-{ config, lib, pkgs, myLib, ... }:
-let
 
- cfg = config.my.services.karakeep;
- port = config.my.ports.karakeep;
- srePaths = config.my.configs.paths;
-
-in
+{ config, lib, ... }:
 {
+  options.my.apps.karakeep = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    port = lib.mkOption { type = lib.types.port; default = 3012; };
+    disableSignups = lib.mkOption { type = lib.types.bool; default = true; };
+  };
 
- config = lib.mkIf cfg.enable (lib.mkMerge [
- (myLib.mkService {
- inherit config port;
- name = "karakeep";
- description = "Karakeep Bookmark Manager";
- useSSO = true;
- persist = true;
- readWritePaths = [ 
- "${srePaths.stateDir}/karakeep"
- "${srePaths.tierB}/cache/karakeep"
- ];
- })
-
- {
- services.karakeep = {
- enable = true;
- extraEnvironment = {
- PORT = toString port;
- DISABLE_SIGNUPS = "true";
- };
- };
- }
- ]);
+  config = lib.mkIf config.my.apps.karakeep.enable {
+    services.karakeep = {
+      enable = true;
+      extraEnvironment = {
+        PORT = toString config.my.apps.karakeep.port;
+        DISABLE_SIGNUPS = if config.my.apps.karakeep.disableSignups then "true" else "false";
+      };
+    };
+  };
 }

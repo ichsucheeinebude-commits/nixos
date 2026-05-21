@@ -1,30 +1,28 @@
 # ---NIXMETA
 # ---
 # domain: 50
-# id: "NIXH-50-PRO-001"
-# title: "Prowlarr Indexer"
+# id: "NIXH-50-MED-009"
+# title: "Prowlarr"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [prowlarr, indexer]
-# description: "Prowlarr Indexer module."
+# tags: [media,prowlarr,indexer]
+# description: "Prowlarr indexer manager."
 # path: "modules/50-media/58-prowlarr.nix"
 # provides: [my.media.prowlarr]
-# requires: [50-media/51-arr-stack]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-50-prowlarr.md
-#   guide: docs/guides/50-prowlarr.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/50-media/58-prowlarr.nix
 # ---
 # ---ENDNIXMETA
-{ config, lib, pkgs, utils, myLib, ... }:
-let
-  arrFactory = import ./_arr-factory.nix { inherit config lib pkgs utils myLib; };
-in
-arrFactory.mkArr {
-  name = "prowlarr";
-  description = "Prowlarr Indexer Manager";
-  id = "NIXH-01-APP-PRO-001";
-  port = 9696;
+
+{ config, lib, ... }:
+{
+  options.my.media.prowlarr = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    port = lib.mkOption { type = lib.types.port; default = 9696; };
+  };
 }

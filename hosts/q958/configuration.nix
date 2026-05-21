@@ -1,16 +1,20 @@
 # ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-HOST-Q958",
-#   "title": "Host: q958 (Fujitsu Q958 Server)",
-#   "layer": 99,
-#   "category": "host",
-#   "lastReviewed": "YYYY-MM-DD",
-#   "reviewedBy": "moritz",
-#   "status": "draft",
-#   "complexity": 3,
-#   "description": "Host configuration for Fujitsu Q958 server"
-# }
+# ---
+# domain: host
+# id: "NIXH-HOST-Q958"
+# title: "Host: q958 (Fujitsu Q958 Server)"
+# type: host
+# status: draft
+# complexity: 3
+# reviewed: 2026-05-21
+# tags: [host,q958,server]
+# description: "Host configuration for Fujitsu Q958 server – overrides module options."
+# path: "hosts/q958/configuration.nix"
+# provides: []
+# requires: [all modules]
+# links:
+#   module: hosts/q958/configuration.nix
+# ---
 # ---ENDNIXMETA
 
 { config, pkgs, lib, ... }:
@@ -93,36 +97,75 @@
     ../../modules/90-policy/92-deferred-ops.nix
   ];
 
-  # ── Boot ───────────────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────────
+  # IDENTITY
+  # ─────────────────────────────────────────────────────────────────────
+  my.core.identity.host    = "q958";
+  my.core.identity.domain  = "m7c5.de";
+  my.core.identity.subdomain = "nix";
+  my.core.identity.user    = "moritz";
+
+  my.core.locale.timezone  = "Europe/Berlin";
+  my.core.locale.default   = "de_DE.UTF-8";
+  my.core.locale.keymap    = "de";
+
+  my.core.hardware.cpuType = "intel";
+  my.core.hardware.intelGpu = true;
+  my.core.hardware.ramGB   = 16;
+  my.core.hardware.profile = "q958";
+
+  my.core.ports.ssh        = 53844;
+
+  my.core.server.lanIP     = "192.168.1.100";
+  my.core.network.lanCidrs = [ "192.168.1.0/24" ];
+
+  # ─────────────────────────────────────────────────────────────────────
+  # NETWORK OVERRIDES
+  # ─────────────────────────────────────────────────────────────────────
+  my.network.base.hostName = "q958";
+  my.network.ssh.port      = 53844;
+  my.network.firewall.allowedTCPPorts = [ 80 443 ];
+
+  # ─────────────────────────────────────────────────────────────────────
+  # BOOT (override defaults)
+  # ─────────────────────────────────────────────────────────────────────
   boot.loader.systemd-boot.enable      = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  my.core.boot.configurationLimit      = 5;
+  my.core.boot.memtest                 = true;
 
-  # ── Identity ───────────────────────────────────────────────────────────
-  networking.hostName = "q958";
-  time.timeZone       = "Europe/Berlin";
-  i18n.defaultLocale  = "de_DE.UTF-8";
+  # ─────────────────────────────────────────────────────────────────────
+  # IMPERMANENCE
+  # ─────────────────────────────────────────────────────────────────────
+  my.storage.impermanence.enable   = true;
+  my.storage.impermanence.ramfsSize = "4G";
+  my.storage.impermanence.directories = [
+    "/var/log"
+    "/var/lib/nixos"
+    "/var/lib/systemd/coredump"
+    "/var/lib/sops-nix"
+    "/etc/NetworkManager/system-connections"
+    "/etc/ssh"
+    "/home/moritz"
+    "/etc/nixos"
+  ];
+  my.storage.impermanence.files = [
+    "/etc/machine-id"
+    "/etc/ssh/ssh_host_ed25519_key"
+    "/etc/ssh/ssh_host_ed25519_key.pub"
+    "/etc/ssh/ssh_host_rsa_key"
+    "/etc/ssh/ssh_host_rsa_key.pub"
+  ];
 
-  # ── Impermanence ───────────────────────────────────────────────────────
-  # / ist ein RAM-Disk — wird bei jedem Boot geleert
   fileSystems."/" = {
     device  = "none";
     fsType  = "tmpfs";
-    options = [ "defaults" "size=2G" "mode=755" ];
+    options = [ "defaults" "size=4G" "mode=755" ];
   };
 
-  environment.persistence."/persist" = {
-    hideMounts = true;
-    directories = [
-      "/var/log"
-      "/var/lib/nixos"
-      "/var/lib/systemd/coredump"
-      "/etc/NetworkManager/system-connections"
-      { directory = "/etc/ssh"; mode = "0755"; }
-    ];
-    files = [ "/etc/machine-id" ];
-  };
-
-  # ── SOPS Secrets ──────────────────────────────────────────────────────
+  # ─────────────────────────────────────────────────────────────────────
+  # SOPS Secrets
+  # ─────────────────────────────────────────────────────────────────────
   sops = {
     # defaultSopsFile = ../../secrets/q958.yaml;
     age.sshKeyPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];

@@ -14,24 +14,19 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/10-network/15-caddy.nix
 # ---
 # ---ENDNIXMETA
 
 { config, lib, ... }:
-let
-  idCfg = config.my.core.identity;
-  domain = idCfg.domain;
-in
 {
   options.my.network.caddy = {
-    enable = lib.mkOption { type = lib.types.bool; default = false; description = "Enable Caddy reverse proxy."; };
-    email = lib.mkOption { type = lib.types.str; default = ""; description = "ACME email for TLS certificates."; };
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    email = lib.mkOption { type = lib.types.str; default = ""; };
     virtualHosts = lib.mkOption {
       type = lib.types.attrsOf lib.types.attrs;
       default = {};
-      description = "Virtual host definitions.";
     };
   };
 
@@ -43,4 +38,3 @@ in
     };
   };
 }
-

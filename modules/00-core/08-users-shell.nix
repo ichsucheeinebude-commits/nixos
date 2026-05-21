@@ -14,7 +14,7 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/00-core/08-users-shell.nix
 # ---
 # ---ENDNIXMETA
@@ -26,10 +26,10 @@
       type = lib.types.listOf (lib.types.submodule {
         options = {
           name = lib.mkOption { type = lib.types.str; description = "Username."; };
-          isNormalUser = lib.mkOption { type = lib.types.bool; default = true; description = "Create normal user with home."; };
-          extraGroups = lib.mkOption { type = lib.types.listOf lib.types.str; default = []; description = "Supplementary groups."; };
+          isNormalUser = lib.mkOption { type = lib.types.bool; default = true; };
+          extraGroups = lib.mkOption { type = lib.types.listOf lib.types.str; default = []; };
           openssh.authorizedKeys.keys = lib.mkOption { type = lib.types.listOf lib.types.str; default = []; description = "SSH public keys."; };
-          shell = lib.mkOption { type = lib.types.package; default = null; description = "User shell."; };
+          shell = lib.mkOption { type = lib.types.package; default = null; };
         };
       });
       default = [];
@@ -48,4 +48,3 @@
     }) config.my.core.users.list);
   };
 }
-

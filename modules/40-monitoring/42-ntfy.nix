@@ -1,51 +1,38 @@
 # ---NIXMETA
 # ---
 # domain: 40
-# id: "NIXH-40-NTF-001"
-# title: "Ntfy Notifications"
+# id: "NIXH-40-MON-003"
+# title: "ntfy-sh"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [ntfy, notifications]
-# description: "Ntfy Notifications module."
+# tags: [monitoring,ntfy,alerting]
+# description: "Local ntfy-sh notification server."
 # path: "modules/40-monitoring/42-ntfy.nix"
 # provides: [my.monitoring.ntfy]
-# requires: [40-monitoring/41-netdata]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-40-ntfy.md
-#   guide: docs/guides/40-ntfy.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/40-monitoring/42-ntfy.nix
 # ---
 # ---ENDNIXMETA
-{ config, lib, pkgs, myLib, ... }:
 
-let
-  cfg = config.my.services.ntfy;
-in {
-  options.my.services.ntfy = {
-    enable = lib.mkEnableOption "ntfy-sh Local Server";
+{ config, lib, ... }:
+{
+  options.my.monitoring.ntfy = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    port = lib.mkOption { type = lib.types.port; default = 2586; };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    (myLib.mkService {
-      inherit config;
-      name = "ntfy";
-      port = config.my.ports.ntfy;
-      useSSO = true; # Authentication via Pocket-ID/family_auth
-      description = "ntfy-sh Local Server";
-      persist = true;
-    })
-    {
-      services.ntfy-sh = {
-        enable = true;
-        settings = {
-          base-url = "https://ntfy.${config.my.configs.identity.subdomain}.${config.my.configs.identity.domain}";
-          listen-http = "127.0.0.1:${toString config.my.ports.ntfy}";
-          behind-proxy = true;
-          # Access control can be added here if needed, but Caddy handles SSO
-        };
+  config = lib.mkIf config.my.monitoring.ntfy.enable {
+    services.ntfy-sh = {
+      enable = true;
+      settings = {
+        listen-http = "127.0.0.1:${toString config.my.monitoring.ntfy.port}";
+        behind-proxy = true;
       };
-    }
-  ]);
+    };
+  };
 }

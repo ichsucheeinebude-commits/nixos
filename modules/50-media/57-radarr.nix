@@ -1,34 +1,28 @@
 # ---NIXMETA
 # ---
 # domain: 50
-# id: "NIXH-50-RAD-001"
-# title: "Radarr Movies"
+# id: "NIXH-50-MED-008"
+# title: "Radarr"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [radarr, movies]
-# description: "Radarr Movies module."
+# tags: [media,radarr,movies]
+# description: "Radarr movie manager."
 # path: "modules/50-media/57-radarr.nix"
 # provides: [my.media.radarr]
-# requires: [50-media/51-arr-stack]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-50-radarr.md
-#   guide: docs/guides/50-radarr.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/50-media/57-radarr.nix
 # ---
 # ---ENDNIXMETA
-{ config, lib, pkgs, utils, myLib, ... }:
-let
-  arrFactory = import ./_arr-factory.nix { inherit config lib pkgs utils myLib; };
-in
-arrFactory.mkArr {
-  name = "radarr";
-  description = "Radarr Movie Downloader";
-  id = "NIXH-01-APP-RAD-001";
-  port = 7878;
-  extraReadWritePaths = [ 
-    config.my.configs.paths.mediaLibrary
-    config.my.configs.paths.downloads
-  ];
+
+{ config, lib, ... }:
+{
+  options.my.media.radarr = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    port = lib.mkOption { type = lib.types.port; default = 7878; };
+  };
 }

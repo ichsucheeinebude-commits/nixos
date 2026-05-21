@@ -1,48 +1,37 @@
 # ---NIXMETA
 # ---
 # domain: 80
-# id: "NIXH-80-AMF-001"
-# title: "AMP FHS Wrapper"
+# id: "NIXH-80-GAM-002"
+# title: "AMP FHS Sandbox"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [amp, fhs]
-# description: "AMP FHS Wrapper module."
+# tags: [gaming,amp,fhs]
+# description: "FHS sandbox package for AMP."
 # path: "modules/80-gaming/81-amp-fhs.nix"
-# provides: [my.gaming.amp_fhs]
-# requires: [80-gaming/80-amp]
+# provides: [my.gaming.ampFhs]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-80-amp-fhs.md
-#   guide: docs/guides/80-amp-fhs.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/80-gaming/81-amp-fhs.nix
 # ---
 # ---ENDNIXMETA
-{ pkgs, ... }:
 
-pkgs.buildFHSEnv {
-  name = "amp-fhs";
-  targetPkgs = pkgs: with pkgs; [
-    dotnet-sdk_8
-    glibc
-    glibc.dev
-    stdenv.cc.cc.lib # libstdc++
-    openssl
-    curl
-    libicu
-    sqlite
-    screen
-    bash
-    coreutils
-    procps
-    findutils
-    steamcmd
-    icu
-    zlib
-    krb5
-  ];
-  multiPkgs = pkgs: with pkgs; [
-    pkgsi686Linux.glibc
-  ];
-  runScript = "bash";
+{ config, lib, pkgs, ... }:
+{
+  options.my.gaming.ampFhs = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+  };
+
+  config = lib.mkIf config.my.gaming.ampFhs.enable {
+    environment.systemPackages = [
+      (pkgs.buildFHSEnv {
+        name = "amp-fhs";
+        targetPkgs = pkgs: with pkgs; [ dotnet-sdk_8 glibc openssl curl libicu sqlite screen bash ];
+        runScript = "bash";
+      })
+    ];
+  };
 }

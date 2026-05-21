@@ -1,36 +1,40 @@
 # ---NIXMETA
 # ---
 # domain: 40
-# id: "NIXH-40-SCR-001"
-# title: "Scrutiny SMART Monitor"
+# id: "NIXH-40-MON-004"
+# title: "Scrutiny SMART"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [scrutiny, smart]
-# description: "Scrutiny SMART Monitor module."
+# tags: [monitoring,scrutiny,smart]
+# description: "Hard drive S.M.A.R.T. monitoring with Scrutiny."
 # path: "modules/40-monitoring/43-scrutiny.nix"
 # provides: [my.monitoring.scrutiny]
-# requires: [30-storage/30-storage]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-40-scrutiny.md
-#   guide: docs/guides/40-scrutiny.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/40-monitoring/43-scrutiny.nix
 # ---
 # ---ENDNIXMETA
-{ config, lib, pkgs, ... }:
-let
- 
- port = config.my.ports.scrutiny;
- domain = config.my.configs.identity.domain;
-in
+
+{ config, lib, ... }:
 {
+  options.my.monitoring.scrutiny = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    port = lib.mkOption { type = lib.types.port; default = 8082; };
+  };
 
-
- config = lib.mkIf config.my.services.scrutiny.enable {
- services.scrutiny = { enable = true; settings = { web.listen.port = port; web.listen.host = "127.0.0.1"; log.level = "INFO"; }; influxdb.enable = true; collector = { enable = true; schedule = "daily"; }; };
- services.caddy.virtualHosts."scrutiny.${domain}" = { extraConfig = "import family_auth\nreverse_proxy 127.0.0.1:${toString port}"; };
- systemd.services.scrutiny.serviceConfig = { DynamicUser = true; ProtectSystem = "strict"; ProtectHome = true; PrivateTmp = true; PrivateDevices = true; OOMScoreAdjust = 800; };
- services.smartd.enable = true;
- };
+  config = lib.mkIf config.my.monitoring.scrutiny.enable {
+    services.scrutiny = {
+      enable = true;
+      settings = {
+        web.listen.port = config.my.monitoring.scrutiny.port;
+        web.listen.host = "127.0.0.1";
+      };
+      collector.enable = true;
+    };
+    services.smartd.enable = true;
+  };
 }

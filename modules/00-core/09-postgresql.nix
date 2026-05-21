@@ -14,7 +14,7 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/00-core/09-postgresql.nix
 # ---
 # ---ENDNIXMETA
@@ -23,17 +23,14 @@
 {
   options.my.core.postgresql = {
     enable = lib.mkOption { type = lib.types.bool; default = false; description = "Enable PostgreSQL."; };
-    package = lib.mkOption { type = lib.types.package; default = null; description = "PostgreSQL package (uses nixpkgs default if null)."; };
+    package = lib.mkOption { type = lib.types.package; default = null; };
   };
 
   config = lib.mkIf config.my.core.postgresql.enable {
     services.postgresql = {
       enable = true;
       package = lib.mkIf (config.my.core.postgresql.package != null) config.my.core.postgresql.package;
-      ensureDirectories = [ ];
     };
-    # Persist postgres socket on stateless root
     systemd.tmpfiles.rules = [ "d /run/postgresql 0755 postgres postgres -" ];
   };
 }
-

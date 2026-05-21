@@ -14,7 +14,7 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/00-core/03-hardware-profile.nix
 # ---
 # ---ENDNIXMETA
@@ -33,8 +33,6 @@
         extraPackages = lib.mkDefault [ pkgs.intel-media-driver pkgs.intel-compute-runtime ];
         enable32Bit = lib.mkDefault true;
       };
-      hardware.graphics.extraPackages32 = lib.mkDefault [ pkgs.driversi686Linux.mesa ];
     })
   ]);
 }
-

@@ -14,7 +14,7 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/00-core/00-principles.nix
 # ---
 # ---ENDNIXMETA
@@ -34,4 +34,3 @@
     };
   };
 }
-

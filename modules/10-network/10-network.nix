@@ -14,7 +14,7 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/10-network/10-network.nix
 # ---
 # ---ENDNIXMETA
@@ -22,9 +22,9 @@
 { config, lib, ... }:
 {
   options.my.network.base = {
-    hostName = lib.mkOption { type = lib.types.str; default = ""; description = "System host name."; };
-    nameservers = lib.mkOption { type = lib.types.listOf lib.types.str; default = [ "1.1.1.1" "8.8.8.8" ]; description = "Fallback DNS servers."; };
-    enableResolved = lib.mkOption { type = lib.types.bool; default = true; description = "Enable systemd-resolved."; };
+    hostName = lib.mkOption { type = lib.types.str; default = ""; };
+    nameservers = lib.mkOption { type = lib.types.listOf lib.types.str; default = [ "1.1.1.1" "8.8.8.8" ]; };
+    enableResolved = lib.mkOption { type = lib.types.bool; default = true; };
   };
 
   config = lib.mkIf config.my.network.base.enableResolved {
@@ -35,8 +35,6 @@
     services.resolved = {
       enable = true;
       dnssec = "allow-downgrade";
-      domains = lib.optional (config.my.core.identity.domain or "" != "") config.my.core.identity.domain;
     };
   };
 }
-

@@ -1,68 +1,38 @@
 # ---NIXMETA
 # ---
 # domain: 40
-# id: "NIXH-40-NTD-001"
-# title: "Netdata Metrics"
+# id: "NIXH-40-MON-002"
+# title: "Netdata Telemetry"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [netdata, metrics]
-# description: "Netdata Metrics module."
+# tags: [monitoring,netdata,metrics]
+# description: "Netdata real-time performance monitoring."
 # path: "modules/40-monitoring/41-netdata.nix"
 # provides: [my.monitoring.netdata]
-# requires: [40-monitoring/40-gatus]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-40-netdata.md
-#   guide: docs/guides/40-netdata.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/40-monitoring/41-netdata.nix
 # ---
 # ---ENDNIXMETA
+
 { config, lib, ... }:
-let
- 
- port = config.my.ports.netdata;
- domain = config.my.configs.identity.domain;
-in
 {
+  options.my.monitoring.netdata = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    port = lib.mkOption { type = lib.types.port; default = 19999; };
+  };
 
-
-  config = lib.mkIf config.my.services.netdata.enable {
+  config = lib.mkIf config.my.monitoring.netdata.enable {
     services.netdata = {
       enable = true;
       config = {
-        global = { "memory mode" = "dbengine"; "page cache size" = "256"; "dbengine disk space" = "4096"; "history" = 86400; };
-        web = { 
-          "bind to" = "unix:/run/netdata/netdata.sock";
-          "allow connections from" = "localhost 127.0.0.1"; # Keep for internal health checks if any
-          "mode" = "static-threaded"; 
-        };
-        db = { "dbengine tier 1 retention days" = 30; };
-        health.enabled = "yes";
+        global = { "memory mode" = "dbengine"; };
+        web = { "bind to" = "unix:/run/netdata/netdata.sock"; };
       };
     };
-
-    systemd.services.netdata.serviceConfig = {
-      ProtectSystem = lib.mkForce "full"; 
-      ProtectHome = lib.mkForce true; 
-      PrivateTmp = lib.mkForce true; 
-      PrivateDevices = lib.mkForce true;
-      NoNewPrivileges = true; 
-      CapabilityBoundingSet = [ "CAP_DAC_READ_SEARCH" "CAP_SYS_PTRACE" "CAP_NET_RAW" ]; 
-      AmbientCapabilities = [ "CAP_DAC_READ_SEARCH" "CAP_SYS_PTRACE" "CAP_NET_RAW" ];
-      MemoryMax = "1G"; 
-      CPUWeight = 50; 
-      OOMScoreAdjust = 1000;
-      # Allow socket access
-      RuntimeDirectory = "netdata";
-      RuntimeDirectoryMode = "0770";
-    };
-
-    # Update Caddy to use the unix socket
-    services.caddy.virtualHosts."netdata.${config.my.configs.identity.subdomain}.${domain}".extraConfig = lib.mkForce ''
-      import admin_auth
-      import hardened_headers
-      reverse_proxy unix//run/netdata/netdata.sock
-    '';
   };
 }

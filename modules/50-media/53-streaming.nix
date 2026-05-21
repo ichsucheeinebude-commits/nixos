@@ -1,65 +1,35 @@
 # ---NIXMETA
 # ---
 # domain: 50
-# id: "NIXH-50-STR-001"
+# id: "NIXH-50-MED-004"
 # title: "Streaming Stack"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [streaming, jellyfin]
-# description: "Streaming Stack module."
+# tags: [media,streaming,jellyfin]
+# description: "Jellyfin, Navidrome, Audiobookshelf streaming."
 # path: "modules/50-media/53-streaming.nix"
 # provides: [my.media.streaming]
-# requires: [50-media/50-lib-media]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-50-streaming.md
-#   guide: docs/guides/50-streaming.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/50-media/53-streaming.nix
 # ---
 # ---ENDNIXMETA
 
-# modules/40-media/44-streaming.nix
-#
-# Domain 40 – Streaming Layer
-{ config, lib, pkgs, myLib, mediaLib, ... }:
-
-let
-  cfg = config.my.media.streaming;
-in {
-  imports = [ ./41-lib-media.nix ];
-
+{ config, lib, ... }:
+{
   options.my.media.streaming = {
-    enable = lib.mkEnableOption "Media Streaming Stack (Jellyfin, Audiobookshelf, Navidrome)";
-    gpuAcceleration = lib.mkEnableOption "Intel VAAPI / QSV hardware transcoding" // { default = true; };
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    gpuAcceleration = lib.mkEnableOption "Intel GPU hardware transcoding";
   };
 
-  config = lib.mkIf cfg.enable {
-    hardware.graphics.enable = lib.mkIf cfg.gpuAcceleration true;
-
-    # Jellyfin Library Scan Schedule (manuell im Web-UI einzurichten)
-    # Empfehlung: Scan täglich um 02:00 Uhr ("0 2 * * *")
-    # Hintergrund: HDDs sind zu dieser Zeit idealerweise bereits aktiv (Backups, Mover) oder können gezielt aufgeweckt werden.
-    # So wird vermieden, dass die Platten tagsüber wegen eines Scans aufwachen.
-    # Quelle: https://jellyfin.org/docs/general/administration/configuration/#scan-schedule
-    services.jellyfin        = { enable = true; dataDir = "/var/lib/jellyfin"; };
-    services.audiobookshelf  = { enable = true; dataDir = "/var/lib/audiobookshelf"; port = 13378; };
-    services.navidrome       = {
-      enable   = true;
-      settings = { MusicFolder = "/mnt/media/music"; Port = 4533; };
-    };
-
-    systemd.services.jellyfin.serviceConfig = lib.mkIf cfg.gpuAcceleration {
-      DeviceAllow   = [ "char-render" "char-drm" ];
-      ReadWritePaths = [ "/dev/dri" "/var/cache/jellyfin" ];
-      SupplementaryGroups = [ "render" "video" ];
-    };
-
-    my.impermanence.directories = [
-      "/var/lib/jellyfin"
-      "/var/cache/jellyfin"
-      "/var/lib/audiobookshelf"
-      "/var/lib/navidrome"
-    ];
+  config = lib.mkIf config.my.media.streaming.enable {
+    services.jellyfin.enable = true;
+    services.navidrome.enable = true;
+    services.audiobookshelf.enable = true;
+    hardware.graphics.enable = lib.mkIf config.my.media.streaming.gpuAcceleration true;
   };
 }

@@ -14,7 +14,7 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/00-core/02-nix-tuning.nix
 # ---
 # ---ENDNIXMETA
@@ -23,10 +23,10 @@
 {
   options.my.core.nix = {
     enable = lib.mkOption { type = lib.types.bool; default = true; description = "Apply nix tuning."; };
-    gc.automatic = lib.mkOption { type = lib.types.bool; default = true; description = "Automatic garbage collection."; };
-    gc.interval = lib.mkOption { type = lib.types.str; default = "weekly"; description = "GC schedule."; };
-    gc.options = lib.mkOption { type = lib.types.str; default = "--delete-older-than 7d"; description = "GC options."; };
-    optimise.automatic = lib.mkOption { type = lib.types.bool; default = true; description = "Automatic store optimisation."; };
+    gc.automatic = lib.mkOption { type = lib.types.bool; default = true; };
+    gc.interval = lib.mkOption { type = lib.types.str; default = "weekly"; };
+    gc.options = lib.mkOption { type = lib.types.str; default = "--delete-older-than 7d"; };
+    optimise.automatic = lib.mkOption { type = lib.types.bool; default = true; };
     settings = lib.mkOption {
       type = lib.types.attrs;
       default = {
@@ -35,7 +35,6 @@
         experimental-features = [ "nix-command" "flakes" ];
         warn-dirty = false;
       };
-      description = "Nix daemon settings.";
     };
   };
 
@@ -48,7 +47,6 @@
       };
       settings = config.my.core.nix.settings;
     };
-    nix.optimise = { automatic = config.my.core.nix.optimise.automatic; };
+    nix.optimise.automatic = config.my.core.nix.optimise.automatic;
   };
 }
-

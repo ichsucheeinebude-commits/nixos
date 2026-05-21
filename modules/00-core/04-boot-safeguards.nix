@@ -14,7 +14,7 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/00-core/04-boot-safeguards.nix
 # ---
 # ---ENDNIXMETA
@@ -22,8 +22,8 @@
 { config, lib, pkgs, ... }:
 {
   options.my.core.boot = {
-    configurationLimit = lib.mkOption { type = lib.types.int; default = 5; description = "Max boot generations to keep."; };
-    memtest = lib.mkOption { type = lib.types.bool; default = true; description = "Include memtest86+ in boot menu."; };
+    configurationLimit = lib.mkOption { type = lib.types.int; default = 5; description = "Max boot generations."; };
+    memtest = lib.mkOption { type = lib.types.bool; default = true; description = "Include memtest86+."; };
   };
 
   config = lib.mkIf config.my.core.principles.enable {
@@ -31,4 +31,3 @@
     boot.loader.systemd-boot.memtest86.enable = config.my.core.boot.memtest;
   };
 }
-

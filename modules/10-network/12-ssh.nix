@@ -14,7 +14,7 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/10-network/12-ssh.nix
 # ---
 # ---ENDNIXMETA
@@ -22,10 +22,9 @@
 { config, lib, ... }:
 {
   options.my.network.ssh = {
-    enable = lib.mkOption { type = lib.types.bool; default = true; description = "Enable OpenSSH."; };
-    port = lib.mkOption { type = lib.types.port; default = 22; description = "SSH listening port."; };
-    passwordAuth = lib.mkOption { type = lib.types.bool; default = false; description = "Allow password authentication (forbidden by policy)."; };
-    forbidDontPermitRootLogin = lib.mkOption { type = lib.types.bool; default = false; description = "When true, root login is permitted."; };
+    enable = lib.mkOption { type = lib.types.bool; default = true; };
+    port = lib.mkOption { type = lib.types.port; default = 22; };
+    passwordAuth = lib.mkOption { type = lib.types.bool; default = false; };
   };
 
   config = lib.mkIf config.my.network.ssh.enable {
@@ -34,12 +33,10 @@
       ports = [ config.my.network.ssh.port ];
       settings = {
         PasswordAuthentication = config.my.network.ssh.passwordAuth;
-        PermitRootLogin = if config.my.network.ssh.forbidDontPermitRootLogin then "yes" else "no";
+        PermitRootLogin = "no";
         KbdInteractiveAuthentication = false;
       };
     };
-    # Expose port to firewall module
     my.core.ports.ssh = lib.mkDefault config.my.network.ssh.port;
   };
 }
-

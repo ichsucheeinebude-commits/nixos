@@ -14,32 +14,29 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/00-core/01-configs-registry.nix
 # ---
 # ---ENDNIXMETA
 
 { config, lib, ... }:
-let
-  idCfg = config.my.core.identity;
-in
 {
   options.my.core.identity = {
-    host = lib.mkOption { type = lib.types.str; default = ""; description = "Host name (e.g. q958)."; };
-    domain = lib.mkOption { type = lib.types.str; default = ""; description = "Base domain (e.g. m7c5.de)."; };
-    subdomain = lib.mkOption { type = lib.types.str; default = "nix"; description = "Subdomain prefix for services."; };
-    email = lib.mkOption { type = lib.types.str; default = ""; description = "Admin email address."; };
+    host = lib.mkOption { type = lib.types.str; default = ""; description = "Host name."; };
+    domain = lib.mkOption { type = lib.types.str; default = ""; description = "Base domain."; };
+    subdomain = lib.mkOption { type = lib.types.str; default = "nix"; description = "Subdomain prefix."; };
+    email = lib.mkOption { type = lib.types.str; default = ""; description = "Admin email."; };
     user = lib.mkOption { type = lib.types.str; default = "root"; description = "Primary user name."; };
-    lanIP = lib.mkOption { type = lib.types.str; default = ""; description = "Server LAN IP address."; };
+    lanIP = lib.mkOption { type = lib.types.str; default = ""; description = "Server LAN IP."; };
   };
 
   options.my.core.hardware = {
     cpuType = lib.mkOption {
       type = lib.types.nullOr (lib.types.enum [ "intel" "amd" "arm" ]);
       default = null;
-      description = "CPU architecture for microcode and driver selection.";
+      description = "CPU architecture for microcode/driver selection.";
     };
-    intelGpu = lib.mkOption { type = lib.types.bool; default = false; description = "Intel GPU present (enables i915/QSV)."; };
+    intelGpu = lib.mkOption { type = lib.types.bool; default = false; description = "Intel GPU present."; };
     ramGB = lib.mkOption { type = lib.types.int; default = 0; description = "Installed RAM in GB."; };
     profile = lib.mkOption { type = lib.types.str; default = "generic"; description = "Hardware profile name."; };
   };
@@ -49,63 +46,60 @@ in
   };
 
   options.my.core.network = {
-    lanCidrs = lib.mkOption { type = lib.types.listOf lib.types.str; default = []; description = "Trusted LAN CIDR blocks."; };
+    lanCidrs = lib.mkOption { type = lib.types.listOf lib.types.str; default = []; description = "Trusted LAN CIDRs."; };
   };
 
   options.my.core.ports = {
     ssh = lib.mkOption { type = lib.types.port; default = 22; description = "SSH port."; };
   };
 
-  # Service toggle registry — every service in the boilerplate registers here.
   options.my.core.services = {
     blocky.enable = lib.mkEnableOption "Blocky DNS";
     caddy.enable = lib.mkEnableOption "Caddy reverse proxy";
     pocketId.enable = lib.mkEnableOption "Pocket-ID (OIDC)";
-    postgresql.enable = lib.mkEnableOption "PostgreSQL database";
+    postgresql.enable = lib.mkEnableOption "PostgreSQL";
     fail2ban.enable = lib.mkEnableOption "Fail2ban";
     vaultwarden.enable = lib.mkEnableOption "Vaultwarden";
     jellyfin.enable = lib.mkEnableOption "Jellyfin";
     zigbeeStack.enable = lib.mkEnableOption "Zigbee2MQTT + Mosquitto";
-    ntfy.enable = lib.mkEnableOption "ntfy-sh alerting";
-    gatus.enable = lib.mkEnableOption "Gatus health dashboard";
-    netdata.enable = lib.mkEnableOption "Netdata telemetry";
-    scrutiny.enable = lib.mkEnableOption "Scrutiny SMART monitoring";
+    ntfy.enable = lib.mkEnableOption "ntfy-sh";
+    gatus.enable = lib.mkEnableOption "Gatus";
+    netdata.enable = lib.mkEnableOption "Netdata";
+    scrutiny.enable = lib.mkEnableOption "Scrutiny";
     uptimeKuma.enable = lib.mkEnableOption "Uptime Kuma";
-    vector.enable = lib.mkEnableOption "Vector log aggregator";
+    vector.enable = lib.mkEnableOption "Vector";
     paperless.enable = lib.mkEnableOption "Paperless-ngx";
-    n8n.enable = lib.mkEnableOption "n8n automation";
+    n8n.enable = lib.mkEnableOption "n8n";
     homeAssistant.enable = lib.mkEnableOption "Home Assistant";
     readeck.enable = lib.mkEnableOption "Readeck";
     matrixConduit.enable = lib.mkEnableOption "Matrix Conduit";
-    miniflux.enable = lib.mkEnableOption "Miniflux RSS";
-    linkding.enable = lib.mkEnableOption "Linkding bookmarks";
-    monica.enable = lib.mkEnableOption "Monica CRM";
+    miniflux.enable = lib.mkEnableOption "Miniflux";
+    linkding.enable = lib.mkEnableOption "Linkding";
+    monica.enable = lib.mkEnableOption "Monica";
     karakeep.enable = lib.mkEnableOption "Karakeep";
-    forgejo.enable = lib.mkEnableOption "Forgejo Git";
-    semaphore.enable = lib.mkEnableOption "Semaphore Ansible";
-    cockpit.enable = lib.mkEnableOption "Cockpit admin";
-    amp.enable = lib.mkEnableOption "AMP game servers";
+    forgejo.enable = lib.mkEnableOption "Forgejo";
+    semaphore.enable = lib.mkEnableOption "Semaphore";
+    cockpit.enable = lib.mkEnableOption "Cockpit";
+    amp.enable = lib.mkEnableOption "AMP";
     arrStack.enable = lib.mkEnableOption "Arr media stack";
-    downloads.enable = lib.mkEnableOption "Download stack (SABnzbd)";
+    downloads.enable = lib.mkEnableOption "Download stack";
     streaming.enable = lib.mkEnableOption "Streaming stack";
-    discovery.enable = lib.mkEnableOption "Jellyseerr discovery";
-    storageMover.enable = lib.mkEnableOption "Smart storage mover";
+    discovery.enable = lib.mkEnableOption "Jellyseerr";
+    storageMover.enable = lib.mkEnableOption "Storage mover";
     dnsAutomation.enable = lib.mkEnableOption "DNS automation";
     ddnsUpdater.enable = lib.mkEnableOption "DDNS updater";
     sonarr.enable = lib.mkEnableOption "Sonarr";
     radarr.enable = lib.mkEnableOption "Radarr";
     prowlarr.enable = lib.mkEnableOption "Prowlarr";
     backup.enable = lib.mkEnableOption "Restic backup";
-    tpm2.enable = lib.mkEnableOption "TPM2 sealing";
+    tpm2.enable = lib.mkEnableOption "TPM2";
     zram.enable = lib.mkEnableOption "ZRAM swap";
-    memtest.enable = lib.mkEnableOption "Memtest86+ boot entry";
-    secrets.enable = lib.mkEnableOption "SOPS secrets management";
-    sshRescue.enable = lib.mkEnableOption "SSH rescue service";
+    memtest.enable = lib.mkEnableOption "Memtest86+";
+    secrets.enable = lib.mkEnableOption "SOPS secrets";
+    sshRescue.enable = lib.mkEnableOption "SSH rescue";
   };
 
-  # Backward-compat aliases (read-only)
   config = lib.mkIf config.my.core.principles.enable {
     my.core.server.lanIP = lib.mkDefault config.my.core.identity.lanIP;
   };
 }
-

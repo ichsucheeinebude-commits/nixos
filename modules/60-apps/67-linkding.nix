@@ -1,59 +1,36 @@
 # ---NIXMETA
 # ---
 # domain: 60
-# id: "NIXH-60-LNK-001"
-# title: "Linkding Bookmarks"
+# id: "NIXH-60-APP-008"
+# title: "Linkding"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [linkding, bookmarks]
-# description: "Linkding Bookmarks module."
+# tags: [apps,linkding,bookmarks]
+# description: "Linkding bookmark manager."
 # path: "modules/60-apps/67-linkding.nix"
 # provides: [my.apps.linkding]
-# requires: [10-network/10-network]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-60-linkding.md
-#   guide: docs/guides/60-linkding.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/60-apps/67-linkding.nix
 # ---
 # ---ENDNIXMETA
-# ---
-# title: Linkding Bookmarks
-# capabilities: ["tools/bookmarks"]
-# status: "hardened"
-# tier_strategy: "ABC-v5.1"
-# ---
-{ lib, config, myLib, ... }:
-let
 
- cfg = config.my.services.linkding;
- port = config.my.ports.linkding;
-in
+{ config, lib, ... }:
 {
+  options.my.apps.linkding = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    port = lib.mkOption { type = lib.types.port; default = 9090; };
+  };
 
- options.my.services.linkding.enable = lib.mkEnableOption "Linkding Bookmark Manager";
-
- config = lib.mkIf cfg.enable (lib.mkMerge [
- (myLib.mkService {
- inherit config port;
- name = "linkding";
- description = "Linkding Bookmark Service";
- useSSO = true;
- })
-
- {
- services.linkding = {
- enable = true;
- host = "127.0.0.1";
- port = port;
- };
-
- # Resource Hardening (Systemd-Level)
- systemd.services.linkding.serviceConfig = {
- MemoryMax = "512M";
- CPUWeight = 30;
- };
- }
- ]);
+  config = lib.mkIf config.my.apps.linkding.enable {
+    services.linkding = {
+      enable = true;
+      host = "127.0.0.1";
+      port = config.my.apps.linkding.port;
+    };
+  };
 }

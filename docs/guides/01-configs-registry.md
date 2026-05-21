@@ -1,73 +1,38 @@
 ---
-domain: 00
-id: "NIXH-00-COR-002"
-title: "Identity & Hardware Registry — Operational Guide"
+domain: "00"
+id: "NIXH-00-CRG-001"
+title: "Configs & Registry — Operational Guide"
 type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
-tags: [core,identity,hardware,registry,ports]
-description: "Central registry for identity, hardware specs, network, and service toggles."
-path: "root/guides/01-configs-registry.md"
+tags: [ssot,registry,configs]
+description: "How to configure the SSoT registry."
+path: "docs/guides/01-configs-registry.md"
 links:
-  adr: ADR-01-configs-registry.md
-  guide: 01-configs-registry.md
-  module: modules/00-core/01-configs-registry.nix
+  adr: "docs/adr/ADR-01-configs-registry.md"
+  guide: "docs/guides/01-configs-registry.md"
+  module: "modules/00-core/01-configs-registry.nix"
 ---
 
-# "Identity & Hardware Registry"
-
-**Domain:** 00-core
-**Status:** Draft
-**Complexity:** 1/5
-**ID:** "NIXH-00-COR-002"
-
----
+# 01-configs-registry — Configs & Registry (SSoT)
 
 ## Overview
-
-This module provides "identity & hardware registry" functionality for the NixOS system.
-"Central registry for identity, hardware specs, network, and service toggles."
-It integrates with the SSoT configs registry for identity and network settings.
+SSoT für Identity, Hardware, Paths, Network.
 
 ## Configuration
-
 ```nix
-# Enable the service in your host configuration
-my.services."identity-&-hardware-registry".enable = true;
+my.core.identity.hostname = "q958";
+my.core.identity.domain = "m7c5.de";
+my.core.identity.user = "moritz";
 ```
 
-Configuration is driven by `my.configs` (SSoT) and `my.ports` for port assignments.
-Secrets are managed via SOPS and referenced through the secrets module.
-
-## Verification
-
-```bash
-# Is the service running?
-systemctl status "identity-&-hardware-registry"
-
-# Check config was applied
-nixos-option my.services."identity-&-hardware-registry".enable
-
-# Check logs
-journalctl -u "identity-&-hardware-registry" -f --no-pager
-```
-
-## Known Failure Modes
-
-| Symptom | Cause | Fix |
-|---|---|---|
-| Eval error | Conflicting option definitions | Check for duplicate definitions with nixos-option |
-| Config not applied | Module not imported | Check imports in configuration.nix |
-| SSoT not available | Registry module not loaded first | Ensure configs-registry is imported before dependent modules |
-
-## Dependencies
-
-- **Requires:** `00-principles.nix`, `01-configs-registry.nix` (and others per NIXMETA `requires`)
-- **Required by:** Higher-domain modules that consume this service
-
-## Maintenance
-
-- **Log location:** `journalctl -u "identity-&-hardware-registry" -f`
-- **Config reload:** `sudo nixos-rebuild switch`
-- **Review cycle:** Module reviewed every release cycle
+## KB Nuggets
+### configs.nix als SSO T Master
+Identity (hostname, domain, user), Hardware (ramGB, cpu), Paths (media, backup), Network (ports) — alles an einem Ort.
+### registry.nix Feature-Flags
+Enable/disable Profile für Media, Forge, Gaming, Monitoring. Modules checken cfg.enable statt direkter Optionen.
+### SSoT Registry Pattern
+Alle Feature-Flags und Identitäts-Daten leben in einem zentralen Registry-Modul.
+### Layer-Architektur (00-90)
+Jede Datei muss sich durch die Kernfrage ihres Layers qualifizieren.

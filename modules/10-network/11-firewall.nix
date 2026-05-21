@@ -14,34 +14,25 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/10-network/11-firewall.nix
 # ---
 # ---ENDNIXMETA
 
 { config, lib, ... }:
-let
-  sshPort = toString config.my.core.ports.ssh;
-  lanCidrs = config.my.core.network.lanCidrs;
-in
 {
   options.my.network.firewall = {
-    enable = lib.mkOption { type = lib.types.bool; default = true; description = "Enable NFTables firewall."; };
-    allowedTCPPorts = lib.mkOption { type = lib.types.listOf lib.types.port; default = [ 80 443 ]; description = "Public TCP ports."; };
-    allowedUDPPorts = lib.mkOption { type = lib.types.listOf lib.types.port; default = []; description = "Public UDP ports."; };
+    enable = lib.mkOption { type = lib.types.bool; default = true; };
+    allowedTCPPorts = lib.mkOption { type = lib.types.listOf lib.types.port; default = [ 80 443 ]; };
+    allowedUDPPorts = lib.mkOption { type = lib.types.listOf lib.types.port; default = []; };
   };
 
-  config = lib.mkIf (config.my.network.firewall.enable) {
-    networking = {
-      firewall.enable = true;
-      nftables.enable = true;
-    };
+  config = lib.mkIf config.my.network.firewall.enable {
     networking.firewall = {
+      enable = true;
       allowedTCPPorts = config.my.network.firewall.allowedTCPPorts;
       allowedUDPPorts = config.my.network.firewall.allowedUDPPorts;
-      # Allow SSH from LAN only (restrict via lanCidrs)
-      trustedInterfaces = lib.optionals (lanCidrs != []) [ ];
     };
+    networking.nftables.enable = true;
   };
 }
-

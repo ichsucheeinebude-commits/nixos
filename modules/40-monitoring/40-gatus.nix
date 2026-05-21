@@ -1,161 +1,42 @@
 # ---NIXMETA
 # ---
 # domain: 40
-# id: "NIXH-40-GAT-001"
-# title: "Gatus Health Checks"
+# id: "NIXH-40-MON-001"
+# title: "Gatus Health Dashboard"
 # type: module
 # status: draft
 # complexity: 1
 # reviewed: 2026-05-21
-# tags: [gatus, monitoring]
-# description: "Gatus Health Checks module."
+# tags: [monitoring,gatus,health]
+# description: "Gatus health monitoring with configurable endpoints."
 # path: "modules/40-monitoring/40-gatus.nix"
 # provides: [my.monitoring.gatus]
-# requires: [10-network/10-network]
+# requires: []
 # links:
-#   adr: docs/adr/ADR-40-gatus.md
-#   guide: docs/guides/40-gatus.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/40-monitoring/40-gatus.nix
 # ---
 # ---ENDNIXMETA
-# Dashboard accessible ONLY via WireGuard tunnel (admin_auth).
-{ config, lib, pkgs, myLib, ... }:
 
-let
- cfg = config.my.monitoring.gatus;
- srePaths = config.my.configs.paths;
- identity = config.my.configs.identity;
- 
- gatusConfig = let
- # Use identity to resolve public domain for alerting click-throughs
- publicUrl = "https://gatus.${identity.subdomain}.${identity.domain}";
- 
- yamlStruct = {
- storage = {
- type = "sqlite";
- path = "${srePaths.stateDir}/gatus/data.db";
- };
-      web = {
-        port = cfg.port;
-        address = "127.0.0.1";
+{ config, lib, pkgs, ... }:
+{
+  options.my.monitoring.gatus = {
+    enable = lib.mkOption { type = lib.types.bool; default = false; };
+    port = lib.mkOption { type = lib.types.port; default = 8081; };
+    ntfyUrl = lib.mkOption { type = lib.types.str; default = ""; };
+    ntfyTopic = lib.mkOption { type = lib.types.str; default = "gatus-alerts"; };
+    endpoints = lib.mkOption { type = lib.types.listOf lib.types.attrs; default = []; };
+  };
+
+  config = lib.mkIf config.my.monitoring.gatus.enable {
+    services.gatus = {
+      enable = true;
+      settings = {
+        web = { address = "127.0.0.1"; port = config.my.monitoring.gatus.port; };
+        storage = { type = "sqlite"; path = "/var/lib/gatus/data.db"; };
+        endpoints = config.my.monitoring.gatus.endpoints;
       };
-      endpoints = cfg.endpoints ++ [
- { 
- name = "Gatus Self"; 
- url = "unix:///run/gatus/gatus.sock:/api/v1/health"; 
- interval = "60s"; 
- conditions = [ "[STATUS] == 200" ]; 
- }
- ];
- } // (lib.optionalAttrs cfg.ntfy.enable {
- alerting = {
- ntfy = {
- inherit (cfg.ntfy) url topic priority;
- click = publicUrl;
- };
- };
- });
- in pkgs.writeText "gatus.yaml" (builtins.toJSON yamlStruct);
-
-in {
- options.my.monitoring.gatus = {
- enable = lib.mkEnableOption "Gatus Health Dashboard";
- port = lib.mkOption { type = lib.types.port; default = config.my.ports.gatus; };
- 
- ntfy = lib.mkOption {
- type = lib.types.submodule {
- options = {
- enable = lib.mkEnableOption "ntfy alerting";
- url = lib.mkOption { 
- type = lib.types.str; 
- default = identity.ntfyUrl; 
- description = "ntfy server URL (Default: Local)";
- };
- topic = lib.mkOption { 
- type = lib.types.str; 
- default = "gatus-alerts"; 
- description = "ntfy topic";
- };
- priority = lib.mkOption { 
- type = lib.types.int; 
- default = 3; 
- description = "ntfy priority (1-5)";
- };
- };
- };
- default = {};
- };
-
- endpoints = lib.mkOption {
- type = lib.types.listOf lib.types.attrs;
- default = [
- { 
- name = "Caddy Local"; 
- url = "unix:///run/caddy/admin.sock:/config/"; 
- interval = "60s"; 
- conditions = [ "[STATUS] == 200" ]; 
- }
- { 
- name = "Jellyfin"; 
- url = "unix:///run/jellyfin/jellyfin.sock:/health"; 
- interval = "60s"; 
- conditions = [ "[STATUS] == 200" ]; 
- }
- { 
- name = "Navidrome"; 
- url = "unix:///run/navidrome/navidrome.sock:/rest/ping.view"; 
- interval = "60s"; 
- conditions = [ "[STATUS] == 200" ]; 
- }
- { 
- name = "Pocket-ID"; 
- url = "unix:///run/pocket-id/pocket-id.sock:/health"; 
- interval = "60s"; 
- conditions = [ "[STATUS] == 200" ]; 
- }
- { 
- name = "PostgreSQL"; 
- url = "unix:///run/postgresql/.s.PGSQL.5432"; 
- interval = "60s"; 
- conditions = [ "[CONNECTED] == true" ]; 
- }
- { 
- name = "Valkey"; 
- url = "unix:///run/valkey/valkey.sock"; 
- interval = "60s"; 
- conditions = [ "[CONNECTED] == true" ]; 
- }
- { 
- name = "Blocky DNS"; 
- url = "http://127.0.0.1:4000/metrics"; 
- interval = "60s"; 
- conditions = [ "[STATUS] == 200" ]; 
- }
- ];
- description = "List of endpoints to monitor (declarative).";
- };
- };
-
- config = lib.mkIf cfg.enable (lib.mkMerge [
- (myLib.mkService {
- inherit config;
- name = "gatus";
- port = cfg.port;
- # Dashboard accessible ONLY via WireGuard tunnel
-useSSO = false;
- persist = true;
- description = "Gatus Health Dashboard";
-     extraServiceConfig = {
-        ExecStart = lib.mkForce "${pkgs.gatus}/bin/gatus --config \"${gatusConfig}\"";
-        IPAddressAllow = "any";
-      };
- })
-
- {
- # Permissions for the state directory
- systemd.tmpfiles.rules = [
- "d ${srePaths.stateDir}/gatus 0750 gatus gatus -"
- ];
- }
- ]);
+    };
+  };
 }

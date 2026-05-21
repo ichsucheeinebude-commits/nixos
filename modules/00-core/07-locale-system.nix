@@ -14,7 +14,7 @@
 # requires: []
 # links:
 #   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/GUIDE-placeholder.md
+#   guide: docs/guides/placeholder.md
 #   module: modules/00-core/07-locale-system.nix
 # ---
 # ---ENDNIXMETA
@@ -25,7 +25,7 @@
     timezone = lib.mkOption { type = lib.types.str; default = ""; description = "Timezone (e.g. Europe/Berlin)."; };
     default = lib.mkOption { type = lib.types.str; default = ""; description = "Default locale (e.g. de_DE.UTF-8)."; };
     keymap = lib.mkOption { type = lib.types.str; default = "us"; description = "Console keymap."; };
-    extraLocales = lib.mkOption { type = lib.types.listOf lib.types.str; default = [ "en_US.UTF-8/UTF-8" ]; description = "Additional locales to generate."; };
+    extraLocales = lib.mkOption { type = lib.types.listOf lib.types.str; default = [ "en_US.UTF-8/UTF-8" ]; };
   };
 
   config = lib.mkIf config.my.core.principles.enable {
@@ -47,4 +47,3 @@
       ([ "${config.my.core.locale.default}/UTF-8" ] ++ config.my.core.locale.extraLocales);
   };
 }
-
