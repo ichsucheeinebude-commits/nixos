@@ -1,0 +1,16 @@
+# Secrets (SOPS encrypted files only)
+!*.sops.*
+*.yaml
+*.env
+
+# State
+result
+result-*
+
+# Editor
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
