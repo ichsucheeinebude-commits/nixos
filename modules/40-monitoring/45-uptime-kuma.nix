@@ -18,23 +18,6 @@
 #   module: modules/40-monitoring/45-uptime-kuma.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 { config, lib, ... }:
 let
  
@@ -42,12 +25,6 @@ let
  domain = config.my.configs.identity.domain;
 in
 {
- options.my.meta.uptime_kuma = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- description = "NMS metadata for uptime-kuma module";
- };
 
 
  config = lib.mkIf config.my.services.uptimeKuma.enable {

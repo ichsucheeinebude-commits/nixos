@@ -18,23 +18,6 @@
 #   module: modules/40-monitoring/41-netdata.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-080-MON-NET-001",
-#   "title": "Netdata Real-time Telemetry",
-#   "layer": 80,
-#   "category": "services/monitoring",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["monitoring", "netdata", "telemetry", "real-time"],
-#   "description": "Hardened Netdata configuration with socket-only access and dbengine storage."
-# }
-# ---ENDNIXMETA
-
 { config, lib, ... }:
 let
  
@@ -42,16 +25,9 @@ let
  domain = config.my.configs.identity.domain;
 in
 {
- options.my.meta.netdata = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- description = "NMS metadata for netdata module";
- };
 
 
   config = lib.mkIf config.my.services.netdata.enable {
-    # 📈 NETDATA TELEMETRY (anchor: netdata-telemetry)
     services.netdata = {
       enable = true;
       config = {

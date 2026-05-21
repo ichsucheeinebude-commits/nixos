@@ -7,52 +7,67 @@ status: draft
 complexity: 1
 reviewed: 2026-05-21
 tags: [fail2ban, security]
-description: "Operational guide for fail2ban intrusion prevention."
-path: "guides/20-fail2ban.md"
+description: "Fail2ban Intrusion Prevention module."
+path: "root/guides/20-fail2ban.md"
 links:
-  adr: docs/adr/ADR-20-fail2ban.md
-  guide: docs/guides/20-fail2ban.md
+  adr: ADR-20-fail2ban.md
+  guide: 20-fail2ban.md
   module: modules/20-security/20-fail2ban.nix
 ---
 
-# fail2ban — Fail2ban Intrusion Prevention
+# "Fail2ban Intrusion Prevention"
 
-**Domain:** 20  
-**Status:** Draft  
+**Domain:** 20-security
+**Status:** Draft
 **Complexity:** 1/5
+**ID:** "NIXH-20-F2B-001"
 
 ---
 
 ## Overview
 
-This module provides fail2ban intrusion prevention.
+This module provides "fail2ban intrusion prevention" functionality for the NixOS system.
+"Fail2ban Intrusion Prevention module."
+It integrates with the SSoT configs registry for identity and network settings.
 
 ## Configuration
 
 ```nix
-my.services.fail2ban.enable = true;
+# Enable the service in your host configuration
+my.services."fail2ban-intrusion-prevention".enable = true;
 ```
+
+Configuration is driven by `my.configs` (SSoT) and `my.ports` for port assignments.
+Secrets are managed via SOPS and referenced through the secrets module.
 
 ## Verification
 
 ```bash
-systemctl status fail2ban
-nixos-option my.services.fail2ban.enable
+# Is the service running?
+systemctl status "fail2ban-intrusion-prevention"
+
+# Check config was applied
+nixos-option my.services."fail2ban-intrusion-prevention".enable
+
+# Check logs
+journalctl -u "fail2ban-intrusion-prevention" -f --no-pager
 ```
 
 ## Known Failure Modes
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| Service fails to start | Port conflict | Change port |
-| Exit code 127 | Binary missing | Run `nix flake update` |
+| Service not starting | Configuration error | Check journalctl for error messages |
+| Port conflict | Another service using same port | Change port in my.ports |
+| Permission denied | User/group not created | Verify user exists with correct UID/GID |
 
 ## Dependencies
 
-- **Requires:** See NIXMETA header
-- **Required by:** Higher-domain modules
+- **Requires:** `00-principles.nix`, `01-configs-registry.nix` (and others per NIXMETA `requires`)
+- **Required by:** Higher-domain modules that consume this service
 
 ## Maintenance
 
-- **Logs:** `journalctl -u fail2ban -f`
-- **Reload:** `sudo nixos-rebuild switch`
+- **Log location:** `journalctl -u "fail2ban-intrusion-prevention" -f`
+- **Config reload:** `sudo nixos-rebuild switch`
+- **Review cycle:** Module reviewed every release cycle

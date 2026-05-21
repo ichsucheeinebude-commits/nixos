@@ -18,23 +18,6 @@
 #   module: modules/30-storage/31-backup.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-000-COR-BCK-001",
-#   "title": "Hardened Restic Backups",
-#   "layer": 0,
-#   "category": "core/security",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 3,
-#   "tags": ["backup", "restic", "cloud-sync", "hardened"],
-#   "description": "Hardened Restic backup configuration with dual local/cloud strategy and weekly integrity audits."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, ... }:
 let
   
@@ -42,25 +25,16 @@ let
   maxSizeGB = 20;
 in
 {
-  options.my.meta.backup = lib.mkOption {
-    type = lib.types.attrs;
-    default = nms;
-    readOnly = true;
-    description = "NMS metadata";
-  };
 
   options.my.services.backup = {
     enable = lib.mkEnableOption "Hardened Restic Backups";
   };
 
   config = lib.mkIf config.my.services.backup.enable {
-    # 🔐 SOPS: Rclone Config Protection
     sops.secrets.rclone_config = {
       owner = "root";
-      # Die Rclone-Config enthält Cloud-Credentials und wird hardware-gebunden geschützt.
     };
 
-    # 🔐 RESTIC BACKUP (anchor: restic-backup)
     services.restic.backups.daily = {
       initialize = true;
       repository = localRepo;
@@ -81,7 +55,6 @@ in
       extraOptions = [ "--exclude-caches" "--compression=max" ];
       inhibitsSleep = true;
 
-      # 🛡️ PRE-FLIGHT CHECK (Hardened)
       backupPrepareCommand = ''
         DATA_SIZE=$(${pkgs.coreutils}/bin/du -sb ${config.my.configs.paths.appData} /etc/nixos /persist /var/lib/pocket-id | ${pkgs.gawk}/bin/awk '{sum+=$1} END {print sum}')
         LIMIT=$(( ${toString maxSizeGB} * 1024 * 1024 * 1024 ))
@@ -91,7 +64,6 @@ in
         fi
       '';
 
-      # ☁️ CLOUD SYNC (v7.1 Hardened: direct restic-remote job instead of rclone sync)
       # backupCleanupCommand was removed to avoid double backups and reduce overhead.
       # Off-site persistence is now handled directly by services.restic.backups.remote.
 
@@ -104,7 +76,6 @@ in
       pruneOpts = [ "--keep-daily 7" "--keep-weekly 4" "--keep-monthly 6" ];
     };
 
-    # 🕵️ WEEKLY INTEGRITY AUDIT (anchor: backup-audit)
     # Perform a deeper check of 10% of the data once a week.
     systemd.services.restic-backup-audit = {
       description = "Deep Audit of Restic Backup Integrity";

@@ -18,23 +18,6 @@
 #   module: modules/30-storage/33-storage-policy.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 { config, lib, ... }:
 let
   cfg = config.my.configs;
@@ -77,15 +60,8 @@ let
 
 in
 {
-  options.my.meta.storage_policy = lib.mkOption {
-    type = lib.types.attrs;
-    default = nms;
-    readOnly = true;
-    description = "NMS metadata";
-  };
 
   config = {
-    # 🛡️ HARDWARE VALIDATION ASSERTIONS
     # Ensure paths are mounted on the correct physical media
     assertions = [
       {
@@ -101,7 +77,6 @@ in
         message = "ABC Tiering Error: Tier C (HDD) MUST be mounted at /mnt/hdd_pool.";
       }
       
-      # 🛡️ GLOBAL TIER C EXCLUSION (v6.1 Strict Spec)
       # No service except the mover and sabnzbd-archive is allowed to touch Tier C.
       {
         assertion = unauthorizedTierCServices == {};

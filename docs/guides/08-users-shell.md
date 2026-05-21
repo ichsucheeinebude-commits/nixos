@@ -1,13 +1,13 @@
 ---
 domain: 00
-id: "NIXH-08-USR-001"
-title: "Users & Shell — Operational Guide"
+id: "NIXH-00-COR-009"
+title: "Users & Groups — Operational Guide"
 type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
-tags: [users, shell, sudo, impermanence]
-description: "Declarative user management with immutable users and shell configuration."
+tags: [core,users,groups]
+description: "System user and group definitions (no shell aliases)."
 path: "root/guides/08-users-shell.md"
 links:
   adr: ADR-08-users-shell.md
@@ -15,53 +15,59 @@ links:
   module: modules/00-core/08-users-shell.nix
 ---
 
-# Users & Shell
+# "Users & Groups"
 
 **Domain:** 00-core
 **Status:** Draft
 **Complexity:** 1/5
-**ID:** NIXH-08-USR-001
+**ID:** "NIXH-00-COR-009"
 
 ---
 
 ## Overview
 
-This module provides users & shell functionality for the NixOS system.
-Declarative user management with immutable users and shell configuration.
-As a 00-core module, it is evaluated before all domain-specific modules.
+This module provides "users & groups" functionality for the NixOS system.
+"System user and group definitions (no shell aliases)."
+It integrates with the SSoT configs registry for identity and network settings.
 
 ## Configuration
 
 ```nix
-# Configuration is typically driven by my.configs SSoT registry
-# Most options have sensible defaults
-my.configs.identity.domain = "example.com";
+# Enable the service in your host configuration
+my.services."users-&-groups".enable = true;
 ```
+
+Configuration is driven by `my.configs` (SSoT) and `my.ports` for port assignments.
+Secrets are managed via SOPS and referenced through the secrets module.
 
 ## Verification
 
 ```bash
-# Check config was applied
-nixos-option my.configs
+# Is the service running?
+systemctl status "users-&-groups"
 
-# Verify system state
-systemctl status <service>
+# Check config was applied
+nixos-option my.services."users-&-groups".enable
+
+# Check logs
+journalctl -u "users-&-groups" -f --no-pager
 ```
 
 ## Known Failure Modes
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| Config not applied | Module not imported in host config | Check imports in configuration.nix |
 | Eval error | Conflicting option definitions | Check for duplicate definitions with nixos-option |
-| SSoT not available | Configs registry module not loaded first | Ensure 01-configs-registry is imported before dependent modules |
+| Config not applied | Module not imported | Check imports in configuration.nix |
+| SSoT not available | Registry module not loaded first | Ensure configs-registry is imported before dependent modules |
 
 ## Dependencies
 
-- **Requires:** Nothing (this is a 00-core module evaluated first)
-- **Required by:** All modules in domains 10–90
+- **Requires:** `00-principles.nix`, `01-configs-registry.nix` (and others per NIXMETA `requires`)
+- **Required by:** Higher-domain modules that consume this service
 
 ## Maintenance
 
+- **Log location:** `journalctl -u "users-&-groups" -f`
 - **Config reload:** `sudo nixos-rebuild switch`
 - **Review cycle:** Module reviewed every release cycle

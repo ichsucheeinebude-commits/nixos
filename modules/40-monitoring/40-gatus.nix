@@ -18,23 +18,6 @@
 #   module: modules/40-monitoring/40-gatus.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-090-MON-GAT-001",
-#   "title": "Gatus Health Dashboard",
-#   "layer": 90,
-#   "category": "services/monitoring",
-#   "lastReviewed": "2026-05-14",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 3,
-#   "tags": ["monitoring", "gatus", "healthcheck"],
-#   "description": "Hardened health dashboard with socket-first monitoring and ntfy alerting."
-# }
-# ---ENDNIXMETA
-
 # Dashboard accessible ONLY via WireGuard tunnel (admin_auth).
 { config, lib, pkgs, myLib, ... }:
 
@@ -43,7 +26,6 @@ let
  srePaths = config.my.configs.paths;
  identity = config.my.configs.identity;
  
- # 🚀 GATUS CONFIG GENERATOR
  gatusConfig = let
  # Use identity to resolve public domain for alerting click-throughs
  publicUrl = "https://gatus.${identity.subdomain}.${identity.domain}";
@@ -80,7 +62,6 @@ in {
  enable = lib.mkEnableOption "Gatus Health Dashboard";
  port = lib.mkOption { type = lib.types.port; default = config.my.ports.gatus; };
  
- # 🔥 NTFY ALERTING (ADR 882)
  ntfy = lib.mkOption {
  type = lib.types.submodule {
  options = {
@@ -105,7 +86,6 @@ in {
  default = {};
  };
 
- # 🔍 HEALTH ENDPOINTS (anchor: health-endpoints)
  endpoints = lib.mkOption {
  type = lib.types.listOf lib.types.attrs;
  default = [
@@ -147,7 +127,6 @@ in {
  }
  { 
  name = "Blocky DNS"; 
- # ⚠️ EXCEPTION: Blocky does not support unix sockets for metrics (Audit Topic 6)
  url = "http://127.0.0.1:4000/metrics"; 
  interval = "60s"; 
  conditions = [ "[STATUS] == 200" ]; 
@@ -158,7 +137,6 @@ in {
  };
 
  config = lib.mkIf cfg.enable (lib.mkMerge [
- # 🎬 1. hardened SERVICE FABRIK
  (myLib.mkService {
  inherit config;
  name = "gatus";
@@ -169,12 +147,10 @@ useSSO = false;
  description = "Gatus Health Dashboard";
      extraServiceConfig = {
         ExecStart = lib.mkForce "${pkgs.gatus}/bin/gatus --config \"${gatusConfig}\"";
-        # 🌐 NETWORK ACCESS (v6.1 Hardening Override for Alerting)
         IPAddressAllow = "any";
       };
  })
 
- # 🔧 2. GATUS SPECIFICS
  {
  # Permissions for the state directory
  systemd.tmpfiles.rules = [

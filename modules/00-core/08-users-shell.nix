@@ -13,8 +13,8 @@
 # provides: [my.core.users]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-00-009-009.md
-#   guide: docs/guides/GUIDE-00-009-009.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/GUIDE-placeholder.md
 #   module: modules/00-core/08-users-shell.nix
 # ---
 # ---ENDNIXMETA

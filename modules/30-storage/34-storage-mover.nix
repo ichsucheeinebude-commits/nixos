@@ -18,23 +18,6 @@
 #   module: modules/30-storage/34-storage-mover.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, ... }:
 let
  cfg = config.my.storage.mover;
@@ -46,7 +29,6 @@ let
    text = ''
      set -euo pipefail
 
-     # 📦 SMART STORAGE TIERING (anchor: storage-tiering)
      echo "--- 📦 Smart Mover 2.0 Initialized (v6.1 Strict) ---"
 
      # --- 1. TIER A -> B (NVMe Pressure Relief) ---

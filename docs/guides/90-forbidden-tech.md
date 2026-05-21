@@ -7,52 +7,67 @@ status: draft
 complexity: 1
 reviewed: 2026-05-21
 tags: [policy, forbidden]
-description: "Operational guide for forbidden tech policy."
-path: "guides/90-forbidden-tech.md"
+description: "Forbidden Tech Policy module."
+path: "root/guides/90-forbidden-tech.md"
 links:
-  adr: docs/adr/ADR-90-forbidden-tech.md
-  guide: docs/guides/90-forbidden-tech.md
+  adr: ADR-90-forbidden-tech.md
+  guide: 90-forbidden-tech.md
   module: modules/90-policy/90-forbidden-tech.nix
 ---
 
-# forbidden-tech — Forbidden Tech Policy
+# "Forbidden Tech Policy"
 
-**Domain:** 90  
-**Status:** Draft  
+**Domain:** 90-policy
+**Status:** Draft
 **Complexity:** 1/5
+**ID:** "NIXH-90-FBT-001"
 
 ---
 
 ## Overview
 
-This module provides forbidden tech policy.
+This module provides "forbidden tech policy" functionality for the NixOS system.
+"Forbidden Tech Policy module."
+It integrates with the SSoT configs registry for identity and network settings.
 
 ## Configuration
 
 ```nix
-my.services.forbidden_tech.enable = true;
+# Enable the service in your host configuration
+my.services."forbidden-tech-policy".enable = true;
 ```
+
+Configuration is driven by `my.configs` (SSoT) and `my.ports` for port assignments.
+Secrets are managed via SOPS and referenced through the secrets module.
 
 ## Verification
 
 ```bash
-systemctl status forbidden-tech
-nixos-option my.services.forbidden_tech.enable
+# Is the service running?
+systemctl status "forbidden-tech-policy"
+
+# Check config was applied
+nixos-option my.services."forbidden-tech-policy".enable
+
+# Check logs
+journalctl -u "forbidden-tech-policy" -f --no-pager
 ```
 
 ## Known Failure Modes
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| Service fails to start | Port conflict | Change port |
-| Exit code 127 | Binary missing | Run `nix flake update` |
+| Build fails | Assertion violation | Remove the violating config option |
+| Timer not active | Systemd timer not enabled | Check systemctl status of timer |
+| False positive | Config exists but disabled | Use lib.mkForce false to explicitly disable |
 
 ## Dependencies
 
-- **Requires:** See NIXMETA header
-- **Required by:** Higher-domain modules
+- **Requires:** `00-principles.nix`, `01-configs-registry.nix` (and others per NIXMETA `requires`)
+- **Required by:** Higher-domain modules that consume this service
 
 ## Maintenance
 
-- **Logs:** `journalctl -u forbidden-tech -f`
-- **Reload:** `sudo nixos-rebuild switch`
+- **Log location:** `journalctl -u "forbidden-tech-policy" -f`
+- **Config reload:** `sudo nixos-rebuild switch`
+- **Review cycle:** Module reviewed every release cycle

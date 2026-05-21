@@ -18,23 +18,6 @@
 #   module: modules/80-gaming/80-amp.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-060-GAM-AMP-001",
-#   "title": "AMP Game Server Panel",
-#   "layer": 60,
-#   "category": "services/gaming",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 3,
-#   "tags": ["gaming", "amp", "fhs", "hardened"],
-#   "description": "Native NixOS integration of AMP Game Server Panel using buildFHSEnv."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, myLib, ... }:
 
 let
@@ -60,7 +43,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    # 📝 1. SYSTEMD SERVICE (anchor: amp-service)
     systemd.services.amp = {
       description = "AMP Game Server Manager (Native FHS)";
       after = [ "network.target" "local-fs.target" ];
@@ -89,7 +71,6 @@ in {
       };
     };
 
-    # 👤 2. AMP SYSTEM USER
     users.users.amp = {
       isSystemUser = true;
       uid = config.my.users.registry.amp;
@@ -100,12 +81,10 @@ in {
     };
     users.groups.amp = {};
 
-    # 💾 3. PERSISTENCE
     my.persistence.directories = [
       "/var/lib/amp"
     ];
 
-    # 🌐 4. CADDY ADMIN VHOST
     services.caddy.virtualHosts."amp.${domain}" = {
       extraConfig = ''
         import admin_auth
@@ -113,12 +92,10 @@ in {
       '';
     };
 
-    # 📂 5. TMPFILES
     systemd.tmpfiles.rules = [
       "d /var/lib/amp 0750 amp amp -"
     ];
 
-    # 📊 6. TRACEABILITY
     my.meta.amp = {
       id = "NIXH-SVC-AMP-001";
       title = "AMP Game Server Panel";

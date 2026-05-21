@@ -18,23 +18,6 @@
 #   module: modules/70-forge/70-forgejo.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-000-SRV-GIT-001",
-#   "title": "Forgejo Sovereign Git",
-#   "layer": 30,
-#   "category": "services/git",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 3,
-#   "tags": ["git", "forgejo", "sovereignty", "hardened"],
-#   "description": "Hardened Forgejo instance for self-hosted git. Uses SQLite3 for efficiency."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, ... }:
 let
   name = "forgejo";
@@ -69,7 +52,6 @@ in {
         dump.enable = true;
       };
 
-      # 🛡️ Additional Hardening for Forgejo
       systemd.services.forgejo.serviceConfig = {
         MemoryMax = "1G";
         MemoryHigh = "800M";

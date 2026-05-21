@@ -18,23 +18,6 @@
 #   module: modules/30-storage/30-storage.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-00-COR-040",
-#   "title": "Unified Storage Pool (MergerFS)",
-#   "layer": 0,
-#   "category": "core/storage",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 3,
-#   "tags": ["storage", "mergerfs", "tiering", "monitoring"],
-#   "description": "Unified storage pool using MergerFS with HDD silence protocol, tiered caching, and spinup monitoring."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, ... }:
 let
   
@@ -43,27 +26,18 @@ let
   srePaths = config.my.configs.paths;
 in
 {
-  options.my.meta.storage = lib.mkOption {
-    type = lib.types.attrs;
-    default = nms;
-    readOnly = true;
-    description = "NMS metadata";
-  };
 
   options.my.media.storagePool = {
     enable = lib.mkEnableOption "Unified MergerFS Storage Pool";
   };
 
   config = lib.mkIf cfg.enable {
-    # 🏎️ MergerFS Mounts (anchor: mergerfs-pool)
     systemd.mounts = [
       {
         description = "Unified Storage Pool (MergerFS)";
         where = "/storage";
         what = "/mnt/cache:/mnt/hdd1:/mnt/hdd2";
         type = "fuse.mergerfs";
-        # Härtung: After/Requires local-fs.target stellt sicher, dass Platten da sind
-        # FUSE: cache.files=partial (Review-Empfehlung) für bessere HDD-Silence
         options = "allow_other,use_ino,cache.files=partial,cache.entry=3600,cache.attr=3600,cache.readdir=true,dropcacheonclose=true,category.create=mfs,minfreespace=50G,fsname=mergerfs-pool,noatime,x-systemd.after=local-fs.target,x-systemd.requires=local-fs.target";
         wantedBy = [ "multi-user.target" ];
       }
@@ -77,13 +51,11 @@ in
       }
     ];
 
-    # 🚀 HDD-Silence-Protocol: Inode Warmer
     systemd.services.hdd-inode-warmer = {
       description = "Refined Inode Warmer for HDD Ghost-Tree";
       serviceConfig = {
         Type = "oneshot";
         ExecStart = "${pkgs.findutils}/bin/find /mnt/hdd_pool -mindepth 1 -maxdepth 5 -exec stat {} +";
-        # Jailing für den Warmer
         ProtectSystem = "strict";
         ProtectHome = true;
         PrivateTmp = true;
@@ -99,7 +71,6 @@ in
       wantedBy = [ "timers.target" ];
     };
 
-    # 🕵️ HDD Spinup Monitor (anchor: hdd-spinup-monitor)
     # Monitors Load_Cycle_Count changes without waking the disks.
     systemd.services.hdd-spinup-monitor = {
       description = "Monitor HDD Spinups via SMART attributes";
@@ -121,7 +92,6 @@ in
       wantedBy = [ "timers.target" ];
     };
 
-    # 🛡️ Path Enforcement (Hardened Permissions)
     systemd.services.storage-init = {
       description = "Storage Path Initialization";
       wantedBy = [ "multi-user.target" ];
@@ -140,7 +110,6 @@ in
       '';
     };
 
-    # 💤 HDD Spindown Policy
     services.udev.extraRules = ''
       SUBSYSTEM=="block", KERNEL=="sd[a-z]", ATTR{queue/rotational}=="1", RUN+="${pkgs.hdparm}/bin/hdparm -S 120 /dev/%k"
     '';

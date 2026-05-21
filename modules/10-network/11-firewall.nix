@@ -13,8 +13,8 @@
 # provides: [my.network.firewall]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-10-002-002.md
-#   guide: docs/guides/GUIDE-10-002-002.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/GUIDE-placeholder.md
 #   module: modules/10-network/11-firewall.nix
 # ---
 # ---ENDNIXMETA

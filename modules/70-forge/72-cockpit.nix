@@ -18,23 +18,6 @@
 #   module: modules/70-forge/72-cockpit.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, ... }:
 let
  cfg = config.my.services.cockpit;
@@ -43,7 +26,6 @@ let
  port = config.my.ports.cockpit;
 in
 {
- options.my.meta.cockpit = lib.mkOption { type = lib.types.attrs; default = nms; readOnly = true; };
  config = lib.mkIf cfg.enable {
  services.cockpit = { 
    enable = true; 
@@ -67,7 +49,6 @@ in
    '';
  };
 
- # 🛡️ SYSTEMD SANDBOXING
  systemd.services.cockpit.serviceConfig = {
    OOMScoreAdjust = -500;
    ProtectSystem = "strict";

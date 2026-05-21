@@ -1,18 +1,85 @@
 ---
 domain: 00
 id: "NIXH-00-COR-003"
-title: "Nix Tuning"
+title: "Nix Tuning — Architecture Decision"
 type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
-tags: [core,nix,gc]
-description: "Nix daemon tuning and GC configuration."
-path: "docs/adr/ADR-02-nix-tuning.md"
+tags: [core,nix,gc,optimization]
+description: "Nix daemon tuning, GC settings, and build optimization."
+path: "root/adr/ADR-02-nix-tuning.md"
 links:
-  module: "modules/placeholder.nix"
+  adr: ADR-02-nix-tuning.md
+  guide: 02-nix-tuning.md
+  module: modules/00-core/02-nix-tuning.nix
 ---
 
-# ADR: Nix Tuning
+# "NIXH-00-COR-003" — "Nix Tuning"
 
-## Context\nNix store grows unbounded without GC. We need sane defaults.\n## Decision\nEnable automatic weekly GC, auto-optimise-store, and flakes by default.\n## Consequences\nStore stays manageable; flakes are the standard workflow.
+**Domain:** 00-core
+**Status:** Draft
+**Complexity:** 1/5
+**ID:** "NIXH-00-COR-003"
+
+---
+
+## Context
+
+"Nix daemon tuning, GC settings, and build optimization." This module integrates with the SSoT configs registry for identity and network settings,
+and follows the domain-driven architecture pattern established in 00-core.
+
+## Decision Drivers
+
+1. **Security:** Must follow hardening-by-default principle
+2. **Simplicity:** Single-responsibility — one file, one concern
+3. **Declarative:** No imperative state mutations allowed
+4. **Traceability:** Must link to ADR, Guide, and Module siblings
+5. **Native NixOS:** No container abstractions — pure NixOS module
+
+## Considered Options
+
+### Option A: Native NixOS Module (Chosen)
+- **Description:** Implement as a native NixOS module with systemd service integration
+- **Pros:** Declarative, testable, follows NixOS best practices, integrates with SSoT config
+- **Cons:** Requires custom module options and understanding of NixOS evaluation order
+
+### Option B: Container-based Deployment
+- **Description:** Run in a container (Podman or systemd-nspawn)
+- **Pros:** Isolation from host, easier dependency management
+- **Cons:** Violates native NixOS philosophy; breaks declarative model; additional attack surface
+
+### Option C: Manual imperative setup
+- **Description:** Shell scripts and manual configuration files
+- **Pros:** Flexible, no Nix knowledge required
+- **Cons:** Not reproducible, not auditable, breaks on rebuild, no version control
+
+## Decision
+
+We adopt **Option A** (native NixOS module) because it aligns with the core design principle
+of declarative, reproducible infrastructure. The module integrates with systemd, uses
+the SSoT configs registry, and follows the established domain architecture.
+
+## Consequences
+
+### Positive
+- Clean separation of concerns within the 00-core domain
+- Easy to audit and review via NIXMETA metadata
+- Follows the 10-domain isomorphy principle
+- Build-time assertions prevent misconfiguration
+
+### Negative
+- Requires NixOS expertise to modify
+- Custom module options need documentation in the corresponding Guide
+
+### Risks
+- Module complexity may increase over time — mitigated with regular review cycles
+- Dependency on SSoT configs means configs-registry must be evaluated first
+
+---
+
+> ⚠️ **IMPLEMENTATION NOISE BLOCKED**
+> This ADR captures architectural decisions only. Implementation details
+> (code snippets, specific port numbers, package versions) belong in the
+> corresponding Guide and Module. Do not pollute this document with
+> operational how-to content.

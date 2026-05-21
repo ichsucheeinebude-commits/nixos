@@ -18,25 +18,7 @@
 #   module: modules/70-forge/71-semaphore.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 # ---
-# nms_id: APP-AUTO-SEMAPHORE
 # title: Ansible Semaphore
 # capabilities: ["automation/ansible"]
 # status: "hardened"
@@ -46,12 +28,6 @@
 let
  in
 {
- options.my.meta.semaphore = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- description = "NMS metadata for semaphore module";
- };
 
 
  config = lib.mkIf config.my.services.semaphore.enable {

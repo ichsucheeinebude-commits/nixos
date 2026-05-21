@@ -18,23 +18,6 @@
 #   module: modules/10-network/18-ddns-updater.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 { config, lib, ... }:
 let
  
@@ -42,12 +25,6 @@ let
  port = config.my.ports.ddnsUpdater;
 in
 {
- options.my.meta.ddns_updater = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- description = "NMS metadata for ddns-updater module";
- };
 
 
  config = lib.mkIf config.my.services.ddnsUpdater.enable {

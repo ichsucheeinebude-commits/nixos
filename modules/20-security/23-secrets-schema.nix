@@ -18,29 +18,11 @@
 #   module: modules/20-security/23-secrets-schema.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-000-COR-SCH-001",
-#   "title": "SOPS Secret Schema",
-#   "layer": 0,
-#   "category": "core/security",
-#   "lastReviewed": "2026-05-14",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["secrets", "schema", "security"],
-#   "description": "Hardened schema defining the immutable list of allowed SOPS secret keys."
-# }
-# ---ENDNIXMETA
-
 { lib, config, ... }:
 
 let
   inherit (lib) mkOption types;
 
-  # 🔐 THE CATEGORIZED KEY LIST
   # Secrets are split into files to minimize blast radius (Decision SEC-005)
   categories = {
     infra = [
@@ -71,12 +53,6 @@ let
   schema = lib.genAttrs (categories.infra ++ categories.media) (name: "");
 
 in {
-  options.my.meta.secrets_schema = lib.mkOption {
-    type = lib.types.attrs;
-    default = nms;
-    readOnly = true;
-    description = "NMS metadata";
-  };
 
   options.my.secrets = {
     schema = mkOption {
@@ -94,7 +70,6 @@ in {
   };
 
   config = {
-    # 🔍 AUDIT WARNING
     # Emits a warning if a secret is defined in SOPS that is not in our schema.
     # Note: We check if any defined secret name is NOT a key in our schema.
     warnings = let
@@ -105,4 +80,3 @@ in {
       "⚠️ [SEC-SCHEMA] Unknown keys found in sops.secrets: ${lib.concatStringsSep ", " unknownKeys}. Please register them in secrets-schema.nix.";
     };
     }
-    

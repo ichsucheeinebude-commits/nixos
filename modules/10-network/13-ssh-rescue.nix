@@ -13,8 +13,8 @@
 # provides: [my.network.sshRescue]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-10-004-004.md
-#   guide: docs/guides/GUIDE-10-004-004.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/GUIDE-placeholder.md
 #   module: modules/10-network/13-ssh-rescue.nix
 # ---
 # ---ENDNIXMETA

@@ -18,23 +18,6 @@
 #   module: modules/40-monitoring/42-ntfy.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-090-MON-NTFY-001",
-#   "title": "ntfy-sh Local Server",
-#   "layer": 90,
-#   "category": "services/monitoring",
-#   "lastReviewed": "2026-05-15",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["monitoring", "ntfy", "alerting"],
-#   "description": "Local ntfy-sh server for internal alerts, replacing public instances."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, myLib, ... }:
 
 let

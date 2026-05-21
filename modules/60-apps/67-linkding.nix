@@ -18,25 +18,7 @@
 #   module: modules/60-apps/67-linkding.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 # ---
-# nms_id: APP-TOOLS-LINKDING
 # title: Linkding Bookmarks
 # capabilities: ["tools/bookmarks"]
 # status: "hardened"
@@ -49,16 +31,10 @@ let
  port = config.my.ports.linkding;
 in
 {
- options.my.meta.linkding = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- };
 
  options.my.services.linkding.enable = lib.mkEnableOption "Linkding Bookmark Manager";
 
  config = lib.mkIf cfg.enable (lib.mkMerge [
- # 🏆 hardened Service Factory
  (myLib.mkService {
  inherit config port;
  name = "linkding";
@@ -66,7 +42,6 @@ in
  useSSO = true;
  })
 
- # 🔧 Linkding Specifics
  {
  services.linkding = {
  enable = true;

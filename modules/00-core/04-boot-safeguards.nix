@@ -13,8 +13,8 @@
 # provides: [my.core.boot]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-00-005-005.md
-#   guide: docs/guides/GUIDE-00-005-005.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/GUIDE-placeholder.md
 #   module: modules/00-core/04-boot-safeguards.nix
 # ---
 # ---ENDNIXMETA

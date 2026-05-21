@@ -13,8 +13,8 @@
 # provides: [my.network.caddy]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-10-006-006.md
-#   guide: docs/guides/GUIDE-10-006-006.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/GUIDE-placeholder.md
 #   module: modules/10-network/15-caddy.nix
 # ---
 # ---ENDNIXMETA

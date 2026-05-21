@@ -13,8 +13,8 @@
 # provides: [my.core.locale]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-00-008-008.md
-#   guide: docs/guides/GUIDE-00-008-008.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/GUIDE-placeholder.md
 #   module: modules/00-core/07-locale-system.nix
 # ---
 # ---ENDNIXMETA

@@ -68,6 +68,7 @@
     ../../modules/50-media/56-sonarr.nix
     ../../modules/50-media/57-radarr.nix
     ../../modules/50-media/58-prowlarr.nix
+    ../../modules/50-media/59-lidarr.nix
     # 60-apps
     ../../modules/60-apps/60-paperless.nix
     ../../modules/60-apps/61-n8n.nix
@@ -89,6 +90,7 @@
     # 90-policy
     ../../modules/90-policy/90-forbidden-tech.nix
     ../../modules/90-policy/91-architecture-rules.nix
+    ../../modules/90-policy/92-deferred-ops.nix
   ];
 
   # ── Boot ───────────────────────────────────────────────────────────────

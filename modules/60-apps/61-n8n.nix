@@ -18,27 +18,8 @@
 #   module: modules/60-apps/61-n8n.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-030-AUT-N8N-001",
-#   "title": "n8n Workflow Automation (hardened)",
-#   "layer": 30,
-#   "category": "services/misc",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 3,
-#   "tags": ["automation", "workflows", "n8n", "hardened"],
-#   "description": "Hardened n8n instance with Postgres backend and Secret-Isolation."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, myLib, ... }:
 let
- # 🚀 NMS v4.2 Metadaten (hardened n8n)
- # Fragment-Sourcing:
  # - NIXH-30-AUT-004: Basis n8n Modul
  # - Fragment 3108: hardening (Node.js exceptions)
  # - Fragment 3331: LoadCredential for encryption keys
@@ -61,7 +42,6 @@ in
     user = lib.mkOption { type = lib.types.str; default = "n8n"; };
     group = lib.mkOption { type = lib.types.str; default = "n8n"; };
     port = lib.mkOption { type = lib.types.port; default = config.my.ports.n8n or 5678; }; 
-    # 💾 PATH STRATEGY (ABC-Tiering)
     stateDir = lib.mkOption { 
       type = lib.types.str; 
       default = "${srePaths.stateDir}/n8n"; 
@@ -73,7 +53,6 @@ in
       description = "Workflow execution cache (Tier B)";
     };
 
-    # 🗄️ DATABASE
     database = {
       type = lib.mkOption { 
         type = lib.types.enum [ "sqlite" "postgres" ]; 
@@ -82,19 +61,16 @@ in
       };
     };
 
-    # 🔑 SECRETS
     encryptionKeyFile = lib.mkOption {
       type = lib.types.nullOr lib.types.path;
       default = config.sops.secrets.n8n_enc_key.path;
       description = "Path to n8n Encryption Key (via Sops)";
     };
 
-    # 🏎️ RESOURCES
     memoryMax = lib.mkOption { type = lib.types.str; default = "2G"; };
   };
 
  config = lib.mkIf cfg.enable (lib.mkMerge [
- # 🏆 Use the hardened Service Factory
  (myLib.mkService {
  inherit config;
  name = "n8n";
@@ -110,7 +86,6 @@ in
 
 
  {
- # 👥 USER & GROUP (Source: Fragment 5240)
  users.users.${cfg.user} = {
  isSystemUser = true;
  group = cfg.group;
@@ -128,8 +103,6 @@ in
  description = "n8n Workflow Engine (hardened)";
  after = [ "network.target" ] ++ (lib.optional (cfg.database.type == "postgres") "postgresql.service");
  
- # 🔗 N8N WORKFLOWS (anchor: n8n-workflows)
- # 🔗 N8N ENV CONFIG
  environment = {
  N8N_PORT = toString cfg.port;
  N8N_HOST = "127.0.0.1";
@@ -153,14 +126,12 @@ in
  User = cfg.user;
  Group = cfg.group;
  
- # 🔑 SECRET ISOLATION (Source: Fragment 3331)
  # Note: n8n expects N8N_ENCRYPTION_KEY in env.
  ExecStart = lib.mkForce (pkgs.writeShellScript "n8n-start" ''
    export N8N_ENCRYPTION_KEY=$(cat ${cfg.encryptionKeyFile})
    exec ${pkgs.n8n}/bin/n8n
  '');
 
- # 🛡️ hardening (Source: Fragment 3108)
  MemoryMax = cfg.memoryMax;
  CPUWeight = 50;
  OOMScoreAdjust = 300;
@@ -184,7 +155,6 @@ in
  ];
  };
 
- # 🗄️ POSTGRES AUTO-SETUP
 
  services.postgresql = lib.mkIf (cfg.database.type == "postgres") {
  ensureDatabases = [ "n8n" ];
@@ -194,7 +164,6 @@ in
  } ];
  };
 
-      # 📁 PERMISSION MANAGEMENT
       systemd.tmpfiles.rules = [
         "d ${cfg.stateDir} 0750 ${cfg.user} ${cfg.group} -"
         "d ${cfg.cacheDir} 0750 ${cfg.user} ${cfg.group} -"
@@ -202,4 +171,3 @@ in
     }
   ]);
 }
-

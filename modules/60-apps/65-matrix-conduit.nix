@@ -18,23 +18,6 @@
 #   module: modules/60-apps/65-matrix-conduit.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-060-SOC-CON-001",
-#   "title": "Matrix Conduit",
-#   "layer": 60,
-#   "category": "services/matrix",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["matrix", "conduit", "chat", "rust", "hardened"],
-#   "description": "Lightweight Matrix homeserver (Conduit) written in Rust."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, myLib, ... }:
 let
  
@@ -45,12 +28,6 @@ let
  serviceBase = myLib.mkService { inherit config; name = "matrix"; port = port; useSSO = false; description = "Matrix Homeserver (Conduit)"; };
 in
 {
- options.my.meta.matrix_conduit = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- description = "NMS metadata for matrix-conduit module";
- };
 
 
  config = lib.mkIf config.my.services.matrixConduit.enable (lib.mkMerge [
@@ -67,7 +44,6 @@ in
  };
  };
  systemd.services.conduit = { serviceConfig = lib.mkMerge [ serviceBase.systemd.services.matrix.serviceConfig { StateDirectory = lib.mkForce "matrix-conduit"; ReadWritePaths = lib.mkForce [ "${config.my.configs.paths.stateDir}/matrix-conduit" ]; MemoryDenyWriteExecute = lib.mkForce false; CPUWeight = lib.mkForce 50; MemoryMax = lib.mkForce "1G"; } ]; };
- # 🌐 MATRIX FEDERATION (anchor: matrix-federation)
  services.caddy.virtualHosts."${serverName}".extraConfig = lib.mkAfter ''
  handle /.well-known/matrix/server {
  header Content-Type application/json

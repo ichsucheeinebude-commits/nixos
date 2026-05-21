@@ -18,27 +18,8 @@
 #   module: modules/10-network/19-zigbee-stack.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, myLib, ... }:
 let
- # 🚀 NMS v4.2 Metadaten (hardened Zigbee Stack)
- # Fragment-Sourcing:
  # - NIXH-20-INF-004: Basis Zigbee-Stack Modul
  # - Fragment 3108: hardening
  # - ADR 852: ABC-Tiering Path Strategy
@@ -47,16 +28,10 @@ let
  srePaths = config.my.configs.paths;
  sreConfig = config.my.configs;
 
- # Logik für USB-Geräte
  isUsbDevice = lib.hasPrefix "/dev/" cfg.zigbeeDevice;
 
 in
 {
- options.my.meta.zigbee_stack = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- };
 
  options.my.services.zigbeeStack = {
  enable = lib.mkEnableOption "Zigbee Stack (Mosquitto + Zigbee2MQTT)";
@@ -94,7 +69,6 @@ in
 
  config = lib.mkIf cfg.enable (lib.mkMerge [
  
- # 🌐 1. CADDY INTEGRATION (Frontend)
  (myLib.mkService {
  inherit config;
  name = "zigbee2mqtt";
@@ -106,7 +80,6 @@ in
  })
 
  {
- # 🦟 2. MOSQUITTO (MQTT BROKER)
  services.mosquitto = {
  enable = true;
  listeners = [{
@@ -126,7 +99,6 @@ in
  OOMScoreAdjust = -100;
  };
 
- # 🐝 3. ZIGBEE2MQTT
  services.zigbee2mqtt = {
  enable = true;
  dataDir = cfg.dataDir;
@@ -170,7 +142,6 @@ in
  };
  };
 
- # 📁 PERMISSION MANAGEMENT
  systemd.tmpfiles.rules = [
  "d ${cfg.dataDir} 0750 zigbee2mqtt mqtt -"
  "d /var/lib/mosquitto 0750 mosquitto mqtt -"
@@ -182,4 +153,3 @@ in
     }
   ]);
 }
-

@@ -1,13 +1,13 @@
 ---
 domain: 00
-id: "NIXH-01-REG-001"
-title: "SSoT Configs Registry — Architecture Decision"
+id: "NIXH-00-COR-002"
+title: "Identity & Hardware Registry — Architecture Decision"
 type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
-tags: [config, ssot, identity, paths]
-description: "Single Source of Truth for identity, network, paths, and port assignments."
+tags: [core,identity,hardware,registry,ports]
+description: "Central registry for identity, hardware specs, network, and service toggles."
 path: "root/adr/ADR-01-configs-registry.md"
 links:
   adr: ADR-01-configs-registry.md
@@ -15,62 +15,71 @@ links:
   module: modules/00-core/01-configs-registry.nix
 ---
 
-# NIXH-01-REG-001 — SSoT Configs Registry
+# "NIXH-00-COR-002" — "Identity & Hardware Registry"
 
 **Domain:** 00-core
 **Status:** Draft
 **Complexity:** 1/5
-**ID:** NIXH-01-REG-001
+**ID:** "NIXH-00-COR-002"
 
 ---
 
 ## Context
 
-Single Source of Truth for identity, network, paths, and port assignments. This module is in domain 00-core because it provides foundational configuration
-that all other modules depend on. It must be evaluated before any domain-specific modules.
+"Central registry for identity, hardware specs, network, and service toggles." This module integrates with the SSoT configs registry for identity and network settings,
+and follows the domain-driven architecture pattern established in 00-core.
 
 ## Decision Drivers
 
-1. **Fail-fast:** Configuration errors must be caught at eval time, not runtime
-2. **Reproducibility:** No imperative state mutations anywhere in the system
-3. **Single Source of Truth:** All identity, network, and path config in one registry
-4. **Native NixOS:** Pure NixOS modules, no container abstractions
+1. **Security:** Must follow hardening-by-default principle
+2. **Simplicity:** Single-responsibility — one file, one concern
+3. **Declarative:** No imperative state mutations allowed
+4. **Traceability:** Must link to ADR, Guide, and Module siblings
+5. **Native NixOS:** No container abstractions — pure NixOS module
 
 ## Considered Options
 
 ### Option A: Native NixOS Module (Chosen)
-- **Description:** Implement as a native NixOS module with declarative options
-- **Pros:** Integrates with NixOS eval order, testable, version-controlled
-- **Cons:** Requires NixOS expertise to modify
+- **Description:** Implement as a native NixOS module with systemd service integration
+- **Pros:** Declarative, testable, follows NixOS best practices, integrates with SSoT config
+- **Cons:** Requires custom module options and understanding of NixOS evaluation order
 
-### Option B: External configuration management
-- **Description:** Use Ansible, Puppet, or similar for initial setup
-- **Pros:** Familiar tooling, easier for non-NixOS admins
-- **Cons:** Breaks declarative contract, not reproducible, requires external tooling
+### Option B: Container-based Deployment
+- **Description:** Run in a container (Podman or systemd-nspawn)
+- **Pros:** Isolation from host, easier dependency management
+- **Cons:** Violates native NixOS philosophy; breaks declarative model; additional attack surface
+
+### Option C: Manual imperative setup
+- **Description:** Shell scripts and manual configuration files
+- **Pros:** Flexible, no Nix knowledge required
+- **Cons:** Not reproducible, not auditable, breaks on rebuild, no version control
 
 ## Decision
 
 We adopt **Option A** (native NixOS module) because it aligns with the core design principle
-of declarative, reproducible infrastructure. The module is evaluated early in the NixOS
-eval order, ensuring all subsequent modules can depend on its configuration.
+of declarative, reproducible infrastructure. The module integrates with systemd, uses
+the SSoT configs registry, and follows the established domain architecture.
 
 ## Consequences
 
 ### Positive
-- Configuration is fully declarative and version-controlled
-- Eval-time assertions catch errors before system mutation
-- SSoT pattern prevents configuration drift
+- Clean separation of concerns within the 00-core domain
+- Easy to audit and review via NIXMETA metadata
+- Follows the 10-domain isomorphy principle
+- Build-time assertions prevent misconfiguration
 
 ### Negative
-- Requires understanding of NixOS evaluation order
-- Adding new config options requires module schema updates
+- Requires NixOS expertise to modify
+- Custom module options need documentation in the corresponding Guide
 
 ### Risks
-- Over-complicating the registry can make it hard to understand; mitigated by keeping it focused on identity/network/paths/ports
+- Module complexity may increase over time — mitigated with regular review cycles
+- Dependency on SSoT configs means configs-registry must be evaluated first
 
 ---
 
 > ⚠️ **IMPLEMENTATION NOISE BLOCKED**
 > This ADR captures architectural decisions only. Implementation details
-> (code snippets, specific values, package versions) belong in the
-> corresponding Guide and Module.
+> (code snippets, specific port numbers, package versions) belong in the
+> corresponding Guide and Module. Do not pollute this document with
+> operational how-to content.

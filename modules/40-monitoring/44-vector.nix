@@ -18,26 +18,8 @@
 #   module: modules/40-monitoring/44-vector.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, ... }:
 let
-  # 🚀 NMS v4.2 Metadaten (Observability)
 
   cfg = config.my.services.vector;
   u = config.my.users.registry;
@@ -45,7 +27,6 @@ in {
   options.my.services.vector.enable = lib.mkEnableOption "Vector Log Aggregator";
 
   config = lib.mkIf cfg.enable {
-    my.meta.vector = nms;
 
     services.vector = {
       enable = true;
@@ -71,7 +52,6 @@ in {
       };
     };
 
-    # 👤 IDENTITY BINDING (ADR 005)
     users.users.vector = {
       isSystemUser = true;
       group = "vector";
@@ -79,7 +59,6 @@ in {
     };
     users.groups.vector = {};
 
-    # Systemd Hardening (gehärtet)
     systemd.services.vector.serviceConfig = {
       ProtectSystem = "strict";
       ProtectHome = true;

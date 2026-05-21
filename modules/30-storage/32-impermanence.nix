@@ -18,36 +18,11 @@
 #   module: modules/30-storage/32-impermanence.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-000-COR-IMP-001",
-#   "title": "Impermanence Core",
-#   "layer": 0,
-#   "category": "core/persistence",
-#   "lastReviewed": "2026-05-14",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 3,
-#   "tags": ["persistence", "stateless", "impermanence"],
-#   "description": "System-wide persistence for stateless root-on-RAM setup. Removed /nix/var for v6.0 compliance."
-# }
-# ---ENDNIXMETA
-
 { config, lib, ... }:
 let
   in
  {
-  options.my.meta.impermanence = lib.mkOption {
-    type = lib.types.attrs;
-    default = nms;
-    readOnly = true;
-    description = "NMS metadata";
-  };
 
-  # 💾 HARDENED IMPERMANENCE (anchor: persistence-core)
-  # Verwaltet die systemweiten Persistenz-Pfade für das Stateless-Root (tmpfs).
  # App-spezifische Pfade werden automatisch via mkService (lib-helpers) registriert.
 
   options.my.persistence = {
@@ -64,8 +39,6 @@ let
   };
 
   config = {
-    # 🛡️ SYSTEM PERSISTENCE (Tier A: NVMe State)
-    # 🧹 BLANK SNAPSHOT (anchor: blank-snapshot)
   environment.persistence."/persist" = {
       hideMounts = true;
       directories = [
@@ -93,7 +66,6 @@ let
       ] ++ config.my.persistence.files;
     };
 
-    # 🚀 ROOT-ON-RAM SETUP (Stateless Manifesto)
     fileSystems."/" = lib.mkForce {
       device = "none";
       fsType = "tmpfs";

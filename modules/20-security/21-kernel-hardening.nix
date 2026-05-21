@@ -18,43 +18,17 @@
 #   module: modules/20-security/21-kernel-hardening.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-000-COR-KER-001",
-#   "title": "gehärtetes Kernel Hardening",
-#   "layer": 0,
-#   "category": "core/security",
-#   "lastReviewed": "2026-05-14",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 4,
-#   "tags": ["kernel", "security", "hardening"],
-#   "description": "Comprehensive module blacklist and sysctl security hardening."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, ... }:
 let
   in
  {
-  options.my.meta.kernel_hardening = lib.mkOption {
-    type = lib.types.attrs;
-    default = nms;
-    readOnly = true;
-    description = "NMS metadata";
-  };
 
-  # 🛡️ HARDENED KERNEL CORE
   # Comprehensive module blacklist and sysctl hardening.
   # Static declarative approach (Decision R-03).
 
   config = {
-    # 🏎️ KERNEL PACKAGES (Latest Coffee Lake Support)
     boot.kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
 
-    # 🚫 MODULE BLACKLIST (Eliminating Attack Surface)
     boot.blacklistedKernelModules = [
       # 1. Audio (Complete elimination for headless server)
       "snd_hda_intel" "snd_hda_codec_realtek" "snd_hda_codec_analog" "snd_hda_codec_idt"
@@ -110,7 +84,6 @@ let
       "hfs" "hfsplus" "jffs2" "freevxfs" "vivid" "minix" "udf"
     ];
 
-    # 🛡️ MODULE WHITELISTING (NixOS native mechanism)
     boot.extraModprobeConfig = ''
       install esp4 /bin/false
       install esp6 /bin/false
@@ -118,7 +91,6 @@ let
       # Strikte Whitelist-Technik: Verhindert automatisches Laden ungenutzter Module
     '';
 
-    # 🏎️ SYSCTL SECURITY HARDENING (anchor: kernel-hardening)
     boot.kernel.sysctl = {
       # Network Hardening
       "net.ipv4.tcp_syncookies" = 1;
@@ -135,7 +107,6 @@ let
       "net.ipv4.conf.default.accept_source_route" = 0;
       "net.ipv4.icmp_ignore_bogus_error_responses" = 1;
       
-      # Härtungserweiterungen (LHF-02)
       "net.ipv4.conf.all.log_martians" = 1;
       "net.ipv4.conf.default.log_martians" = 1;
       "net.ipv4.tcp_rfc1337" = 1;
@@ -167,11 +138,9 @@ let
       "vm.swappiness" = 10;
     };
 
-    # 🛡️ RUNTIME PROTECTION
     security.apparmor.enable = true;
     security.lockKernelModules = true; # Decision KM-01
 
-    # 💎 BOOT PARAMETERS (ADR 001 - v7.0)
     boot.kernelParams = [
       # CPU & Device Protection (nix-mineral alignment)
       "mitigations=auto,nosmt" # Full mitigations + Disable SMT
@@ -195,7 +164,6 @@ let
     # Whitelist of required generic modules (Hardware specific modules moved to hardware-profile)
     boot.kernelModules = [ "usbcore" "ext4" "wireguard" "veth" ];
 
-    # 🚨 ALERTING AUDIT SERVICE
     systemd.services.kernel-module-audit = {
       description = "Audit loaded kernel modules with alerting";
       after = [ "network.target" ];

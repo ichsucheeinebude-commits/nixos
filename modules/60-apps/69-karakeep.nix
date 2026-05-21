@@ -18,26 +18,8 @@
 #   module: modules/60-apps/69-karakeep.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, myLib, ... }:
 let
- # 🚀 NMS v4.2 Metadaten (hardened Karakeep)
 
  cfg = config.my.services.karakeep;
  port = config.my.ports.karakeep;
@@ -45,14 +27,8 @@ let
 
 in
 {
- options.my.meta.karakeep = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- };
 
  config = lib.mkIf cfg.enable (lib.mkMerge [
- # 🏆 Use the hardened Service Factory
  (myLib.mkService {
  inherit config port;
  name = "karakeep";
@@ -76,4 +52,3 @@ in
  }
  ]);
 }
-

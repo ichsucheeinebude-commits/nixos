@@ -18,23 +18,6 @@
 #   module: modules/90-policy/90-forbidden-tech.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-090-POL-FT-001",
-#   "title": "Forbidden Technology Enforcement",
-#   "layer": 90,
-#   "category": "policy/security",
-#   "lastReviewed": "2026-05-14",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["policy", "security", "hardening"],
-#   "description": "Zero-tolerance build-time assertions against forbidden technologies (Docker, Tailscale, etc.)."
-# }
-# ---ENDNIXMETA
-
 { config, lib, ... }:
 
 let
@@ -73,7 +56,6 @@ in {
 
   config = {
     # =========================================================================
-    # ASSERTIONS – BUILD-ABBRUCH BEI VERSTOSS
     # =========================================================================
     assertions = [
       {

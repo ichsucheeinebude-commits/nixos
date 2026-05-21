@@ -13,8 +13,8 @@
 # provides: [my.core.tpm2]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-00-006-006.md
-#   guide: docs/guides/GUIDE-00-006-006.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/GUIDE-placeholder.md
 #   module: modules/00-core/05-tpm2.nix
 # ---
 # ---ENDNIXMETA

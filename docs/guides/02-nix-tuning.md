@@ -1,13 +1,13 @@
 ---
 domain: 00
-id: "NIXH-02-NIX-001"
-title: "Nix Tuning & GC — Operational Guide"
+id: "NIXH-00-COR-003"
+title: "Nix Tuning — Operational Guide"
 type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
-tags: [nix, gc, performance, substituters]
-description: "Nix daemon tuning, garbage collection, and binary cache configuration."
+tags: [core,nix,gc,optimization]
+description: "Nix daemon tuning, GC settings, and build optimization."
 path: "root/guides/02-nix-tuning.md"
 links:
   adr: ADR-02-nix-tuning.md
@@ -15,53 +15,59 @@ links:
   module: modules/00-core/02-nix-tuning.nix
 ---
 
-# Nix Tuning & GC
+# "Nix Tuning"
 
 **Domain:** 00-core
 **Status:** Draft
 **Complexity:** 1/5
-**ID:** NIXH-02-NIX-001
+**ID:** "NIXH-00-COR-003"
 
 ---
 
 ## Overview
 
-This module provides nix tuning & gc functionality for the NixOS system.
-Nix daemon tuning, garbage collection, and binary cache configuration.
-As a 00-core module, it is evaluated before all domain-specific modules.
+This module provides "nix tuning" functionality for the NixOS system.
+"Nix daemon tuning, GC settings, and build optimization."
+It integrates with the SSoT configs registry for identity and network settings.
 
 ## Configuration
 
 ```nix
-# Configuration is typically driven by my.configs SSoT registry
-# Most options have sensible defaults
-my.configs.identity.domain = "example.com";
+# Enable the service in your host configuration
+my.services."nix-tuning".enable = true;
 ```
+
+Configuration is driven by `my.configs` (SSoT) and `my.ports` for port assignments.
+Secrets are managed via SOPS and referenced through the secrets module.
 
 ## Verification
 
 ```bash
-# Check config was applied
-nixos-option my.configs
+# Is the service running?
+systemctl status "nix-tuning"
 
-# Verify system state
-systemctl status <service>
+# Check config was applied
+nixos-option my.services."nix-tuning".enable
+
+# Check logs
+journalctl -u "nix-tuning" -f --no-pager
 ```
 
 ## Known Failure Modes
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| Config not applied | Module not imported in host config | Check imports in configuration.nix |
 | Eval error | Conflicting option definitions | Check for duplicate definitions with nixos-option |
-| SSoT not available | Configs registry module not loaded first | Ensure 01-configs-registry is imported before dependent modules |
+| Config not applied | Module not imported | Check imports in configuration.nix |
+| SSoT not available | Registry module not loaded first | Ensure configs-registry is imported before dependent modules |
 
 ## Dependencies
 
-- **Requires:** Nothing (this is a 00-core module evaluated first)
-- **Required by:** All modules in domains 10–90
+- **Requires:** `00-principles.nix`, `01-configs-registry.nix` (and others per NIXMETA `requires`)
+- **Required by:** Higher-domain modules that consume this service
 
 ## Maintenance
 
+- **Log location:** `journalctl -u "nix-tuning" -f`
 - **Config reload:** `sudo nixos-rebuild switch`
 - **Review cycle:** Module reviewed every release cycle

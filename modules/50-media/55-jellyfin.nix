@@ -18,25 +18,7 @@
 #   module: modules/50-media/55-jellyfin.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 # ---
-# nms_id: APP-MEDIA-JELLYFIN
 # title: Jellyfin (hardened)
 # capabilities: [ "media", "jellyfin", "gpu" ]
 # status: "hardened"
@@ -44,8 +26,6 @@
 # ---
 { lib, pkgs, config, myLib, ... }:
 let
- # 🚀 NMS v4.2 Metadaten (hardened Jellyfin)
- # Fragment-Sourcing:
  # - NIXH-40-MED-007: Basis Jellyfin Modul
  # - Fragment 2272: i915 QuickSync GuC/HuC Aktivierung
  # - ADR 852: ABC-Tiering (State Tier A, Cache Tier B)
@@ -67,17 +47,11 @@ let
 
 in
 {
- options.my.meta.jellyfin = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- };
 
  options.my.media.jellyfin.enable = lib.mkEnableOption "Jellyfin Media Server";
 
  config = lib.mkIf cfg.enable (lib.mkMerge [
  
- # 🎬 1. hardened STREAMER FABRIK (Updated Spec)
  # anchor: jellyfin-resource-priority
  (myLib.mkStreamer {
  inherit config;
@@ -90,24 +64,20 @@ in
  description = "Jellyfin hardened Instance";
  extraServiceConfig = {
    # CPU Pinning (aktivieren bei Bedarf):
-   # CPUAffinity = 2 3;  # Dedizierte Cores für QuickSync, nur bei Performance-Problemen aktivieren
  };
  })
 
- # 🔧 2. JELLYFIN SPECIFICS
  {
  services.jellyfin = {
  enable = true;
  group = "media";
  };
 
- # 📅 JELLYFIN SCAN SCHEDULE (anchor: jellyfin-scan)
  # Note: ScanSchedule is not natively exposed in the NixOS module.
  # Set to "0 2 * * *" (02:00 AM) in the Jellyfin Web UI or directly in the XML config.
  # This aligns with the nightly maintenance window and reduces daytime HDD spin-ups.
  # Source: https://jellyfin.org/docs/general/administration/configuration/#scan-schedule
 
- # 🚀 RAM-DISK FÜR TRANSCODING (anchor: jellyfin-transcode)
  systemd.mounts = [
  {
  where = "/run/jellyfin-transcode";
@@ -130,7 +100,6 @@ in
         serviceConfig = {
           RuntimeDirectory = "jellyfin-transcode";
           RuntimeDirectoryMode = "0750";
-          # Netzwerk-Schild (Ergänzend zur Factory)
           IPAddressAllow = [ "127.0.0.1/8" "::1/128" ] 
             ++ config.my.configs.network.lanCidrs;
         };
@@ -138,4 +107,3 @@ in
     }
   ]);
 }
-

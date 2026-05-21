@@ -18,23 +18,6 @@
 #   module: modules/60-apps/62-vaultwarden.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-060-APP-VLT-001",
-#   "title": "Vaultwarden Password Manager",
-#   "layer": 60,
-#   "category": "services/security",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["security", "passwords", "vault", "hardened", "socket-activation"],
-#   "description": "Tightly sandboxed password manager with Wake-on-Access (Socket Activation)."
-# }
-# ---ENDNIXMETA
-
 {
  config,
  lib,
@@ -44,15 +27,8 @@
  let
  
  port = config.my.ports.vaultwarden;
- # 🔑 SOPS Secret Identifier: vaultwarden_env
  secretEnv = config.sops.secrets.vaultwarden_env.path;
 in {
- options.my.meta.vaultwarden = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- description = "NMS metadata for vaultwarden module";
- };
 
  options.my.services.vaultwarden = {
    enable = lib.mkEnableOption "Vaultwarden Password Manager";
@@ -75,7 +51,6 @@ in {
      };
    })
    {
-     # 🔐 VAULTWARDEN SECRETS (anchor: vaultwarden-secrets)
      services.vaultwarden = {
        enable = true;
        config = {
@@ -107,5 +82,3 @@ in {
    }
  ]);
 }
-
-

@@ -18,30 +18,12 @@
 #   module: modules/90-policy/91-architecture-rules.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-000-COR-ARC-001",
-#   "title": "Architecture Rule Engine",
-#   "layer": 0,
-#   "category": "core/policy",
-#   "lastReviewed": "2026-05-17",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["policy", "architecture", "guard"],
-#   "description": "Hard-coded build-time assertions to prevent architectural drift and forbidden technologies."
-# }
-# ---ENDNIXMETA
-
 { config, lib, ... }:
 
 let
   inherit (lib) mkIf;
   
   # anchor: architecture-violations
-  # Architektur-Verstöße, die den Build stoppen
   violations = [
     {
       # anchor: docker-ban
@@ -68,7 +50,6 @@ let
     }
     {
       # anchor: flake-parts-ban
-      # Verhindert die Nutzung von flake-parts oder ähnlichen Frameworks durch Prüfung von Optionen
       # (Beispiel: flake-parts setzt oft spezifische Unteroptionen)
       assertion = !(config ? flake-parts);
       message = "🛑 ARCH-FAIL: 'flake-parts' detected. External flake frameworks are forbidden.";
@@ -76,15 +57,8 @@ let
   ];
 
 in {
-  options.my.meta.architecture_rules = lib.mkOption {
-    type = lib.types.attrs;
-    default = nms;
-    readOnly = true;
-    description = "NMS metadata";
-  };
 
   config = {
-    # Erzwungene Regeln für das gesamte System
     assertions = violations;
   };
 }

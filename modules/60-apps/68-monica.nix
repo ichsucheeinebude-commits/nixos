@@ -18,25 +18,7 @@
 #   module: modules/60-apps/68-monica.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 # ---
-# nms_id: APP-SOCIAL-MONICA
 # title: Monica CRM
 # capabilities: ["social/crm"]
 # status: "hardened"
@@ -50,7 +32,6 @@ let
  appKeyFile = "${stateDir}/app-key";
 in
 {
- options.my.meta.monica = lib.mkOption { type = lib.types.attrs; default = nms; readOnly = true; };
  
  options.my.services.monica = {
    enable = lib.mkEnableOption "Monica CRM";

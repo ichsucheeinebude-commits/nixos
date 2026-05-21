@@ -18,30 +18,12 @@
 #   module: modules/20-security/20-fail2ban.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 {
  config,
  pkgs,
  lib,
  ...
 }: let
- # 🚀 NMS v4.2 Metadaten (hardened Security)
 
  # SSoT Integration
  sshPort = toString config.my.ports.ssh;
@@ -59,10 +41,8 @@ in {
 
    config = lib.mkIf config.my.services.fail2ban.enable {
 
- # 🛡️ FAIL2BAN HARDENING (anchor: fail2ban-hardening)
  services.fail2ban = {
  enable = true;
- # 🛡️ GLOBAL HARDENING (NFTables Standard)
  banaction = "nftables-multiport";
  banaction-allports = "nftables-allports";
  
@@ -75,7 +55,6 @@ in {
  bantime = "1h";
  maxretry = 5;
 
- # 📈 INCREMENTAL BANNING (The Great Wall)
  bantime-increment = {
  enable = true;
  multipliers = "1 2 4 8 16 32 64";
@@ -89,7 +68,6 @@ in {
  mode = "aggressive";
  };
 
- # 🚨 SSH Rescue Protection (H-03)
  sshd-rescue.settings = {
  enabled = true;
  port = "2222";
@@ -97,7 +75,6 @@ in {
  maxretry = 3;
  };
  
- # 🌐 Caddy-Auth: Schützt SSO & Login-Endpunkte
  caddy-auth.settings = {
  enabled = true;
  port = "http,https";
@@ -108,7 +85,6 @@ in {
  bantime = "24h";
  };
 
- # 🔍 Caddy-Scan: Erkennt aggressive Bot-Scanner
  caddy-scan.settings = {
  enabled = true;
  port = "http,https";
@@ -121,7 +97,6 @@ in {
  };
  };
 
- # 🔍 CUSTOM FILTERS (JSON Optimized)
  environment.etc = {
  "fail2ban/filter.d/caddy-json.conf".text = ''
  [Definition]
@@ -130,13 +105,11 @@ in {
  '';
  "fail2ban/filter.d/caddy-scan.conf".text = ''
  [Definition]
- # Erweitert um gefährliche Bot-Muster (.env, .php, .config)
  failregex = ^.*"remote_ip":"<ADDR>".*"uri":".*(?:\.env|\.git|\.config|\.php|\.zip|\.gz|wp-admin|wp-login|xmlrpc)".*"status":(404|444).*$
  journalmatch = _SYSTEMD_UNIT=caddy.service
  '';
  };
 
- # 🛡️ SYSTEMD SANDBOXING
  systemd.services.fail2ban.serviceConfig = {
  OOMScoreAdjust = -1000;
  ProtectSystem = "strict";

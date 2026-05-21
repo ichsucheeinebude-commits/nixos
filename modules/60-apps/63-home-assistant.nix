@@ -18,27 +18,8 @@
 #   module: modules/60-apps/63-home-assistant.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-030-AUT-HAS-001",
-#   "title": "Home Assistant (hardened)",
-#   "layer": 30,
-#   "category": "services/home-automation",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 3,
-#   "tags": ["home-automation", "hass", "iot", "mqtt", "hardened"],
-#   "description": "Hardened Home Automation with ABC-Tiering and Secret-Isolation."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, myLib, ... }:
 let
- # 🚀 NMS v4.2 Metadaten (hardened Home Assistant)
- # Fragment-Sourcing:
  # - NIXH-30-AUT-003: Basis Home Assistant Modul
  # - Fragment 3108: hardening (Python exemptions)
  # - Fragment 3331: LoadCredential for Secrets
@@ -48,23 +29,16 @@ let
  srePaths = config.my.configs.paths;
  sreConfig = config.my.configs;
 
- # Logik für USB-Geräte (Zigbee)
  isUsbDevice = lib.hasPrefix "/dev/" cfg.zigbeeDevice;
 
 in
 {
- options.my.meta.home_assistant = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- };
 
  options.my.apps.home-assistant = {
  enable = lib.mkEnableOption "Home Assistant (IoT)";
  user = lib.mkOption { type = lib.types.str; default = "hass"; };
  group = lib.mkOption { type = lib.types.str; default = "hass"; };
  port = lib.mkOption { type = lib.types.port; default = config.my.ports.homeAssistant or 8123; }; 
- # 💾 PATH STRATEGY (ABC-Tiering)
  stateDir = lib.mkOption { 
  type = lib.types.str; 
  default = "${srePaths.stateDir}/home-assistant"; 
@@ -81,7 +55,6 @@ in
  description = "Media archive for recordings/snapshots (Tier C)";
  };
 
- # 📡 HARDWARE & INTEGRATION
  zigbeeDevice = lib.mkOption { 
  type = lib.types.str; 
  default = "socket://${config.my.configs.network.lanIP}:6638"; 
@@ -89,7 +62,6 @@ in
  };
  bluetooth = lib.mkOption { type = lib.types.bool; default = false; };
  
- # 🔑 SECRETS
  secretFile = lib.mkOption {
  type = lib.types.nullOr lib.types.path;
  default = null;
@@ -98,7 +70,6 @@ in
  };
 
  config = lib.mkIf cfg.enable (lib.mkMerge [
- # 🏆 Use the hardened Service Factory
  (myLib.mkService {
  inherit config;
  name = "home-assistant";
@@ -115,7 +86,6 @@ in
  })
 
  {
- # 👥 USER & GROUP
  users.users.${cfg.user} = {
  isSystemUser = true;
  group = cfg.group;
@@ -124,7 +94,6 @@ in
  };
  users.groups.${cfg.group} = {};
 
-      # 🏠 HOME ASSISTANT IOT (anchor: home-assistant-iot)
       services.home-assistant = {
         enable = true;
         configDir = cfg.stateDir;
@@ -155,14 +124,11 @@ in
  systemd.services.home-assistant = {
  description = "Home Assistant Core (hardened)";
  
- # 🔗 PYTHON CACHE REDIRECT (Source: Fragment 3192)
  environment.PYTHONPYCACHEPREFIX = "${cfg.cacheDir}/pycache";
 
  serviceConfig = {
- # 🔑 SECRET ISOLATION
  LoadCredential = lib.optional (cfg.secretFile != null) "HA_SECRET:${toString cfg.secretFile}";
 
- # 🛡️ hardening
  MemoryMax = "2G";
  CPUWeight = 70;
  OOMScoreAdjust = 300;
@@ -183,7 +149,6 @@ in
  };
  };
 
-      # 📁 PERMISSION MANAGEMENT
       systemd.tmpfiles.rules = [
         "d ${cfg.stateDir} 0750 ${cfg.user} ${cfg.group} -"
         "d ${cfg.cacheDir} 0750 ${cfg.user} ${cfg.group} -"
@@ -193,4 +158,3 @@ in
     }
   ]);
 }
-

@@ -18,23 +18,6 @@
 #   module: modules/10-network/16-dns-automation.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-AUTO-GEN",
-#   "title": "Auto Generated",
-#   "layer": 99,
-#   "category": "auto/gen",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 2,
-#   "tags": ["auto-generated"],
-#   "description": "Auto-migrated module to NIXMETA 2.0."
-# }
-# ---ENDNIXMETA
-
 { config, pkgs, lib, ... }:
 let
  
@@ -43,12 +26,6 @@ let
  cfTokenFile = config.sops.secrets.cloudflare_token.path;
 in
 {
- options.my.meta.dns_automation = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- description = "NMS metadata for dns-automation module";
- };
 
 
  config = lib.mkIf config.my.services.dnsAutomation.enable {
@@ -59,7 +36,6 @@ in
  serviceConfig = {
    Type = "oneshot";
    StateDirectory = "nixhome";
-   # 🛡️ SYSTEMD SANDBOXING
    ProtectSystem = "strict";
    ProtectHome = true;
    PrivateTmp = true;

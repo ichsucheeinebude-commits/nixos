@@ -7,52 +7,67 @@ status: draft
 complexity: 1
 reviewed: 2026-05-21
 tags: [gatus, monitoring]
-description: "Operational guide for gatus health checks."
-path: "guides/40-gatus.md"
+description: "Gatus Health Checks module."
+path: "root/guides/40-gatus.md"
 links:
-  adr: docs/adr/ADR-40-gatus.md
-  guide: docs/guides/40-gatus.md
+  adr: ADR-40-gatus.md
+  guide: 40-gatus.md
   module: modules/40-monitoring/40-gatus.nix
 ---
 
-# gatus — Gatus Health Checks
+# "Gatus Health Checks"
 
-**Domain:** 40  
-**Status:** Draft  
+**Domain:** 40-monitoring
+**Status:** Draft
 **Complexity:** 1/5
+**ID:** "NIXH-40-GAT-001"
 
 ---
 
 ## Overview
 
-This module provides gatus health checks.
+This module provides "gatus health checks" functionality for the NixOS system.
+"Gatus Health Checks module."
+It integrates with the SSoT configs registry for identity and network settings.
 
 ## Configuration
 
 ```nix
-my.services.gatus.enable = true;
+# Enable the service in your host configuration
+my.services."gatus-health-checks".enable = true;
 ```
+
+Configuration is driven by `my.configs` (SSoT) and `my.ports` for port assignments.
+Secrets are managed via SOPS and referenced through the secrets module.
 
 ## Verification
 
 ```bash
-systemctl status gatus
-nixos-option my.services.gatus.enable
+# Is the service running?
+systemctl status "gatus-health-checks"
+
+# Check config was applied
+nixos-option my.services."gatus-health-checks".enable
+
+# Check logs
+journalctl -u "gatus-health-checks" -f --no-pager
 ```
 
 ## Known Failure Modes
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| Service fails to start | Port conflict | Change port |
-| Exit code 127 | Binary missing | Run `nix flake update` |
+| Dashboard not accessible | Port mismatch | Check port config and Caddy vhost |
+| No data visible | Service not collecting | Check service status and socket path |
+| High resource usage | Limits too permissive | Tighten MemoryMax and CPUQuota |
 
 ## Dependencies
 
-- **Requires:** See NIXMETA header
-- **Required by:** Higher-domain modules
+- **Requires:** `00-principles.nix`, `01-configs-registry.nix` (and others per NIXMETA `requires`)
+- **Required by:** Higher-domain modules that consume this service
 
 ## Maintenance
 
-- **Logs:** `journalctl -u gatus -f`
-- **Reload:** `sudo nixos-rebuild switch`
+- **Log location:** `journalctl -u "gatus-health-checks" -f`
+- **Config reload:** `sudo nixos-rebuild switch`
+- **Review cycle:** Module reviewed every release cycle

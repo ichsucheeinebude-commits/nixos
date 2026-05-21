@@ -13,8 +13,8 @@
 # provides: [my.core.hardware]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-00-004-004.md
-#   guide: docs/guides/GUIDE-00-004-004.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/GUIDE-placeholder.md
 #   module: modules/00-core/03-hardware-profile.nix
 # ---
 # ---ENDNIXMETA

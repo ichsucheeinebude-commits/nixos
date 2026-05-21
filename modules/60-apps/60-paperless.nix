@@ -18,27 +18,8 @@
 #   module: modules/60-apps/60-paperless.nix
 # ---
 # ---ENDNIXMETA
-
-# ---NIXMETA
-# {
-#   "specVersion": "2.0",
-#   "id": "NIXH-050-KNW-PAP-001",
-#   "title": "Paperless-ngx (hardened)",
-#   "layer": 50,
-#   "category": "services/misc",
-#   "lastReviewed": "2026-05-19",
-#   "reviewedBy": "Gemini",
-#   "status": "production",
-#   "complexity": 3,
-#   "tags": ["knowledge", "documents", "ocr", "paperless", "hardened"],
-#   "description": "Hardened document management system with Valkey and PostgreSQL."
-# }
-# ---ENDNIXMETA
-
 { config, lib, pkgs, myLib, ... }:
 let
- # 🚀 NMS v4.2 Metadaten (hardened Paperless-ngx)
- # Fragment-Sourcing:
  # - NIXH-01-APP-PAP-001: Vorherige Version
  # - Fragment: Valkey Integration (Open-Source Redis Alternative)
 
@@ -47,11 +28,6 @@ let
  
 in
 {
- options.my.meta.paperless = lib.mkOption {
- type = lib.types.attrs;
- default = nms;
- readOnly = true;
- };
 
   options.my.apps.paperless = {
     enable = lib.mkEnableOption "Paperless-ngx Document Management";
@@ -64,7 +40,6 @@ in
 
  config = lib.mkIf cfg.enable (lib.mkMerge [
  
- # 📄 1. hardened SERVICE FACTORY
  (myLib.mkService {
    inherit config;
    name = "paperless";
@@ -75,7 +50,6 @@ in
    useSSO = true;
  })
 
- # 🔧 2. PAPERLESS SPECIFICS & ENVIRONMENT
  {
  services.paperless = {
  enable = true;
@@ -88,7 +62,6 @@ in
  environment = {
  PAPERLESS_URL = "https://paperless.${config.my.configs.identity.subdomain}.${config.my.configs.identity.domain}";
  PAPERLESS_TIME_ZONE = config.my.configs.locale.timezone;
- # 📑 PAPERLESS AUTOMATION (anchor: paperless-automation)
  PAPERLESS_OCR_LANGUAGE = "deu+eng";
  
  # ABC-Tiering Paths (Source: ADR 852)
@@ -122,4 +95,3 @@ in
  }
  ]);
 }
-

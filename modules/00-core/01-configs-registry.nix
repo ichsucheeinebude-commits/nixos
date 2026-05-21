@@ -13,8 +13,8 @@
 # provides: [my.core.identity,my.core.hardware,my.core.server,my.core.network,my.core.ports,my.core.services]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-00-002-002.md
-#   guide: docs/guides/GUIDE-00-002-002.md
+#   adr: docs/adr/ADR-placeholder.md
+#   guide: docs/guides/GUIDE-placeholder.md
 #   module: modules/00-core/01-configs-registry.nix
 # ---
 # ---ENDNIXMETA

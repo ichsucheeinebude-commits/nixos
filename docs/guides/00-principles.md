@@ -1,13 +1,13 @@
 ---
 domain: 00
-id: "NIXH-00-PRN-001"
-title: "Principles & System Defaults — Operational Guide"
+id: "NIXH-00-COR-001"
+title: "Principles & Defaults — Operational Guide"
 type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
-tags: [principles, eval-time, defaults]
-description: "Evaluation-time rules, design paradigms, and system-level defaults."
+tags: [core,principles,bastelmodus]
+description: "Global toggle and experimental flag for the entire boilerplate."
 path: "root/guides/00-principles.md"
 links:
   adr: ADR-00-principles.md
@@ -15,53 +15,59 @@ links:
   module: modules/00-core/00-principles.nix
 ---
 
-# Principles & System Defaults
+# "Principles & Defaults"
 
 **Domain:** 00-core
 **Status:** Draft
 **Complexity:** 1/5
-**ID:** NIXH-00-PRN-001
+**ID:** "NIXH-00-COR-001"
 
 ---
 
 ## Overview
 
-This module provides principles & system defaults functionality for the NixOS system.
-Evaluation-time rules, design paradigms, and system-level defaults.
-As a 00-core module, it is evaluated before all domain-specific modules.
+This module provides "principles & defaults" functionality for the NixOS system.
+"Global toggle and experimental flag for the entire boilerplate."
+It integrates with the SSoT configs registry for identity and network settings.
 
 ## Configuration
 
 ```nix
-# Configuration is typically driven by my.configs SSoT registry
-# Most options have sensible defaults
-my.configs.identity.domain = "example.com";
+# Enable the service in your host configuration
+my.services."principles-&-defaults".enable = true;
 ```
+
+Configuration is driven by `my.configs` (SSoT) and `my.ports` for port assignments.
+Secrets are managed via SOPS and referenced through the secrets module.
 
 ## Verification
 
 ```bash
-# Check config was applied
-nixos-option my.configs
+# Is the service running?
+systemctl status "principles-&-defaults"
 
-# Verify system state
-systemctl status <service>
+# Check config was applied
+nixos-option my.services."principles-&-defaults".enable
+
+# Check logs
+journalctl -u "principles-&-defaults" -f --no-pager
 ```
 
 ## Known Failure Modes
 
 | Symptom | Cause | Fix |
 |---|---|---|
-| Config not applied | Module not imported in host config | Check imports in configuration.nix |
 | Eval error | Conflicting option definitions | Check for duplicate definitions with nixos-option |
-| SSoT not available | Configs registry module not loaded first | Ensure 01-configs-registry is imported before dependent modules |
+| Config not applied | Module not imported | Check imports in configuration.nix |
+| SSoT not available | Registry module not loaded first | Ensure configs-registry is imported before dependent modules |
 
 ## Dependencies
 
-- **Requires:** Nothing (this is a 00-core module evaluated first)
-- **Required by:** All modules in domains 10–90
+- **Requires:** `00-principles.nix`, `01-configs-registry.nix` (and others per NIXMETA `requires`)
+- **Required by:** Higher-domain modules that consume this service
 
 ## Maintenance
 
+- **Log location:** `journalctl -u "principles-&-defaults" -f`
 - **Config reload:** `sudo nixos-rebuild switch`
 - **Review cycle:** Module reviewed every release cycle
