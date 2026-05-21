@@ -7,9 +7,9 @@ date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 30-NAME.md
+  guide: 30-storage.md
   modules:
-    - modules/30-NAME.nix
+    - modules/30-storage.nix
   related: []
   issues: []
   source: []

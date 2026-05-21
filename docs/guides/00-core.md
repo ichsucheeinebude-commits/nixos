@@ -9,7 +9,7 @@ links:
   adr: ADR-00-core.md
   modules:
     - path: modules/00-core.nix
-      anchor: core-anchor
+      anchor: core
 ---
 
 # 00-core: Core Foundation

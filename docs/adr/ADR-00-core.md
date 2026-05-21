@@ -7,9 +7,9 @@ date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 00-NAME.md
+  guide: 00-core.md
   modules:
-    - modules/00-NAME.nix
+    - modules/00-core.nix
   related: []
   issues: []
   source: []

@@ -2,7 +2,7 @@
 # {
 #   "specVersion": "2.0",
 #   "id": "NIXH-20-SEC-001",
-#   "title": "SSH Hardening + nftables Firewall",
+#   "title": "Security Hardening",
 #   "layer": 20,
 #   "category": "security",
 #   "lastReviewed": "YYYY-MM-DD",

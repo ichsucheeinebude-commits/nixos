@@ -7,9 +7,9 @@ date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 40-NAME.md
+  guide: 40-monitoring.md
   modules:
-    - modules/40-NAME.nix
+    - modules/40-monitoring.nix
   related: []
   issues: []
   source: []

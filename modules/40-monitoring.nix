@@ -2,7 +2,7 @@
 # {
 #   "specVersion": "2.0",
 #   "id": "NIXH-40-MON-001",
-#   "title": "Monitoring & Observability",
+#   "title": "Monitoring #   "title": "Monitoring & Observability", Observability",
 #   "layer": 40,
 #   "category": "monitoring",
 #   "lastReviewed": "YYYY-MM-DD",

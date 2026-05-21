@@ -7,9 +7,9 @@ date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 10-NAME.md
+  guide: 10-network.md
   modules:
-    - modules/10-NAME.nix
+    - modules/10-network.nix
   related: []
   issues: []
   source: []

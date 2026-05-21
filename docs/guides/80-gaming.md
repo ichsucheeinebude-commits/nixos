@@ -9,7 +9,7 @@ links:
   adr: ADR-80-gaming.md
   modules:
     - path: modules/80-gaming.nix
-      anchor: gaming-anchor
+      anchor: gaming
 ---
 
 # 80-gaming: Gaming Operations

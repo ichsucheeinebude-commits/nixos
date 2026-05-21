@@ -2,7 +2,7 @@
 # {
 #   "specVersion": "2.0",
 #   "id": "NIXH-90-POL-001",
-#   "title": "Security Policies & Assertions",
+#   "title": "Security Policies",
 #   "layer": 90,
 #   "category": "policy",
 #   "lastReviewed": "YYYY-MM-DD",

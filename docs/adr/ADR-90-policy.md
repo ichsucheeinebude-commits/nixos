@@ -7,9 +7,9 @@ date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 90-NAME.md
+  guide: 90-policy.md
   modules:
-    - modules/90-NAME.nix
+    - modules/90-policy.nix
   related: []
   issues: []
   source: []

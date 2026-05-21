@@ -9,7 +9,7 @@ links:
   adr: ADR-60-apps.md
   modules:
     - path: modules/60-apps.nix
-      anchor: apps-anchor
+      anchor: apps
 ---
 
 # 60-apps: App Operations

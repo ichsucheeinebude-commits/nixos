@@ -2,7 +2,7 @@
 # {
 #   "specVersion": "2.0",
 #   "id": "NIXH-80-GAM-001",
-#   "title": "Gaming & Game Servers",
+#   "title": "Gaming #   "title": "Gaming & Game Servers", Game Servers",
 #   "layer": 80,
 #   "category": "gaming",
 #   "lastReviewed": "YYYY-MM-DD",

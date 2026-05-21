@@ -9,7 +9,7 @@ links:
   adr: ADR-50-media.md
   modules:
     - path: modules/50-media.nix
-      anchor: media-anchor
+      anchor: media
 ---
 
 # 50-media: Media Operations

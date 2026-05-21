@@ -9,7 +9,7 @@ links:
   adr: ADR-30-storage.md
   modules:
     - path: modules/30-storage.nix
-      anchor: storage-anchor
+      anchor: storage
 ---
 
 # 30-storage: Storage Operations

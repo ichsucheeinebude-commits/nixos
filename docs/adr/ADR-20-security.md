@@ -7,9 +7,9 @@ date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 20-NAME.md
+  guide: 20-security.md
   modules:
-    - modules/20-NAME.nix
+    - modules/20-security.nix
   related: []
   issues: []
   source: []

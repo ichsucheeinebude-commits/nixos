@@ -9,7 +9,7 @@ links:
   adr: ADR-10-network.md
   modules:
     - path: modules/10-network.nix
-      anchor: network-anchor
+      anchor: network
 ---
 
 # 10-network: Network Configuration

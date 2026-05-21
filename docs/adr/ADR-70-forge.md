@@ -7,9 +7,9 @@ date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 70-NAME.md
+  guide: 70-forge.md
   modules:
-    - modules/70-NAME.nix
+    - modules/70-forge.nix
   related: []
   issues: []
   source: []

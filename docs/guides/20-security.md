@@ -9,7 +9,7 @@ links:
   adr: ADR-20-security.md
   modules:
     - path: modules/20-security.nix
-      anchor: security-anchor
+      anchor: security
 ---
 
 # 20-security: Security Operations

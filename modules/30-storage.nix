@@ -2,7 +2,7 @@
 # {
 #   "specVersion": "2.0",
 #   "id": "NIXH-30-STO-001",
-#   "title": "Storage Configuration",
+#   "title": "Storage Strategy",
 #   "layer": 30,
 #   "category": "storage",
 #   "lastReviewed": "YYYY-MM-DD",

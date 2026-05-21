@@ -9,7 +9,7 @@ links:
   adr: ADR-90-policy.md
   modules:
     - path: modules/90-policy.nix
-      anchor: policy-anchor
+      anchor: policy
 ---
 
 # 90-policy: Policy Operations

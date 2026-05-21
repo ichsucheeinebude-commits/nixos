@@ -7,9 +7,9 @@ date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 50-NAME.md
+  guide: 50-media.md
   modules:
-    - modules/50-NAME.nix
+    - modules/50-media.nix
   related: []
   issues: []
   source: []

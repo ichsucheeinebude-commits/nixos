@@ -7,9 +7,9 @@ date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 80-NAME.md
+  guide: 80-gaming.md
   modules:
-    - modules/80-NAME.nix
+    - modules/80-gaming.nix
   related: []
   issues: []
   source: []

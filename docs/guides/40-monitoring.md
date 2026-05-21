@@ -9,7 +9,7 @@ links:
   adr: ADR-40-monitoring.md
   modules:
     - path: modules/40-monitoring.nix
-      anchor: monitoring-anchor
+      anchor: monitoring
 ---
 
 # 40-monitoring: Monitoring Operations

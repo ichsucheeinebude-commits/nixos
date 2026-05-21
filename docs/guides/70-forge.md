@@ -9,7 +9,7 @@ links:
   adr: ADR-70-forge.md
   modules:
     - path: modules/70-forge.nix
-      anchor: forge-anchor
+      anchor: forge
 ---
 
 # 70-forge: Forge Operations
