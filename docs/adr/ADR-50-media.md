@@ -1,22 +1,22 @@
 ---
-title: "ADR-00: Core Foundation"
-domain: 00
+title: "ADR-50: Media Stack"
+domain: 50
 status: proposed
 severity: high
 date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 00-NAME.md
+  guide: 50-NAME.md
   modules:
-    - modules/00-NAME.nix
+    - modules/50-NAME.nix
   related: []
   issues: []
   source: []
 supersedes: []
 ---
 
-# ADR-00: Core Foundation
+# ADR-50: Media Stack
 
 > **Entscheidung in einem Satz.**
 > [TODO]

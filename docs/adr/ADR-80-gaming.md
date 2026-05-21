@@ -1,22 +1,22 @@
 ---
-title: "ADR-00: Core Foundation"
-domain: 00
+title: "ADR-80: Gaming PLACEHOLDER_TITLE Game Servers"
+domain: 80
 status: proposed
 severity: high
 date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 00-NAME.md
+  guide: 80-NAME.md
   modules:
-    - modules/00-NAME.nix
+    - modules/80-NAME.nix
   related: []
   issues: []
   source: []
 supersedes: []
 ---
 
-# ADR-00: Core Foundation
+# ADR-80: Gaming PLACEHOLDER_TITLE Game Servers
 
 > **Entscheidung in einem Satz.**
 > [TODO]

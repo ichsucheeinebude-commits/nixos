@@ -1,22 +1,22 @@
 ---
-title: "ADR-00: Core Foundation"
-domain: 00
+title: "ADR-40: Monitoring PLACEHOLDER_TITLE Observability"
+domain: 40
 status: proposed
 severity: high
 date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 00-NAME.md
+  guide: 40-NAME.md
   modules:
-    - modules/00-NAME.nix
+    - modules/40-NAME.nix
   related: []
   issues: []
   source: []
 supersedes: []
 ---
 
-# ADR-00: Core Foundation
+# ADR-40: Monitoring PLACEHOLDER_TITLE Observability
 
 > **Entscheidung in einem Satz.**
 > [TODO]

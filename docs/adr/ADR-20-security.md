@@ -1,22 +1,22 @@
 ---
-title: "ADR-00: Core Foundation"
-domain: 00
+title: "ADR-20: Security Hardening"
+domain: 20
 status: proposed
 severity: high
 date: YYYY-MM-DD
 deciders: [moritz]
 review_after: YYYY-MM-DD
 links:
-  guide: 00-NAME.md
+  guide: 20-NAME.md
   modules:
-    - modules/00-NAME.nix
+    - modules/20-NAME.nix
   related: []
   issues: []
   source: []
 supersedes: []
 ---
 
-# ADR-00: Core Foundation
+# ADR-20: Security Hardening
 
 > **Entscheidung in einem Satz.**
 > [TODO]
