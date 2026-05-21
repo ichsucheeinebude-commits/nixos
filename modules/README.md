@@ -25,16 +25,16 @@ Jede `.nix`-Datei hier deklariert Optionen (`options.*`) und Implementierung (`c
 
 | Modul | Domain | Zweck | Status |
 |-------|--------|-------|--------|
-| [00-core.nix](00-core.nix) | 00 | Core Foundation: configs, ports, nix-tuning, zram, boot-safeguard | ✅ Implementiert |
-| [10-network.nix](10-network.nix) | 10 | Network: DNS, Tailscale, Firewall-Regeln | ✅ Implementiert |
-| [20-security.nix](20-security.nix) | 20 | Security: SSH Hardening, nftables, AppArmor | ✅ Implementiert |
-| [30-storage.nix](30-storage.nix) | 30 | Storage: ABC-Tiering, ZFS, Backup | ⏳ TODO |
-| [40-monitoring.nix](40-monitoring.nix) | 40 | Monitoring: Netdata, Gatus, Scrutiny | ⏳ TODO |
-| [50-media.nix](50-media.nix) | 50 | Media: Jellyfin, Arr-Suite, QuickSync | ⏳ TODO |
-| [60-apps.nix](60-apps.nix) | 60 | Apps: Paperless, n8n, Vaultwarden | ⏳ TODO |
-| [70-forge.nix](70-forge.nix) | 70 | Forge: Forgejo, CI/CD | ⏳ TODO |
-| [80-gaming.nix](80-gaming.nix) | 80 | Gaming: FHS Game Server, AMP | ⏳ TODO |
-| [90-policy.nix](90-policy.nix) | 90 | Policy: Binary-Only, Compliance | ⏳ TODO |
+| [00-core](00-core/) | 00 | Core: configs, ports, nix-tuning, zram, boot-safeguard, locale, shell-premium, symbiosis, lib-helpers, config-merger | ✅ 13 Module |
+| [10-network](10-network/) | 10 | Network: firewall, ssh, blocky, caddy, dns, pocket-id, ddns, zigbee, adguard, tailscale, cloudflared, landing-zone, dns-map | ✅ 15 Module |
+| [20-security](20-security/) | 20 | Security: fail2ban, kernel-hardening, secrets, landlock, clamav, secret-ingest | ✅ 6 Module |
+| [30-storage](30-storage/) | 30 | Storage: ABC-Tiering, mergerfs, backup, impermanence, storage-policy, storage-mover | ✅ 5 Module |
+| [40-monitoring](40-monitoring/) | 40 | Monitoring: Gatus, Netdata, ntfy, Scrutiny, Vector, Uptime Kuma | ✅ 6 Module |
+| [50-media](50-media/) | 50 | Media: Jellyfin, Arr-Stack, QuickSync, *arr-suite, download, streaming | ✅ 10 Module |
+| [60-apps](60-apps/) | 60 | Apps: Paperless, n8n, Vaultwarden, Home Assistant, Readeck, Matrix, Miniflux, Linkding, Monica, Karakeep, Linkwarden, OliveTin, Open WebUI | ✅ 13 Module |
+| [70-forge](70-forge/) | 70 | Forge: Forgejo, Semaphore, Cockpit | ✅ 3 Module |
+| [80-gaming](80-gaming/) | 80 | Gaming: FHS Game Server, AMP | ✅ 2 Module |
+| [90-policy](90-policy/) | 90 | Policy: Forbidden Tech, Architecture Rules, Deferred Ops, Security Assertions, Binary-Only | ✅ 5 Module |
 
 ---
 

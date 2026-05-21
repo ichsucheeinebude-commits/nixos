@@ -13,8 +13,8 @@
 # provides: [my.gaming.amp]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-80-amp.md
+#   guide: docs/guides/80-amp.md
 #   module: modules/80-gaming/80-amp.nix
 # ---
 # ---ENDNIXMETA

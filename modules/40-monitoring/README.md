@@ -1,4 +1,4 @@
-# modules/modules/40-monitoring
+# modules/40-monitoring
 
 Auto-generated pure NixOS modules. **No personal data, no magic numbers.**
 

@@ -1,4 +1,4 @@
-# modules/modules/70-forge
+# modules/70-forge
 
 Auto-generated pure NixOS modules. **No personal data, no magic numbers.**
 

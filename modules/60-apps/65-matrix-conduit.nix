@@ -13,8 +13,8 @@
 # provides: [my.apps.matrixConduit]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-65-matrix-conduit.md
+#   guide: docs/guides/65-matrix-conduit.md
 #   module: modules/60-apps/65-matrix-conduit.nix
 # ---
 # ---ENDNIXMETA

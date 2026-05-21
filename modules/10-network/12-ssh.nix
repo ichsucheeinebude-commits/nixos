@@ -13,8 +13,8 @@
 # provides: [my.network.ssh]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-12-ssh.md
+#   guide: docs/guides/12-ssh.md
 #   module: modules/10-network/12-ssh.nix
 # ---
 # ---ENDNIXMETA

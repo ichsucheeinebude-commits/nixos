@@ -13,8 +13,8 @@
 # provides: [my.monitoring.ntfy]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-42-ntfy.md
+#   guide: docs/guides/42-ntfy.md
 #   module: modules/40-monitoring/42-ntfy.nix
 # ---
 # ---ENDNIXMETA

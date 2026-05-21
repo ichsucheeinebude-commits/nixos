@@ -13,8 +13,8 @@
 # provides: [my.apps.miniflux]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-66-miniflux.md
+#   guide: docs/guides/66-miniflux.md
 #   module: modules/60-apps/66-miniflux.nix
 # ---
 # ---ENDNIXMETA

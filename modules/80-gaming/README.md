@@ -1,4 +1,4 @@
-# modules/modules/80-gaming
+# modules/80-gaming
 
 Auto-generated pure NixOS modules. **No personal data, no magic numbers.**
 

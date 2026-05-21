@@ -13,8 +13,8 @@
 # provides: [my.apps.monica]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-68-monica.md
+#   guide: docs/guides/68-monica.md
 #   module: modules/60-apps/68-monica.nix
 # ---
 # ---ENDNIXMETA

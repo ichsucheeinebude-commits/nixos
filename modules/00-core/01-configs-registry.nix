@@ -13,8 +13,8 @@
 # provides: [my.core.identity,my.core.hardware,my.core.server,my.core.network,my.core.ports,my.core.services]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-01-configs-registry.md
+#   guide: docs/guides/01-configs-registry.md
 #   module: modules/00-core/01-configs-registry.nix
 # ---
 # ---ENDNIXMETA
@@ -67,6 +67,11 @@
 
   options.my.core.ports = {
     ssh = lib.mkOption { type = lib.types.port; default = 22; description = "SSH port."; };
+    adguard = lib.mkOption { type = lib.types.port; default = 3053; description = "AdGuard Home web UI port."; };
+    olivetin = lib.mkOption { type = lib.types.port; default = 1337; description = "OliveTin control panel port."; };
+    linkwarden = lib.mkOption { type = lib.types.port; default = 3000; description = "Linkwarden port."; };
+    openWebui = lib.mkOption { type = lib.types.port; default = 3080; description = "Open WebUI port."; };
+    ollama = lib.mkOption { type = lib.types.port; default = 11434; description = "Ollama API port."; };
   };
 
   options.my.core.services = {
@@ -113,6 +118,22 @@
     memtest.enable = lib.mkEnableOption "Memtest86+";
     secrets.enable = lib.mkEnableOption "SOPS secrets";
     sshRescue.enable = lib.mkEnableOption "SSH rescue";
+    shellPremium.enable = lib.mkEnableOption "Advanced shell (fastfetch, aliases)";
+    symbiosis.enable = lib.mkEnableOption "Hardware abstraction";
+    adguardhome.enable = lib.mkEnableOption "AdGuard Home DNS";
+    tailscale.enable = lib.mkEnableOption "Tailscale VPN";
+    clamav.enable = lib.mkEnableOption "ClamAV antivirus";
+    secretIngest.enable = lib.mkEnableOption "Secret ingest pipeline";
+    linkwarden.enable = lib.mkEnableOption "Linkwarden bookmarks";
+    olivetin.enable = lib.mkEnableOption "OliveTin control panel";
+    cloudflared.enable = lib.mkEnableOption "Cloudflare Tunnel";
+    landingZone.enable = lib.mkEnableOption "Static landing page";
+    openWebui.enable = lib.mkEnableOption "Open WebUI for LLMs";
+    dnsMap.enable = lib.mkEnableOption "DNS subdomain mapping";
+    binaryOnly.enable = lib.mkEnableOption "Binary-only Nix builds";
+    securityAssertions.enable = lib.mkEnableOption "Security assertion enforcement";
+    libHelpers.enable = lib.mkEnableOption "mkService library";
+    configMerger.enable = lib.mkEnableOption "Config merger (Nix + JSON overrides)";
   };
 
   config = lib.mkIf config.my.core.principles.enable {

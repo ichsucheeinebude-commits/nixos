@@ -1,4 +1,4 @@
-# modules/modules/30-storage
+# modules/30-storage
 
 Auto-generated pure NixOS modules. **No personal data, no magic numbers.**
 

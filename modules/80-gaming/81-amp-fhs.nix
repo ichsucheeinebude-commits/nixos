@@ -13,8 +13,8 @@
 # provides: [my.gaming.ampFhs]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-81-amp-fhs.md
+#   guide: docs/guides/81-amp-fhs.md
 #   module: modules/80-gaming/81-amp-fhs.nix
 # ---
 # ---ENDNIXMETA

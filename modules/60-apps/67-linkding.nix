@@ -13,8 +13,8 @@
 # provides: [my.apps.linkding]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-67-linkding.md
+#   guide: docs/guides/67-linkding.md
 #   module: modules/60-apps/67-linkding.nix
 # ---
 # ---ENDNIXMETA

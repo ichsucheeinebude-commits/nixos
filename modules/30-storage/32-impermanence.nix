@@ -13,8 +13,8 @@
 # provides: [my.storage.impermanence]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-32-impermanence.md
+#   guide: docs/guides/32-impermanence.md
 #   module: modules/30-storage/32-impermanence.nix
 # ---
 # ---ENDNIXMETA

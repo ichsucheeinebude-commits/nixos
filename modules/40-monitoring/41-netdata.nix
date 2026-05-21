@@ -13,8 +13,8 @@
 # provides: [my.monitoring.netdata]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-41-netdata.md
+#   guide: docs/guides/41-netdata.md
 #   module: modules/40-monitoring/41-netdata.nix
 # ---
 # ---ENDNIXMETA

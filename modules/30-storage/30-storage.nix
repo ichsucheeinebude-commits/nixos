@@ -13,8 +13,8 @@
 # provides: [my.storage]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-30-storage.md
+#   guide: docs/guides/30-storage.md
 #   module: modules/30-storage/30-storage.nix
 # ---
 # ---ENDNIXMETA

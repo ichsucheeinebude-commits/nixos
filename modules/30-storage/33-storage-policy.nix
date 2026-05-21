@@ -13,8 +13,8 @@
 # provides: [my.storage.policy]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-33-storage-policy.md
+#   guide: docs/guides/33-storage-policy.md
 #   module: modules/30-storage/33-storage-policy.nix
 # ---
 # ---ENDNIXMETA

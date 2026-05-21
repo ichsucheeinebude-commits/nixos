@@ -13,8 +13,8 @@
 # provides: [my.forge.cockpit]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-72-cockpit.md
+#   guide: docs/guides/72-cockpit.md
 #   module: modules/70-forge/72-cockpit.nix
 # ---
 # ---ENDNIXMETA

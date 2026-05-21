@@ -13,8 +13,8 @@
 # provides: [my.apps.readeck]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-64-readeck.md
+#   guide: docs/guides/64-readeck.md
 #   module: modules/60-apps/64-readeck.nix
 # ---
 # ---ENDNIXMETA

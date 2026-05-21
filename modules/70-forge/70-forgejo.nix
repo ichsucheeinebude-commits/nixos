@@ -13,8 +13,8 @@
 # provides: [my.forge.forgejo]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-70-forgejo.md
+#   guide: docs/guides/70-forgejo.md
 #   module: modules/70-forge/70-forgejo.nix
 # ---
 # ---ENDNIXMETA

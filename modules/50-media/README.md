@@ -1,4 +1,4 @@
-# modules/modules/50-media
+# modules/50-media
 
 Auto-generated pure NixOS modules. **No personal data, no magic numbers.**
 

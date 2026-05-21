@@ -13,8 +13,8 @@
 # provides: [my.core.postgresql]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-09-postgresql.md
+#   guide: docs/guides/09-postgresql.md
 #   module: modules/00-core/09-postgresql.nix
 # ---
 # ---ENDNIXMETA

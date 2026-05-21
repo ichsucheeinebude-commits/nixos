@@ -13,8 +13,8 @@
 # provides: [my.media.jellyfin]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-55-jellyfin.md
+#   guide: docs/guides/55-jellyfin.md
 #   module: modules/50-media/55-jellyfin.nix
 # ---
 # ---ENDNIXMETA

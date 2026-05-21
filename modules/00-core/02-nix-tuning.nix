@@ -13,8 +13,8 @@
 # provides: [my.core.nix]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-02-nix-tuning.md
+#   guide: docs/guides/02-nix-tuning.md
 #   module: modules/00-core/02-nix-tuning.nix
 # ---
 # ---ENDNIXMETA

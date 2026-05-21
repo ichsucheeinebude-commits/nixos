@@ -13,8 +13,8 @@
 # provides: [my.media.lidarr]
 # requires: [00-core/00-principles, 50-media/51-arr-stack]
 # links:
-#   adr: ADR-59-lidarr.md
-#   guide: 59-lidarr.md
+#   adr: docs/adr/ADR-59-lidarr.md
+#   guide: docs/guides/59-lidarr.md
 #   module: root/modules/50-media/59-lidarr.nix
 # ---
 # ---ENDNIXMETA

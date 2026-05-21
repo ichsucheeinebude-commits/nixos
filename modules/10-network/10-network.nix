@@ -13,8 +13,8 @@
 # provides: [my.network.base]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-placeholder.md
-#   guide: docs/guides/placeholder.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/10-network.nix
 # ---
 # ---ENDNIXMETA
