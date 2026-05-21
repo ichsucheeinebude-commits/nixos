@@ -33,6 +33,17 @@
     ../../modules/00-core/07-locale-system.nix
     ../../modules/00-core/08-users-shell.nix
     ../../modules/00-core/09-postgresql.nix
+    # Mined from MetaBibliothek
+    ../../modules/00-core/01-lib-mkservice.nix
+    ../../modules/00-core/02-defaults.nix
+    ../../modules/00-core/03-ports.nix
+    ../../modules/00-core/04-registry.nix
+    ../../modules/00-core/05-system-stability.nix
+    ../../modules/00-core/06-config-merger.nix
+    ../../modules/00-core/07-shell-premium.nix
+    ../../modules/00-core/08-tty-info.nix
+    ../../modules/00-core/09-backup.nix
+    ../../modules/00-core/10-nix-tuning.nix
     # 10-network
     ../../modules/10-network/10-network.nix
     ../../modules/10-network/11-firewall.nix
@@ -44,11 +55,17 @@
     ../../modules/10-network/17-pocket-id.nix
     ../../modules/10-network/18-ddns-updater.nix
     ../../modules/10-network/19-zigbee-stack.nix
+    # Mined from MetaBibliothek
+    ../../modules/10-network/21-vpn-confinement.nix
     # 20-security
     ../../modules/20-security/20-fail2ban.nix
     ../../modules/20-security/21-kernel-hardening.nix
     ../../modules/20-security/22-secrets.nix
     ../../modules/20-security/23-secrets-schema.nix
+    # Mined from MetaBibliothek
+    ../../modules/20-security/23-postgresql.nix
+    ../../modules/20-security/24-valkey.nix
+    ../../modules/20-security/25-clamav.nix
     # 30-storage
     ../../modules/30-storage/30-storage.nix
     ../../modules/30-storage/31-backup.nix
@@ -62,6 +79,10 @@
     ../../modules/40-monitoring/43-scrutiny.nix
     ../../modules/40-monitoring/44-vector.nix
     ../../modules/40-monitoring/45-uptime-kuma.nix
+    # Mined from MetaBibliothek
+    ../../modules/80-monitoring/81-netdata.nix
+    ../../modules/80-monitoring/82-scrutiny.nix
+    ../../modules/80-monitoring/83-uptime-kuma.nix
     # 50-media
     ../../modules/50-media/50-lib-media.nix
     ../../modules/50-media/51-arr-stack.nix
@@ -73,6 +94,8 @@
     ../../modules/50-media/57-radarr.nix
     ../../modules/50-media/58-prowlarr.nix
     ../../modules/50-media/59-lidarr.nix
+    # Mined from MetaBibliothek
+    ../../modules/50-media/52-media-stack.nix
     # 60-apps
     ../../modules/60-apps/60-paperless.nix
     ../../modules/60-apps/61-n8n.nix
@@ -84,6 +107,19 @@
     ../../modules/60-apps/67-linkding.nix
     ../../modules/60-apps/68-monica.nix
     ../../modules/60-apps/69-karakeep.nix
+    # Mined from MetaBibliothek
+    ../../modules/50-knowledge/51-miniflux.nix
+    ../../modules/50-knowledge/52-linkwarden.nix
+    ../../modules/50-knowledge/53-karakeep.nix
+    ../../modules/60-apps/64-matrix-conduit.nix
+    ../../modules/60-apps/65-monica.nix
+    ../../modules/60-apps/66-couchdb.nix
+    ../../modules/60-apps/67-filebrowser.nix
+    # 30-automation (mined)
+    ../../modules/30-automation/31-ai-agents.nix
+    ../../modules/30-automation/32-olivetin.nix
+    # 90-policy (mined)
+    ../../modules/90-policy/91-security-assertions.nix
     # 70-forge
     ../../modules/70-forge/70-forgejo.nix
     ../../modules/70-forge/71-semaphore.nix
