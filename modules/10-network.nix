@@ -1,26 +1,26 @@
 # ---NIXMETA
----
-domain: 10
-id: "NIXH-10-NET-001"
-title: "Network Configuration"
-type: module
-status: draft
-complexity: 2
-reviewed: YYYY-MM-DD
-tags:
-  - network
-  - dns
-  - tailscale
-description: "DNS, Tailscale, interface configuration"
-provides:
-  - my.network.enable
-requires:
-  - 00-core
-links:
-  adr: ADR-10-network.md
-  guide: 10-network.md
-  module: modules/10-network.nix
----
+# ---
+# domain: 10
+# id: "NIXH-10-NET-001"
+# title: "Network Configuration"
+# type: module
+# status: draft
+# complexity: 2
+# reviewed: YYYY-MM-DD
+# tags:
+#   - network
+#   - dns
+#   - tailscale
+# description: "DNS, Tailscale, interface configuration"
+# provides:
+#   - my.network.enable
+# requires:
+#   - 00-core
+# links:
+#   adr: ADR-10-network.md
+#   guide: 10-network.md
+#   module: modules/10-network.nix
+# ---
 # ---ENDNIXMETA
 
 ---

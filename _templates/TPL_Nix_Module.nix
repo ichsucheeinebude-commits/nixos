@@ -1,23 +1,23 @@
 # ---NIXMETA
----
-domain: XX
-id: "NIXH-XX-XXX-001"
-title: "REPLACE_TITLE"
-type: module
-status: draft
-complexity: 1
-reviewed: YYYY-MM-DD
-tags:
-  - REPLACE_TAG
-description: "REPLACE_DESCRIPTION"
-provides:
-  - my.services.NAME.enable
-requires: []
-links:
-  adr: ADR-XX-name.md
-  guide: XX-name.md
-  module: modules/XX-name.nix
----
+# ---
+# domain: XX
+# id: "NIXH-XX-XXX-001"
+# title: "REPLACE_TITLE"
+# type: module
+# status: draft
+# complexity: 1
+# reviewed: YYYY-MM-DD
+# tags:
+#   - REPLACE_TAG
+# description: "REPLACE_DESCRIPTION"
+# provides:
+#   - my.services.NAME.enable
+# requires: []
+# links:
+#   adr: ADR-XX-name.md
+#   guide: XX-name.md
+#   module: modules/XX-name.nix
+# ---
 # ---ENDNIXMETA
 
 # PURPOSE: REPLACE_DESCRIPTION

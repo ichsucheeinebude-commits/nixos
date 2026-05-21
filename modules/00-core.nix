@@ -1,30 +1,30 @@
 # ---NIXMETA
----
-domain: 00
-id: "NIXH-00-COR-001"
-title: "Core Foundation"
-type: module
-status: draft
-complexity: 3
-reviewed: YYYY-MM-DD
-tags:
-  - core
-  - foundation
-  - nix-tuning
-  - zram
-  - boot
-description: "Core system: configs, ports, nix-tuning, zram-swap, boot-safeguard, shell aliases"
-provides:
-  - my.core.enable
-  - my.core.configs
-  - my.core.ports
-requires:
- []
-links:
-  adr: ADR-00-core.md
-  guide: 00-core.md
-  module: modules/00-core.nix
----
+# ---
+# domain: 00
+# id: "NIXH-00-COR-001"
+# title: "Core Foundation"
+# type: module
+# status: draft
+# complexity: 3
+# reviewed: YYYY-MM-DD
+# tags:
+#   - core
+#   - foundation
+#   - nix-tuning
+#   - zram
+#   - boot
+# description: "Core system: configs, ports, nix-tuning, zram-swap, boot-safeguard, shell aliases"
+# provides:
+#   - my.core.enable
+#   - my.core.configs
+#   - my.core.ports
+# requires:
+#  []
+# links:
+#   adr: ADR-00-core.md
+#   guide: 00-core.md
+#   module: modules/00-core.nix
+# ---
 # ---ENDNIXMETA
 
 ---
