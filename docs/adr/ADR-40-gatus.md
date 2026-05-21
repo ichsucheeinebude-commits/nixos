@@ -6,6 +6,7 @@ type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "claude-cloudflare-log-b99bb6b3"
 tags: [monitoring,gatus]
 description: "Gatus health monitoring."
 path: "docs/adr/ADR-40-gatus.md"

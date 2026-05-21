@@ -19,6 +19,34 @@
 # ---
 # ---ENDNIXMETA
 
+# ─── KB Nuggets ───
+# ### ⚙️ Deklarative Nix-Konfiguration
+#
+# Hier ist das Muster für deinen Dendriten (\`modules/50-knowledge/paperless.nix\`):
+#
+# \`\`\`nix
+# services.paperless = {
+#   enable = true;
+#   address = "0.0.0.0";
+#   port = 28981;
+#   settings = {
+#     # Hier kommen alle App-Variablen rein!
+#     PAPERLESS_TIME_ZONE = "Europe/Berlin";
+#     PAPERLESS_OCR_LANGUAGE = "deu+eng";
+#     PAPERLESS_OCR_MODE = "clean";
+#     PAPERLESS_AUTO_LOGIN_USERNAME = "admin"; # Nur lokal sicher!
+#     PAPERLESS_FILENAME_FORMAT = "{{created_year}}/{{correspondent}}/{{title}}";
+#   };
+#   # Secrets (API-Keys etc.) kommen hier rein:
+#   environmentFile = config.sops.secrets."paperless/env".path;
+# };
+# \`\`\`
+# ### 🛡️ SRE-Hardening
+#
+# - Der Dienst wird via Caddy (Layer 20) über \`paperless.<DOMAIN>\` mit mTLS abgesichert.
+# - Der Konsum-Ordner (\`consumptionDir\`) wird für den Scanner im Netzwerk freigegeben.
+# ─── End KB Nuggets ───
+
 { config, lib, ... }:
 {
   options.my.apps.karakeep = {

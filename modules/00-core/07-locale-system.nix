@@ -19,6 +19,22 @@
 # ---
 # ---ENDNIXMETA
 
+# ─── KB Nuggets ───
+# ### 🏗️ 1. USER LAYER: MODULARITÄT OHNE SCHMERZ (KISS)
+#
+# In herkömmlichen Nix-Systemen musst du jede neue Datei manuell in einer Liste eintragen. In unserem System ist das vorbei:
+# - **Prinzip:** "Jede Datei ist ein Modul".
+# - **Aktion:** Erstelle eine `.nix` Datei im Ordner `features/` – sie wird sofort vom System erkannt und geladen.
+# - **Vorteil:** Du kannst dich auf das Konfigurieren konzentrieren, anstatt dich um Import-Strukturen zu kümmern.
+#
+# ---
+# ### A. Die Engine: `flake-parts` & `den`
+#
+# Wir nutzen `flake-parts` als Basis und das `den` Framework zur Kontext-Steuerung.
+# - **Auto-Import:** Integration von `import-tree`, um das gesamte Verzeichnis `./modules` rekursiv zu evaluieren.
+# - **Deferred Modules:** Wir nutzen den Typ `deferredModule` aus Nixpkgs für Sub-Module, um Konflikte beim Mergen von Attributen (z.B. Firewall-Regeln) zu minimieren.
+# ─── End KB Nuggets ───
+
 { config, lib, ... }:
 {
   options.my.core.locale = {

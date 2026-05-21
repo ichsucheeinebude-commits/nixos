@@ -23,4 +23,4 @@ Defaults are production-ready.
 ## KB Nuggets
 
 ### ZRAM Konfiguration
-`algorithm = "zstd"` + `memoryMax = 0.5 * ramGB`. Ideal für 16GB Q958 = 8GB ZRAM.
+`algorithm = "zstd"` + `memoryMax = 0.5 * ramGB`. Ideal für 16GB <HOSTNAME> = 8GB ZRAM.

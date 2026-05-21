@@ -6,6 +6,7 @@ type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "claude-cloudflare-log-b99bb6b3"
 tags: [monitoring,gatus]
 description: "Configure Gatus."
 path: "docs/guides/GUIDE-40-gatus.md"

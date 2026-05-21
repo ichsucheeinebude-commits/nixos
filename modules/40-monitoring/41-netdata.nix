@@ -19,6 +19,20 @@
 # ---
 # ---ENDNIXMETA
 
+# ─── KB Nuggets ───
+# ### 🏗️ 1. USER LAYER: WER SIEHT WAS? (KISS)
+#
+# - **Admin (Du):** Braucht volle Kontrolle, RSS-Feeds, Server-Stats und Arrr-Queues.
+# - **Familie:** Braucht nur drei Knöpfe: Filme, Serien, Hörbücher. Alles andere würde nur verwirren.
+#
+# ---
+# ### A. Admin Dashboard: Glance
+#
+# - **Warum:** Einzelne Go-Binary, extrem leichtgewichtig (<20MB RAM).
+# - **Features:** Widgets für Sonarr/Radarr, RSS-Feeds, Wetter, Server-Stats.
+# - **NixOS-Integration:** Reine YAML-Konfiguration, perfekt deklarativ.
+# ─── End KB Nuggets ───
+
 { config, lib, ... }:
 {
   options.my.monitoring.netdata = {

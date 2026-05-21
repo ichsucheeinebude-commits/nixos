@@ -6,6 +6,7 @@ type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "nixpkgs/pkgs/applications/version-management, forgejo docs, soft-serve"
 tags: [forge,forgejo]
 description: "Configure Forgejo."
 path: "docs/guides/GUIDE-70-forgejo.md"

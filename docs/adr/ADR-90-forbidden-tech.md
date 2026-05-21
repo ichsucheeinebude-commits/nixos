@@ -6,6 +6,7 @@ type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "architect-vision-v5"
 tags: [policy,forbidden]
 description: "Build-time forbidden-tech assertions."
 path: "docs/adr/ADR-90-forbidden-tech.md"

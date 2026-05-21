@@ -6,6 +6,7 @@ type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "https://github.com/paperless-ngx/paperless-ngx, NixOS Manual"
 tags: [apps,paperless]
 description: "Configure Paperless."
 path: "docs/guides/GUIDE-60-paperless.md"

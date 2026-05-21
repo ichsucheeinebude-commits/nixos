@@ -22,9 +22,9 @@ SSoT für Identity, Hardware, Paths, Network.
 
 ## Configuration
 ```nix
-my.core.identity.hostname = "q958";
-my.core.identity.domain = "m7c5.de";
-my.core.identity.user = "moritz";
+my.core.identity.hostname = "<HOSTNAME>";
+my.core.identity.domain = "<DOMAIN>";
+my.core.identity.user = "<USERNAME>";
 ```
 
 ## KB Nuggets

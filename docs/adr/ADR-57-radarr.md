@@ -24,4 +24,4 @@ Simple toggle + port option.
 ## KB Nuggets
 
 === Radarr Movie-Management
-Wie Sonarr aber für Filme. Collections-Auto-Download. 4K-Profile für Q958 QuickSync.
+Wie Sonarr aber für Filme. Collections-Auto-Download. 4K-Profile für <HOSTNAME> QuickSync.

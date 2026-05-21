@@ -6,6 +6,7 @@ type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "nixarr, nixflix, Internal SRE Audit"
 tags: [media,library]
 description: "Shared media paths."
 path: "docs/adr/ADR-50-lib-media.md"

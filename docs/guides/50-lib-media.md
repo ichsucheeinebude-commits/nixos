@@ -6,6 +6,7 @@ type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "nixarr, nixflix, Internal SRE Audit"
 tags: [media,library]
 description: "Configure media paths."
 path: "docs/guides/GUIDE-50-lib-media.md"

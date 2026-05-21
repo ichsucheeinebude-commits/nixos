@@ -6,6 +6,7 @@ type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "https://github.com/vic/den"
 tags: [core,principles]
 description: "How to use principles."
 path: "docs/guides/GUIDE-00-principles.md"

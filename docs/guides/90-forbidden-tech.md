@@ -6,6 +6,7 @@ type: guide
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "architect-vision-v5"
 tags: [policy,forbidden]
 description: "Forbidden technology policy."
 path: "docs/guides/GUIDE-90-forbidden-tech.md"

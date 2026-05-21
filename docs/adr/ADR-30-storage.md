@@ -6,6 +6,7 @@ type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "architectural-legacy-v6.7"
 tags: [storage,filesystems]
 description: "ABC tiering storage layout."
 path: "docs/adr/ADR-30-storage.md"

@@ -19,6 +19,18 @@
 # ---
 # ---ENDNIXMETA
 
+# ─── KB Nuggets ───
+# ### Kontext
+#
+# Wir benötigen eine robuste Namensauflösung für Dienste auf dem Tower, die sowohl lokal als auch im Tailnet ohne manuelle IP-Eingabe funktioniert.
+# ### Entscheidung
+#
+# Wir implementieren das **Tailscale SplitDNS Pattern**:
+# 1.  **MagicDNS:** Aktivierung für alle Tailnet-Geräte (SSoT für Hostnamen).
+# 2.  **Global Nameserver:** Der Tower (AdGuardHome) wird als globaler Nameserver im Tailscale-Admin-Panel hinterlegt.
+# 3.  **SplitDNS Regel:** Alle Anfragen an `<DOMAIN>` werden explizit an die Tailscale-IP des Towers geroutet.
+# ─── End KB Nuggets ───
+
 { config, lib, ... }:
 {
   options.my.network.base = {

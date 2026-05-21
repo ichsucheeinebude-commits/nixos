@@ -6,6 +6,7 @@ type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "https://blog.ktz.me/splitdns-magic-with-tailscale/, Internal Network Audit"
 tags: [network]
 description: "Base networking config."
 path: "docs/adr/ADR-10-network.md"

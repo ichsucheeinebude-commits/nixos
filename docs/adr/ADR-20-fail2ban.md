@@ -6,6 +6,7 @@ type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "claude-cloudflare-log-b99bb6b3"
 tags: [security,fail2ban]
 description: "Fail2ban with NFTables."
 path: "docs/adr/ADR-20-fail2ban.md"

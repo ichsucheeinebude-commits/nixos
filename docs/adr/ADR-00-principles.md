@@ -6,6 +6,7 @@ type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "https://github.com/vic/den"
 tags: [core,principles]
 description: "Global enable + bastelmodus toggle."
 path: "docs/adr/ADR-00-principles.md"

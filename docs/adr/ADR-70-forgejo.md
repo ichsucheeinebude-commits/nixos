@@ -6,6 +6,7 @@ type: adr
 status: draft
 complexity: 1
 reviewed: 2026-05-21
+source: "nixpkgs/pkgs/applications/version-management, forgejo docs, soft-serve"
 tags: [forge,forgejo]
 description: "Forgejo self-hosted Git."
 path: "docs/adr/ADR-70-forgejo.md"
