@@ -13,8 +13,8 @@
 # provides: [my.network.dnsMap]
 # requires: [my.core.identity]
 # links:
-#   adr: docs/adr/ADR-24-dns-map.md
-#   guide: docs/guides/24-dns-map.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/24-dns-map.nix
 #   upstream: https://nixos.org/manual/nixos/stable/#opt-networking.hosts
 # ---

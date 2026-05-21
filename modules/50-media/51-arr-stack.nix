@@ -13,8 +13,8 @@
 # provides: [my.media.arr-stack]
 # requires: [10-network, 30-storage]
 # links:
-#   adr: docs/adr/ADR-51-arr-stack.md
-#   guide: docs/guides/51-arr-stack.md
+#   adr: docs/adr/ADR-50-media.md
+#   guide: docs/guides/50-media.md
 #   module: modules/50-media/51-arr-stack.nix
 # source: guides/MASTER-CONFIG-ARR-STACK.md
 # ---

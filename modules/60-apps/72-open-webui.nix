@@ -13,8 +13,8 @@
 # provides: [my.apps.openWebui]
 # requires: [my.network.caddy, my.core.ports]
 # links:
-#   adr: docs/adr/ADR-72-open-webui.md
-#   guide: docs/guides/72-open-webui.md
+#   adr: docs/adr/ADR-60-apps.md
+#   guide: docs/guides/60-apps.md
 #   module: modules/60-apps/72-open-webui.nix
 #   upstream: https://github.com/open-webui/open-webui
 # ---

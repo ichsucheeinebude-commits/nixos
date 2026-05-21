@@ -13,8 +13,8 @@
 # provides: [my.media.library]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-50-lib-media.md
-#   guide: docs/guides/50-lib-media.md
+#   adr: docs/adr/ADR-50-media.md
+#   guide: docs/guides/50-media.md
 #   module: modules/50-media/50-lib-media.nix
 # ---
 # ---ENDNIXMETA

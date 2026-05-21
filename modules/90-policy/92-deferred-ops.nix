@@ -13,8 +13,8 @@
 # provides: [my.storage.deferred]
 # requires: [00-core/00-principles, 30-storage/30-storage]
 # links:
-#   adr: docs/adr/ADR-92-deferred-ops.md
-#   guide: docs/guides/92-deferred-ops.md
+#   adr: docs/adr/ADR-90-policy.md
+#   guide: docs/guides/90-policy.md
 #   module: root/modules/90-policy/92-deferred-ops.nix
 # ---
 # ---ENDNIXMETA

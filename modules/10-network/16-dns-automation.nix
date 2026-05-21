@@ -13,8 +13,8 @@
 # provides: [my.network.dnsAutomation]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-16-dns-automation.md
-#   guide: docs/guides/16-dns-automation.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/16-dns-automation.nix
 # ---
 # ---ENDNIXMETA

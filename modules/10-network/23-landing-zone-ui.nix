@@ -13,8 +13,8 @@
 # provides: [my.network.landingZone]
 # requires: [my.network.caddy]
 # links:
-#   adr: docs/adr/ADR-23-landing-zone-ui.md
-#   guide: docs/guides/23-landing-zone-ui.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/23-landing-zone-ui.nix
 #   upstream: https://caddyserver.com/docs/caddyfile/directives/root
 # ---

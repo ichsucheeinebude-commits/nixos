@@ -13,8 +13,8 @@
 # provides: [my.network.pocket-id]
 # requires: [00-core, 30-storage]
 # links:
-#   adr: docs/adr/ADR-17-pocket-id.md
-#   guide: docs/guides/17-pocket-id.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/17-pocket-id.nix
 # source: services/identity-pocketid-v4.2.md
 # ---

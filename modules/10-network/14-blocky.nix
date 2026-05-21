@@ -13,8 +13,8 @@
 # provides: [my.network.blocky]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-14-blocky.md
-#   guide: docs/guides/14-blocky.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/14-blocky.nix
 # ---
 # ---ENDNIXMETA

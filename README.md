@@ -38,7 +38,16 @@ nixos-rebuild switch --flake .#laptop
 
 ## Conventions
 
-- Every `.nix` file in `modules/` has a `# ---NIXMETA` header
-- Every ADR in `docs/adr/` links to its guide and module
-- Isomorphic numbering: module `XX-name.nix` ↔ `ADR-XX-name.md` ↔ `XX-name.md`
+- Every `.nix` file in `modules/` has a `# ---NIXMETA` header with links to its **domain** ADR and guide
+- Domain ADRs in `docs/adr/ADR-XX-*.md` consolidate all decisions for that domain
+- Domain Guides in `docs/guides/XX-*.md` consolidate all operational procedures for that domain
+- Isomorphic numbering: module `modules/XX-*/` ↔ `ADR-XX-*.md` ↔ `XX-*.md`
 - Secrets are managed via SOPS, stored encrypted in `secrets/`
+
+## Documentation Structure
+
+| Type | Location | Count | Purpose |
+|------|----------|-------|---------|
+| Domain ADRs | `docs/adr/ADR-XX-*.md` | 10 | Architectural decisions per domain |
+| Domain Guides | `docs/guides/XX-*.md` | 10 | Operational procedures per domain |
+| Additional Guides | `docs/guides/` | ~1 | Specialized guides (e.g., mTLS setup) |

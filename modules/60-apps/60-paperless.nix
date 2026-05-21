@@ -13,8 +13,8 @@
 # provides: [my.apps.paperless]
 # requires: [30-storage, 10-network]
 # links:
-#   adr: docs/adr/ADR-60-paperless.md
-#   guide: docs/guides/60-paperless.md
+#   adr: docs/adr/ADR-60-apps.md
+#   guide: docs/guides/60-apps.md
 #   module: modules/60-apps/60-paperless.nix
 # source: guides/MASTER-CONFIG-PAPERLESS-NGX.md
 # ---

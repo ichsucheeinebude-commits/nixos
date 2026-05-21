@@ -1,58 +1,67 @@
 ---
 domain: 30
-id: "NIXH-30-STO-001"
-title: "Storage Guide"
+id: "NIXH-30-DOM-001"
+title: "Domain 30 — Storage Guide"
 type: guide
 status: draft
-complexity: 1
+complexity: 2
 reviewed: 2026-05-21
-source: "architectural-legacy-v6.7"
-tags: [storage,filesystems]
-description: "Configure storage tiers."
-path: "docs/guides/GUIDE-30-storage.md"
+tags:
+  - domain
+  - 30
+  - storage
+  - operations
+description: "Operational guide for the 30-storage domain."
 links:
-  module: "modules/30-storage/30-storage.nix"
+  adr: ADR-30-storage.md
+  guide: 30-storage.md
 ---
 
-# Guide: Storage Guide
+# 30-storage: Domain Storage Guide
 
-Define mounts in host config.
-
+> Operational procedures for ABC tiering, backup, impermanence, storage policy, and automated data migration.
 
 ---
 
-## KB Nuggets
+## Prerequisites
 
-### MergerFS Design
-`category.create=mfs` (Most Free Space) füllt EXT4-Platten gleichmäßig. `cache.files=auto-full` für 4K-Streaming Performance.
-### Hysterese (90% → 80%)
-Vermeidet Trashing (ständiges Hin- und Her-Schieben). Mover sammelt Arbeit bis substanzieller Batch (10% der Platte).
+- Domain 00 (core) deployed
+- Hardware with NVMe, SSD, and HDD available
+- ZFS installed (for Tier A)
+- Restic installed (for backup)
 
-### ---
-
-title: 🏗️ ABC-Storage-Tiering (The Hybrid ZFS + MergerFS Standard)
-category: architecture/storage
-status: [ACTIVE-SSoT]
-capabilities: [zfs-integrity, mergerfs-flexibility, hybrid-pooling, snapraid-parity]
-sources: [https://perfectmediaserver.com/02-tech-stack/nixos/]
 ---
 
-# 🏗️ ABC-Storage-Tiering: Das Hybride Storage-Manifest
+## Module Operations (ODR-sorted)
 
-Dieses System kombiniert das Beste aus zwei Welten: Die absolute Datensicherheit von ZFS und die einfache Skalierbarkeit von MergerFS.
+### 30-30: Storage Configuration
+**Enable:** Define Tier A (NVMe/ZFS), Tier B (SSD/EXT4), Tier C (HDD/EXT4) mount points in host config.
+**Verify:** `df -h` shows all tiers mounted. `zpool status` shows ZFS pool health. `mount | grep tier` shows mount points.
+**Troubleshooting:** ZFS pool not importing — check `zpool import`. EXT4 not mounting — check fstab entries.
 
-### 🔴 Tier A: Critical Data (ZFS Native)
+### 30-31: Backup
+**Enable:** `my.storage.backup.enable = true;` Configure Restic repository and retention policy. Master USB stick must be LUKS-encrypted.
+**Verify:** `restic -r <repo> snapshots` shows backup history. `systemctl list-timers | grep restic` shows schedule.
+**Troubleshooting:** Backup fails — check repository access. USB stick not detected — verify LUKS unlock.
 
-- **Inhalt:** Unersetzbare Daten (Fotos, Dokumente, Sops-Secrets, DBs).
-- **Technik:** ZFS Mirror oder RaidZ.
-- **Vorteil:** Schutz vor Bit-Rot, atomare Snapshots, einfache Remote-Replikation via Syncoid.
+### 30-32: Impermanence
+**Enable:** `my.storage.impermanence.enable = true;` Define persist paths in `my.storage.impermanence.paths`.
+**Verify:** After reboot, only /persist paths survive. `mount | grep tmpfs` shows root on tmpfs.
+**Troubleshooting:** Data lost after reboot — add path to persist list. Check `/persist` mount exists.
 
-### 🔵 Tier C: Bulk Media (MergerFS + SnapRAID)
+### 30-33: Storage Policy
+**Enable:** Enabled by default. Assertions fire at build time on policy violations.
+**Verify:** `nixos-rebuild switch` fails if policy violated. Error message shows specific violation.
+**Troubleshooting:** Assertion failure — review error message. Use `lib.mkForce` only if legitimate override needed.
 
-- **Inhalt:** Ersetzbare Medien (Linux ISOs, Filme, Serien).
-- **Technik:** MergerFS pooling von Mismatch-Drives + SnapRAID Parität.
-- **Vorteil:** Kosteneffizient, jede Platte einzeln lesbar, kein Rebuild-Stress.
+### 30-34: Smart Storage Mover
+**Enable:** `my.storage.mover.enable = true;` Configure thresholds and schedule.
+**Verify:** `systemctl list-timers | grep mover` shows schedule. Check logs: `journalctl -u storage-mover`. ZFS snapshots: `zfs list -t snapshot`.
+**Troubleshooting:** Move failed — check ZFS snapshot for rollback. `zfs rollback <snapshot>` restores previous state.
 
-### 🧩 Die Hybride Synthese (The Master Mount)
+---
 
-Wir mergen die ZFS-Datasets und die JBOD-Platten zu einem einzigen logischen Pfad (\`/mnt/storage\`).
+## Cross-Domain Interactions
+
+- Depends on: Domain 00 (core, hardware profile)
+- Used by: Domain 50 (media, stores on tiers), Domain 60 (apps, stores on Tier A)

@@ -13,8 +13,8 @@
 # provides: [my.network.ddnsUpdater]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-18-ddns-updater.md
-#   guide: docs/guides/18-ddns-updater.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/18-ddns-updater.nix
 # ---
 # ---ENDNIXMETA

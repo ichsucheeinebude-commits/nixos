@@ -13,8 +13,8 @@
 # provides: [my.security.kernel-hardening]
 # requires: [00-core]
 # links:
-#   adr: docs/adr/ADR-21-kernel-hardening.md
-#   guide: docs/guides/21-kernel-hardening.md
+#   adr: docs/adr/ADR-20-security.md
+#   guide: docs/guides/20-security.md
 #   module: modules/20-security/21-kernel-hardening.nix
 # source: services/security-hardening-baseline.md
 # ---

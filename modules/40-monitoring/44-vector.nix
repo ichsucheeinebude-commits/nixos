@@ -13,8 +13,8 @@
 # provides: [my.monitoring.vector]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-44-vector.md
-#   guide: docs/guides/44-vector.md
+#   adr: docs/adr/ADR-40-monitoring.md
+#   guide: docs/guides/40-monitoring.md
 #   module: modules/40-monitoring/44-vector.nix
 # ---
 # ---ENDNIXMETA

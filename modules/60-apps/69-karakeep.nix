@@ -13,8 +13,8 @@
 # provides: [my.apps.karakeep]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-69-karakeep.md
-#   guide: docs/guides/69-karakeep.md
+#   adr: docs/adr/ADR-60-apps.md
+#   guide: docs/guides/60-apps.md
 #   module: modules/60-apps/69-karakeep.nix
 # ---
 # ---ENDNIXMETA

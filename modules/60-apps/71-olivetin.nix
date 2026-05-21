@@ -13,8 +13,8 @@
 # provides: [my.apps.olivetin]
 # requires: [my.network.caddy, my.core.ports]
 # links:
-#   adr: docs/adr/ADR-71-olivetin.md
-#   guide: docs/guides/71-olivetin.md
+#   adr: docs/adr/ADR-60-apps.md
+#   guide: docs/guides/60-apps.md
 #   module: modules/60-apps/71-olivetin.nix
 #   upstream: https://github.com/OliveTin/OliveTin
 # ---

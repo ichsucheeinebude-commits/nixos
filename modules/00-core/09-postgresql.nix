@@ -13,8 +13,8 @@
 # provides: [my.core.postgresql]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-09-postgresql.md
-#   guide: docs/guides/09-postgresql.md
+#   adr: docs/adr/ADR-00-core.md
+#   guide: docs/guides/00-core.md
 #   module: modules/00-core/09-postgresql.nix
 # ---
 # ---ENDNIXMETA

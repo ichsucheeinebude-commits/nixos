@@ -13,8 +13,8 @@
 # provides: [my.policy.architecture]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-91-architecture-rules.md
-#   guide: docs/guides/91-architecture-rules.md
+#   adr: docs/adr/ADR-90-policy.md
+#   guide: docs/guides/90-policy.md
 #   module: modules/90-policy/91-architecture-rules.nix
 # ---
 # ---ENDNIXMETA

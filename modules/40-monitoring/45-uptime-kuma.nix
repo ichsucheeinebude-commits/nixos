@@ -13,8 +13,8 @@
 # provides: [my.monitoring.uptimeKuma]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-45-uptime-kuma.md
-#   guide: docs/guides/45-uptime-kuma.md
+#   adr: docs/adr/ADR-40-monitoring.md
+#   guide: docs/guides/40-monitoring.md
 #   module: modules/40-monitoring/45-uptime-kuma.nix
 # ---
 # ---ENDNIXMETA

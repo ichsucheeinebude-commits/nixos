@@ -13,8 +13,8 @@
 # provides: [my.apps.vaultwarden]
 # requires: [10-network, 30-storage]
 # links:
-#   adr: docs/adr/ADR-62-vaultwarden.md
-#   guide: docs/guides/62-vaultwarden.md
+#   adr: docs/adr/ADR-60-apps.md
+#   guide: docs/guides/60-apps.md
 #   module: modules/60-apps/62-vaultwarden.nix
 # source: guides/MASTER-CONFIG-VAULTWARDEN.md
 # ---

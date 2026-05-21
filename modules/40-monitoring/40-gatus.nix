@@ -13,8 +13,8 @@
 # provides: [my.monitoring.gatus]
 # requires: [10-network]
 # links:
-#   adr: docs/adr/ADR-40-gatus.md
-#   guide: docs/guides/40-gatus.md
+#   adr: docs/adr/ADR-40-monitoring.md
+#   guide: docs/guides/40-monitoring.md
 #   module: modules/40-monitoring/40-gatus.nix
 # source: guides/MASTER-CONFIG-GATUS.md
 # ---

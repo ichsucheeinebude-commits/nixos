@@ -13,8 +13,8 @@
 # provides: [my.policy.securityAssertions]
 # requires: [my.network.firewall, my.network.ssh, my.core.bastelmodus]
 # links:
-#   adr: docs/adr/ADR-93-security-assertions.md
-#   guide: docs/guides/93-security-assertions.md
+#   adr: docs/adr/ADR-90-policy.md
+#   guide: docs/guides/90-policy.md
 #   module: modules/90-policy/93-security-assertions.nix
 #   upstream: https://nixos.org/manual/nixos/stable/#opt-assertions
 # ---

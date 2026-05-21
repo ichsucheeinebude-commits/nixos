@@ -13,8 +13,8 @@
 # provides: [my.network.adguardhome]
 # requires: [my.network.base, my.core.ports]
 # links:
-#   adr: docs/adr/ADR-20-adguardhome.md
-#   guide: docs/guides/20-adguardhome.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/20-adguardhome.nix
 #   upstream: https://nixos.org/manual/nixos/stable/#opt-services.adguardhome.enable
 # ---

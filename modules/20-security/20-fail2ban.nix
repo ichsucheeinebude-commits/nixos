@@ -13,8 +13,8 @@
 # provides: [my.security.fail2ban]
 # requires: [10-network]
 # links:
-#   adr: docs/adr/ADR-20-fail2ban.md
-#   guide: docs/guides/20-fail2ban.md
+#   adr: docs/adr/ADR-20-security.md
+#   guide: docs/guides/20-security.md
 #   module: modules/20-security/20-fail2ban.nix
 # source: guides/MASTER-CONFIG-FAIL2BAN-ENDPOINTS.md
 # ---

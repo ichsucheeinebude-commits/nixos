@@ -13,8 +13,8 @@
 # provides: [my.monitoring.scrutiny]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-43-scrutiny.md
-#   guide: docs/guides/43-scrutiny.md
+#   adr: docs/adr/ADR-40-monitoring.md
+#   guide: docs/guides/40-monitoring.md
 #   module: modules/40-monitoring/43-scrutiny.nix
 # ---
 # ---ENDNIXMETA

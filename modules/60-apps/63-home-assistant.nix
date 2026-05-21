@@ -13,8 +13,8 @@
 # provides: [my.apps.home-assistant]
 # requires: [10-network, 30-storage]
 # links:
-#   adr: docs/adr/ADR-63-home-assistant.md
-#   guide: docs/guides/63-home-assistant.md
+#   adr: docs/adr/ADR-60-apps.md
+#   guide: docs/guides/60-apps.md
 #   module: modules/60-apps/63-home-assistant.nix
 # source: services/service-automation-home-assistant.md
 # ---

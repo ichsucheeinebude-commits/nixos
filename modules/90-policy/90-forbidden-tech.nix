@@ -13,8 +13,8 @@
 # provides: [my.policy.forbidden]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-90-forbidden-tech.md
-#   guide: docs/guides/90-forbidden-tech.md
+#   adr: docs/adr/ADR-90-policy.md
+#   guide: docs/guides/90-policy.md
 #   module: modules/90-policy/90-forbidden-tech.nix
 # ---
 # ---ENDNIXMETA

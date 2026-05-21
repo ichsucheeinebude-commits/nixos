@@ -13,8 +13,8 @@
 # provides: [my.core.configMerger]
 # requires: [my.core.identity, my.core.server]
 # links:
-#   adr: docs/adr/ADR-13-config-merger.md
-#   guide: docs/guides/13-config-merger.md
+#   adr: docs/adr/ADR-00-core.md
+#   guide: docs/guides/00-core.md
 #   module: modules/00-core/13-config-merger.nix
 #   source: "grapefruit89/mynixos/blob/main/00-core/config-merger.nix"
 #   upstream: https://jqlang.github.io/jq/

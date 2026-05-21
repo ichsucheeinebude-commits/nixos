@@ -13,8 +13,8 @@
 # provides: [my.security.secretsSchema]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-23-secrets-schema.md
-#   guide: docs/guides/23-secrets-schema.md
+#   adr: docs/adr/ADR-20-security.md
+#   guide: docs/guides/20-security.md
 #   module: modules/20-security/23-secrets-schema.nix
 # ---
 # ---ENDNIXMETA

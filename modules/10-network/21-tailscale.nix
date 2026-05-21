@@ -13,8 +13,8 @@
 # provides: [my.network.tailscale]
 # requires: [my.core.secrets]
 # links:
-#   adr: docs/adr/ADR-21-tailscale.md
-#   guide: docs/guides/21-tailscale.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/21-tailscale.nix
 #   upstream: https://github.com/tailscale/tailscale
 #   wiki: https://nixos.wiki/wiki/Tailscale

@@ -13,8 +13,8 @@
 # provides: [my.core.shell.premium]
 # requires: [my.core.identity]
 # links:
-#   adr: docs/adr/ADR-10-shell-premium.md
-#   guide: docs/guides/10-shell-premium.md
+#   adr: docs/adr/ADR-00-core.md
+#   guide: docs/guides/00-core.md
 #   module: modules/00-core/10-shell-premium.nix
 #   upstream: https://github.com/ryan4yin/nix-config/tree/main/modules/nixos/base/shell
 # ---

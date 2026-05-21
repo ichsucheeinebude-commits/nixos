@@ -13,8 +13,8 @@
 # provides: [my.security.landlock]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-24-landlock.md
-#   guide: docs/guides/24-landlock.md
+#   adr: docs/adr/ADR-20-security.md
+#   guide: docs/guides/20-security.md
 #   module: modules/20-security/24-landlock.nix
 # ---
 # ---ENDNIXMETA

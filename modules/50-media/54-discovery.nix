@@ -13,8 +13,8 @@
 # provides: [my.media.discovery]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-54-discovery.md
-#   guide: docs/guides/54-discovery.md
+#   adr: docs/adr/ADR-50-media.md
+#   guide: docs/guides/50-media.md
 #   module: modules/50-media/54-discovery.nix
 # ---
 # ---ENDNIXMETA

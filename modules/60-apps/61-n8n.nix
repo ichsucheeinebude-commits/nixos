@@ -13,8 +13,8 @@
 # provides: [my.apps.n8n]
 # requires: [10-network, 30-storage]
 # links:
-#   adr: docs/adr/ADR-61-n8n.md
-#   guide: docs/guides/61-n8n.md
+#   adr: docs/adr/ADR-60-apps.md
+#   guide: docs/guides/60-apps.md
 #   module: modules/60-apps/61-n8n.nix
 # source: guides/MASTER-CONFIG-N8N.md
 # ---

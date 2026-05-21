@@ -13,8 +13,8 @@
 # provides: [my.network.caddy]
 # requires: [10-network]
 # links:
-#   adr: docs/adr/ADR-15-caddy.md
-#   guide: docs/guides/15-caddy.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/15-caddy.nix
 # source: guides/GUIDE-Caddy-M1-Abrams.md
 # ---

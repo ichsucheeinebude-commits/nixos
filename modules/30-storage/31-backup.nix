@@ -13,8 +13,8 @@
 # provides: [my.storage.backup]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-31-backup.md
-#   guide: docs/guides/31-backup.md
+#   adr: docs/adr/ADR-30-storage.md
+#   guide: docs/guides/30-storage.md
 #   module: modules/30-storage/31-backup.nix
 # ---
 # ---ENDNIXMETA

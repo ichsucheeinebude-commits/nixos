@@ -13,8 +13,8 @@
 # provides: [my.media.streaming]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-53-streaming.md
-#   guide: docs/guides/53-streaming.md
+#   adr: docs/adr/ADR-50-media.md
+#   guide: docs/guides/50-media.md
 #   module: modules/50-media/53-streaming.nix
 # ---
 # ---ENDNIXMETA

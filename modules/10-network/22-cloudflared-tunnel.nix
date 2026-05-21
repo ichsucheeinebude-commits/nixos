@@ -13,8 +13,8 @@
 # provides: [my.network.cloudflared]
 # requires: [my.network.caddy, my.core.identity]
 # links:
-#   adr: docs/adr/ADR-22-cloudflared-tunnel.md
-#   guide: docs/guides/22-cloudflared-tunnel.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/22-cloudflared-tunnel.nix
 #   upstream: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
 # ---

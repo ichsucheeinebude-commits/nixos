@@ -13,8 +13,8 @@
 # provides: [my.core.zram]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-06-zram-swap.md
-#   guide: docs/guides/06-zram-swap.md
+#   adr: docs/adr/ADR-00-core.md
+#   guide: docs/guides/00-core.md
 #   module: modules/00-core/06-zram-swap.nix
 # ---
 # ---ENDNIXMETA

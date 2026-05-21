@@ -13,8 +13,8 @@
 # provides: [my.security.secrets]
 # requires: [00-core]
 # links:
-#   adr: docs/adr/ADR-22-secrets.md
-#   guide: docs/guides/22-secrets.md
+#   adr: docs/adr/ADR-20-security.md
+#   guide: docs/guides/20-security.md
 #   module: modules/20-security/22-secrets.nix
 # source: learnings/nix-comm-sops.md
 # ---

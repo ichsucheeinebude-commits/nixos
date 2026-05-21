@@ -13,8 +13,8 @@
 # provides: [my.core.principles]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-00-principles.md
-#   guide: docs/guides/00-principles.md
+#   adr: docs/adr/ADR-00-core.md
+#   guide: docs/guides/00-core.md
 #   module: modules/00-core/00-principles.nix
 # ---
 # ---ENDNIXMETA

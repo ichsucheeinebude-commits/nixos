@@ -13,8 +13,8 @@
 # provides: [my.media.downloads]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-52-download.md
-#   guide: docs/guides/52-download.md
+#   adr: docs/adr/ADR-50-media.md
+#   guide: docs/guides/50-media.md
 #   module: modules/50-media/52-download.nix
 # ---
 # ---ENDNIXMETA

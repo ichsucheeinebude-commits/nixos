@@ -13,8 +13,8 @@
 # provides: [my.storage.mover]
 # requires: [30-storage]
 # links:
-#   adr: docs/adr/ADR-34-storage-mover.md
-#   guide: docs/guides/34-storage-mover.md
+#   adr: docs/adr/ADR-30-storage.md
+#   guide: docs/guides/30-storage.md
 #   module: modules/30-storage/34-storage-mover.nix
 # source: services/abc-storage-mover.md
 # ---

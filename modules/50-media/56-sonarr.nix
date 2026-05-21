@@ -13,8 +13,8 @@
 # provides: [my.media.sonarr]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-56-sonarr.md
-#   guide: docs/guides/56-sonarr.md
+#   adr: docs/adr/ADR-50-media.md
+#   guide: docs/guides/50-media.md
 #   module: modules/50-media/56-sonarr.nix
 # ---
 # ---ENDNIXMETA

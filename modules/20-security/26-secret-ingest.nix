@@ -13,8 +13,8 @@
 # provides: [my.security.secretIngest]
 # requires: [my.core.secrets]
 # links:
-#   adr: docs/adr/ADR-26-secret-ingest.md
-#   guide: docs/guides/26-secret-ingest.md
+#   adr: docs/adr/ADR-20-security.md
+#   guide: docs/guides/20-security.md
 #   module: modules/20-security/26-secret-ingest.nix
 # ---
 # ---ENDNIXMETA

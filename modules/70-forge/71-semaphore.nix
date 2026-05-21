@@ -13,8 +13,8 @@
 # provides: [my.forge.semaphore]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-71-semaphore.md
-#   guide: docs/guides/71-semaphore.md
+#   adr: docs/adr/ADR-70-forge.md
+#   guide: docs/guides/70-forge.md
 #   module: modules/70-forge/71-semaphore.nix
 # ---
 # ---ENDNIXMETA

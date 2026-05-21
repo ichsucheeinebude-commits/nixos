@@ -13,8 +13,8 @@
 # provides: [my.network.tailscale]
 # requires: [10-network]
 # links:
-#   adr: docs/adr/ADR-19-zigbee-stack.md
-#   guide: docs/guides/19-zigbee-stack.md
+#   adr: docs/adr/ADR-10-network.md
+#   guide: docs/guides/10-network.md
 #   module: modules/10-network/19-zigbee-stack.nix
 # source: guides/MASTER-CONFIG-TAILSCALE.md
 # ---

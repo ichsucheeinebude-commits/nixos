@@ -13,8 +13,8 @@
 # provides: [my.media.prowlarr]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-58-prowlarr.md
-#   guide: docs/guides/58-prowlarr.md
+#   adr: docs/adr/ADR-50-media.md
+#   guide: docs/guides/50-media.md
 #   module: modules/50-media/58-prowlarr.nix
 # ---
 # ---ENDNIXMETA

@@ -13,8 +13,8 @@
 # provides: [my.media.radarr]
 # requires: []
 # links:
-#   adr: docs/adr/ADR-57-radarr.md
-#   guide: docs/guides/57-radarr.md
+#   adr: docs/adr/ADR-50-media.md
+#   guide: docs/guides/50-media.md
 #   module: modules/50-media/57-radarr.nix
 # ---
 # ---ENDNIXMETA

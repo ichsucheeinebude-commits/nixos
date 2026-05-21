@@ -13,8 +13,8 @@
 # provides: [my.policy.binaryOnly]
 # requires: [my.core.nix]
 # links:
-#   adr: docs/adr/ADR-94-binary-only.md
-#   guide: docs/guides/94-binary-only.md
+#   adr: docs/adr/ADR-90-policy.md
+#   guide: docs/guides/90-policy.md
 #   module: modules/90-policy/94-binary-only.nix
 #   upstream: https://nixos.org/manual/nix/stable/command-ref/conf-file.html#conf-max-jobs
 # ---
