@@ -85,15 +85,15 @@
     ../../modules/80-monitoring/83-uptime-kuma.nix
     # 50-media
     ../../modules/50-media/50-lib-media.nix
-    ../../modules/50-media/51-arr-stack.nix
+    ../../modules/50-media/50-mkarr-factory.nix
     ../../modules/50-media/52-download.nix
-    ../../modules/50-media/53-streaming.nix
+    ../../modules/50-media/53-streaming-stack.nix
     ../../modules/50-media/54-discovery.nix
-    ../../modules/50-media/55-jellyfin.nix
-    ../../modules/50-media/56-sonarr.nix
-    ../../modules/50-media/57-radarr.nix
-    ../../modules/50-media/58-prowlarr.nix
-    ../../modules/50-media/59-lidarr.nix
+    ../../modules/50-media/53-streaming-stack.nix
+    ../../modules/50-media/50-mkarr-factory.nix
+    ../../modules/50-media/50-mkarr-factory.nix
+    ../../modules/50-media/50-mkarr-factory.nix
+    ../../modules/50-media/50-mkarr-factory.nix
     # Mined from MetaBibliothek
     ../../modules/50-media/52-media-stack.nix
     # 60-apps
