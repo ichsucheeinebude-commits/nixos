@@ -46,6 +46,7 @@
       monica.enable = lib.mkEnableOption "Monica CRM";
       couchdb.enable = lib.mkEnableOption "CouchDB";
       filebrowser.enable = lib.mkEnableOption "Filebrowser";
+      filestash.enable = lib.mkEnableOption "Filestash universal file manager";
 
       # Hardware profiles
       hardwareProfile = lib.mkOption {
