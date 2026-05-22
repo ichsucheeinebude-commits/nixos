@@ -60,6 +60,11 @@ Domain 30 governs all storage decisions: the ABC tiering layout (NVMe for hot da
 **Rationale:** Automated tiering optimizes storage utilization. Pre-migration snapshot provides instant rollback safety.
 **Alternatives considered:** Manual data migration (rejected — tedious, error-prone), mergerFS auto-tiering (rejected — lacks snapshot safety).
 
+### 30-35: Backup Policy (nixarr pattern)
+**Decision:** Structured backup policy with explicit include/exclude rules. Media files ARE backed up. Arr state (`/data/.state/nixarr/*`), SABnzbd state, Jellyfin cache/transcodes, and downloads are NOT backed up (re-downloadable or regenerable). Borgbackup with retention policy (7 daily, 4 weekly, 12 monthly). Encryption enabled.
+**Rationale:** Clear backup policy prevents wasting storage on re-downloadable data. Media files are irreplaceable → must be backed up. Borg deduplication minimizes storage cost.
+**Alternatives considered:** Full backup (rejected — wasteful for re-downloadable Arr state).
+
 ---
 
 ## Consequences
@@ -87,6 +92,7 @@ Domain 30 governs all storage decisions: the ABC tiering layout (NVMe for hot da
 | 32-impermanence.nix | tmpfs root, /persist, blank snapshots |
 | 33-storage-policy.nix | Build-time assertions, MergerFS rules |
 | 34-storage-mover.nix | Automated tiering with ZFS snapshot safety |
+| 35-backup-policy.nix | Structured backup policy: include/exclude rules, Borg, retention |
 
 ---
 

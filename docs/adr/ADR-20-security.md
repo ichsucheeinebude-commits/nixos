@@ -71,6 +71,46 @@ Domain 20 implements security layers that protect the system at every level: net
 **Rationale:** Automated secret processing eliminates manual SOPS commands. Audit trail via moved-to-processed directory. Python enables complex validation.
 **Alternatives considered:** Manual SOPS operation (rejected — error-prone), inotify scripts (rejected — systemd.path is native).
 
+### 20-27: Hardened Core
+**Decision:** Kernel lockdown in integrity mode, kernel module loading restrictions, kernel image protection, unprivileged eBPF disabled. Combined with kernel parameter hardening from 21-kernel-hardening.
+**Rationale:** Defense-in-depth at the kernel level. Prevents runtime kernel modification even by root. eBPF restriction eliminates a common privilege escalation vector.
+**Alternatives considered:** No lockdown (rejected — unnecessary kernel attack surface).
+
+### 20-28: Hermetic Build
+**Decision:** Restricted evaluation mode, store uris locked to cache.nixos.org, fetchers disabled except GitHub and GitLab. No arbitrary network access during builds.
+**Rationale:** Prevents supply-chain attacks via fetchers. Ensures reproducible builds from trusted sources only.
+**Alternatives considered:** Unrestricted fetchers (rejected — supply-chain risk).
+
+### 20-29: Onboarding
+**Decision:** Guided onboarding flow for new instances with security assertions and configuration validation.
+**Rationale:** Ensures consistent security baseline across all deployments.
+**Alternatives considered:** Manual setup (rejected — inconsistent, error-prone).
+
+### 20-30: Runtime Guard
+**Decision:** Runtime assertions that validate configuration at activation time. Prevents deployment of misconfigured services.
+**Rationale:** Catches configuration errors before they reach production.
+**Alternatives considered:** No runtime checks (rejected — silent misconfigurations).
+
+### 20-31: Security Stats
+**Decision:** Security metrics collection and reporting via Prometheus exporters.
+**Rationale:** Visibility into security posture over time.
+**Alternatives considered:** No metrics (rejected — blind to security trends).
+
+### 20-32: Zero Trust Secrets
+**Decision:** Secrets are never stored in the Nix store. All secrets are SOPS-encrypted and decrypted at runtime.
+**Rationale:** Zero-trust model ensures secrets are never exposed in plaintext on disk.
+**Alternatives considered:** Plaintext secrets (rejected — security violation).
+
+### 20-33: GeoIP Update
+**Decision:** GeoIP database updates for firewall rules and access control.
+**Rationale:** Enables geo-based access control for services.
+**Alternatives considered:** Static GeoIP (rejected — outdated rules).
+
+### 20-34: System Hardening (Misterio77 patterns)
+**Decision:** Bootloader hardening (systemd-boot editor disabled, GRUB password protection, timeout reduction to 3s). Filesystem mount restrictions (`noexec,nosuid,nodev` on `/tmp`, `/dev/shm`, `/run/lock`). Supplementary sysctl tuning (TCP timestamps off, SYN bounds, BPF JIT hardening, IPv6 RA rejection, socket buffer limits). Kernel attack surface reduction (unprivileged userns clone off, userfaultfd off, ftrace disabled, SGX optional). Core dump restrictions (`|/bin/false`). Kernel module blacklist (bluetooth, cifs/nfs/nfsd, kgdb, ftrace, thunderbolt, firewire). Optional AppArmor MAC layer.
+**Rationale:** Comprehensive hardening across bootloader, filesystem, network stack, and kernel. Misterio77 patterns provide proven security defaults. Defense-in-depth without breaking normal usage.
+**Alternatives considered:** Individual hardening modules (rejected — scattered, inconsistent).
+
 ---
 
 ## Consequences
@@ -99,8 +139,17 @@ Domain 20 implements security layers that protect the system at every level: net
 | 22-secrets.nix | SOPS/Age encrypted secrets management |
 | 23-secrets-schema.nix | Declarative secret type/path/permission schema |
 | 24-landlock.nix | Kernel-level filesystem isolation |
+| 24-valkey.nix | Valkey in-memory data store |
 | 25-clamav.nix | Antivirus scanning (weekly, resource-limited) |
 | 26-secret-ingest.nix | Automated SOPS file processing pipeline |
+| 27-hardened-core.nix | Kernel lockdown, module restrictions, eBPF disabled |
+| 28-hermetic.nix | Hermetic build restrictions, trusted sources only |
+| 29-onboarding.nix | Guided onboarding flow with security assertions |
+| 30-runtime-guard.nix | Runtime configuration validation |
+| 31-security-stats.nix | Security metrics collection via Prometheus |
+| 32-zero-trust-secrets.nix | Zero-trust secret management |
+| 33-geoip-update.nix | GeoIP database updates for firewall rules |
+| 34-system-hardening.nix | Misterio77 patterns: bootloader, filesystem, sysctl, kernel hardening, AppArmor |
 
 ---
 

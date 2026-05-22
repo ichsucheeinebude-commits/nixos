@@ -24,7 +24,7 @@ links:
 
 # ADR-60: Domain Apps Architecture
 
-> Knowledge management, automation, identity, IoT, communication, and AI: Paperless, n8n, Vaultwarden, Home Assistant, Readeck, Matrix, Miniflux, Linkding, Monica, Karakeep, Linkwarden, OliveTin, and Open WebUI.
+> Knowledge management, automation, identity, IoT, communication, AI, and file management: Paperless, n8n, Vaultwarden, Home Assistant, Readeck, Matrix, Miniflux, Linkding, Monica, Karakeep, Linkwarden, OliveTin, Open WebUI, Navidrome, ReadeBook, and Filestash.
 
 ---
 
@@ -101,6 +101,21 @@ Domain 60 is the catch-all for application services that don't fit into media, f
 **Rationale:** Ollama API is not user-friendly. Open WebUI provides chat interface and model management. Privacy controls prevent telemetry leakage.
 **Alternatives considered:** Direct Ollama API (rejected — no UI), cloud LLMs (rejected — privacy, cost).
 
+### 60-73: Navidrome
+**Decision:** Music streaming server. Subsonic API compatible. Part of the media stack (Domain 50) but placed in apps for organizational clarity.
+**Rationale:** Self-hosted music streaming. Subsonic API compatibility enables wide client support.
+**Alternatives considered:** Funkwhale (rejected — heavier, less mature).
+
+### 60-74: ReadeBook
+**Decision:** Self-hosted audiobook reader. Complements Audiobookshelf for audiobook management.
+**Rationale:** Dedicated audiobook reader with specialized features.
+**Alternatives considered:** Audiobookshelf only (rejected — additional reader provides flexibility).
+
+### 60-75: Filestash
+**Decision:** Universal file management platform via Docker Hub (`pkgs.dockerTools.pullImage`). Providers: FTP, SFTP, S3, WebDAV, local. Audio/video transcoding and office document editing. SSO authentication support. Caddy reverse proxy at `files.<domain>`. theme.park integration.
+**Rationale:** Single interface for all file backends. Docker required because filestash is not in nixpkgs (RFP #169231). SSO enables unified access control.
+**Alternatives considered:** Native nixpkgs package (rejected — not available), Nextcloud (rejected — too heavy for file-only use).
+
 ---
 
 ## Consequences
@@ -137,6 +152,9 @@ Domain 60 is the catch-all for application services that don't fit into media, f
 | 70-linkwarden.nix | Collaborative bookmark archiver |
 | 71-olivetin.nix | Web-based shell command panel |
 | 72-open-webui.nix | LLM chat interface for Ollama |
+| 73-navidrome.nix | Music streaming server (Subsonic API) |
+| 74-readmeabook.nix | Audiobook reader |
+| 75-filestash.nix | Universal file manager (S3/WebDAV/SFTP, Docker-based, SSO) |
 
 ---
 

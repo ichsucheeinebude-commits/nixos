@@ -42,9 +42,9 @@ Domain 50 implements a full self-hosted media solution on the Q958 (Intel i3-910
 **Rationale:** Shared GID ensures consistent file permissions across all *arr services. Read-only mounts protect library integrity. VPN confinement prevents download leaks.
 **Alternatives considered:** Per-service users (rejected — permission conflicts).
 
-### 50-51: Arr Stack
-**Decision:** Sonarr, Radarr, and Prowlarr enabled via single toggle. Shared database instance. API key auto-wiring.
-**Rationale:** Single toggle reduces configuration complexity. Shared database reduces resource usage. Auto-wiring eliminates manual API key management.
+### 50-51: Arr Stack (nixflix + nixarr patterns)
+**Decision:** Sonarr, Radarr, Prowlarr, Readarr, Lidarr enabled via single toggle. State management in `/data/.state/nixarr/` with structured backup exclusion (Arr data is re-downloadable, NOT in backup). theme.park integration for unified theming across all Arr services. TRaSH-Guides quality profiles (1080p H.265, good file size).
+**Rationale:** Single toggle reduces configuration complexity. State directory structure enables clear backup policies. theme.park provides consistent UI. TRaSH-Guides profiles optimize for file size without sacrificing quality.
 **Alternatives considered:** Individual toggles (rejected — too many config points).
 
 ### 50-52: Download Stack
@@ -62,30 +62,30 @@ Domain 50 implements a full self-hosted media solution on the Q958 (Intel i3-910
 **Rationale:** Jellyseerr provides a user-friendly request portal for family members. Automates the request → download workflow.
 **Alternatives considered:** Ombi (rejected — Jellyseerr is more actively maintained).
 
-### 50-55: Jellyfin
-**Decision:** Hardware-accelerated transcoding via QuickSync. Tier C (HDD) as read-only library. Transcode cache on Tier B (SSD).
-**Rationale:** QuickSync is essential for the i3-9100. Read-only Tier C protects media archive. SSD transcode cache prevents HDD thrashing.
-**Alternatives considered:** Software transcoding (rejected — CPU insufficient), no transcode cache (rejected — HDD bottleneck).
+### 50-55: Jellyfin (upgraded)
+**Decision:** Hardware-accelerated transcoding via QuickSync (iHD driver). Plugin management (AniDB, AniList, TMDB, TVDB, OpenSubtitles). theme.park integration. Auto-library generation from Arr root folders. State management in `/data/.state/nixarr/jellyfin/`. Cache and transcodes excluded from backup (regenerable).
+**Rationale:** QuickSync is essential for the i3-9100. Plugins enhance metadata and subtitle quality. Auto-libraries reduce manual configuration.
+**Alternatives considered:** Software transcoding (rejected — CPU insufficient), no plugins (rejected — poor metadata).
 
-### 50-56: Sonarr
-**Decision:** TV series manager. Download client: SABnzbd. Output: Tier C. Profile: 1080p/4K. Language: DE+EN.
-**Rationale:** Sonarr automates TV series collection. Dual language supports German and English content.
-**Alternatives considered:** Manual download (rejected — not sustainable).
+### 50-56: Sonarr (upgraded)
+**Decision:** TV series manager with TRaSH-Guides quality profile (1080p H.265, max 4GB per episode). theme.park integration for consistent UI. State in `/data/.state/nixarr/sonarr/` (excluded from backup). systemd hardening with ProtectSystem=strict, ReadWritePaths scoped to state dir + media.
+**Rationale:** H.265 provides smaller files at good quality. theme.park matches other Arr services. Scoped state directory enables clear backup policy.
+**Alternatives considered:** H.264 (rejected — larger files for same quality).
 
-### 50-57: Radarr
-**Decision:** Movie manager. Like Sonarr but for films. Collections auto-download. 4K profile for Q958 QuickSync capability.
-**Rationale:** Radarr automates movie collection. QuickSync handles 4K transcoding.
-**Alternatives considered:** Manual download (rejected — not sustainable).
+### 50-57: Radarr (upgraded)
+**Decision:** Movie manager with TRaSH-Guides quality profile (1080p H.265, 500MB-8GB). theme.park integration. State in `/data/.state/nixarr/radarr/` (excluded from backup). systemd hardening.
+**Rationale:** H.265 provides 3-6GB typical for 1080p movies. theme.park matches other Arr services.
+**Alternatives considered:** 4K profile (rejected — storage cost vs quality benefit on i3-9100).
 
-### 50-58: Prowlarr
-**Decision:** Central indexer manager for all *arr services. Auto-sync to Sonarr/Radarr/Lidarr.
-**Rationale:** Single indexer configuration propagated to all *arr services. Eliminates duplicate indexer setup.
-**Alternatives considered:** Per-service indexers (rejected — duplicate configuration).
+### 50-58: Prowlarr (upgraded)
+**Decision:** Central indexer manager with declarative settings sync. SceneNZB.com as sole indexer (Newznab API v1, REST). theme.park integration. State in `/data/.state/nixarr/prowlarr/` (excluded from backup).
+**Rationale:** Single authoritative indexer reduces complexity. SceneNZB provides high-quality NZB content. Declarative sync ensures reproducible configuration.
+**Alternatives considered:** Multiple indexers (rejected — user preference for single source).
 
-### 50-59: Lidarr
-**Decision:** Music downloader and library manager. Native NixOS module (not container-based). Declarative, follows hardening-by-default.
-**Rationale:** Completes the *arr suite for music. Native NixOS module ensures declarative, reproducible config.
-**Alternatives considered:** Container-based (rejected — violates native NixOS philosophy).
+### 50-59: Lidarr (upgraded)
+**Decision:** Music downloader with TRaSH-Guides quality profile (lossless preferred). theme.park integration. State in `/data/.state/nixarr/lidarr/` (excluded from backup). systemd hardening.
+**Rationale:** Lossless music provides best quality. theme.park matches other Arr services.
+**Alternatives considered:** 320kbps (rejected — lossless preferred for archival).
 
 ---
 
@@ -111,15 +111,17 @@ Domain 50 implements a full self-hosted media solution on the Q958 (Intel i3-910
 | Module | Purpose |
 |--------|---------|
 | 50-lib-media.nix | Centralized media paths, shared GID 169 |
-| 51-arr-stack.nix | Sonarr + Radarr + Prowlarr single toggle |
-| 52-download.nix | SABnzbd with WireGuard confinement |
+| 51-arr-stack.nix | Arr stack library: theme.park, TRaSH-Guides, state management |
+| 52-download.nix | SABnzbd with WireGuard VPN confinement (downloads only) |
 | 53-streaming.nix | Jellyfin + Navidrome + Audiobookshelf |
 | 54-discovery.nix | Jellyseerr media requests |
-| 55-jellyfin.nix | Media server with QuickSync transcoding |
-| 56-sonarr.nix | TV series automation |
-| 57-radarr.nix | Movie automation |
-| 58-prowlarr.nix | Central indexer manager |
-| 59-lidarr.nix | Music automation |
+| 55-jellyfin.nix | Media server: QuickSync, plugins, auto-libraries, theme.park |
+| 56-sonarr.nix | TV series: TRaSH-Guides 1080p/H.265, theme.park |
+| 57-radarr.nix | Movies: TRaSH-Guides 1080p/H.265, theme.park |
+| 58-prowlarr.nix | Indexer: SceneNZB.com declarative sync, theme.park |
+| 59-lidarr.nix | Music: TRaSH-Guides lossless, theme.park |
+| 60-readarr.nix | Books: theme.park, state management |
+| 63-seerr.nix | Media requests: cross-service integration, theme.park |
 
 ---
 

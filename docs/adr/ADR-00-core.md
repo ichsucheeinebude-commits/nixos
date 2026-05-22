@@ -104,6 +104,36 @@ Domain 00 is the foundation every other domain depends on. It establishes the de
 **Rationale:** Runtime configuration changes without NixOS rebuild. User-friendly JSON for non-Nix users. Nix defaults ensure sane baseline.
 **Alternatives considered:** Pure NixOS config (rejected — requires rebuild for every change).
 
+### 00-14: UID Registry
+**Decision:** Central UID/GID registry for all services. Prevents ID collisions across domains.
+**Rationale:** Consistent service identities across hosts. Eliminates permission conflicts from duplicate UIDs.
+**Alternatives considered:** Auto-assigned UIDs (rejected — non-deterministic across rebuilds).
+
+### 00-15: Services Spec
+**Decision:** Declarative service specification with port registry, health checks, and dependency graphs.
+**Rationale:** Single source of truth for all service metadata. Enables automated documentation.
+**Alternatives considered:** Scattered port definitions (rejected — conflicts, drift).
+
+### 00-16: Boot Watchdog
+**Decision:** Systemd watchdog timer for boot failure detection. Automatic rollback on boot hang.
+**Rationale:** Critical for headless servers. Prevents permanent unreachability after bad config.
+**Alternatives considered:** No watchdog (rejected — single point of failure).
+
+### 00-17: Recovery USB
+**Decision:** Recovery USB image generation with known-good config and rollback scripts.
+**Rationale:** Physical recovery path for headless servers with failed boots.
+**Alternatives considered:** Network-only recovery (rejected — useless if network stack broken).
+
+### 00-18: Admin Triggers
+**Decision:** Trigger-based admin actions (reboot, rollback, emergency mode) via systemd targets.
+**Rationale:** Standardized emergency procedures. Scriptable admin actions.
+**Alternatives considered:** Manual SSH commands (rejected — error-prone under stress).
+
+### 00-19: User Preferences
+**Decision:** Central `my.core.*` namespace for all user-configurable identity and preference settings. Covers identity (domain, timezone, locale, keyboard), user account (username, fullName, email, shell), appearance (cursor theme, icon theme, font family/size), and network (DNS servers, proxy settings).
+**Rationale:** Single place for all user preferences. Replaces hardcoded values across modules. Enables easy customization without touching individual modules.
+**Alternatives considered:** Scattered per-module options (rejected — inconsistent, hard to find).
+
 ---
 
 ## Consequences
@@ -129,18 +159,34 @@ Domain 00 is the foundation every other domain depends on. It establishes the de
 |--------|---------|
 | 00-principles.nix | Master toggle, bastelmodus flag, dendritic pattern |
 | 01-configs-registry.nix | SSoT for identity, hardware, network, ports, services |
+| 01-lib-mkservice.nix | mkService factory for systemd + Caddy + SSO |
+| 02-defaults.nix | Default settings for all modules |
 | 02-nix-tuning.nix | GC, auto-optimise-store, binary-only policy |
 | 03-hardware-profile.nix | CPU microcode, GPU drivers, conditional hardware |
+| 03-ports.nix | Port registry for all services |
 | 04-boot-safeguards.nix | Generation limit, memtest, boot overflow protection |
+| 04-registry.nix | Feature flags and service toggles |
+| 05-system-stability.nix | System stability monitoring |
 | 05-tpm2.nix | TPM2 sealing, FIDO2 LUKS, SOPS integration |
+| 06-config-merger.nix | Nix defaults + runtime JSON merge |
 | 06-zram-swap.nix | Compressed swap (zstd, 25% RAM) |
 | 07-locale-system.nix | Interface for locale, timezone, keymap |
+| 07-shell-premium.nix | Enhanced shell: fastfetch, aliases, tool upgrades |
+| 08-tty-info.nix | TTY information display |
 | 08-users-shell.nix | Declarative users, shared media GID 169 |
+| 09-backup.nix | Backup configuration |
 | 09-postgresql.nix | Shared PostgreSQL instance |
-| 10-shell-premium.nix | Enhanced shell: fastfetch, aliases, tool upgrades |
+| 10-nix-tuning.nix | Nix tuning (duplicate) |
+| 10-shell-premium.nix | Shell premium (duplicate) |
 | 11-symbiosis.nix | Hardware auto-detection, microcode, RAM warnings |
-| 12-lib-helpers.nix | mkService factory for systemd + Caddy + SSO |
+| 12-lib-helpers.nix | recursiveImportDir, mkService factory |
 | 13-config-merger.nix | Nix defaults + runtime JSON merge |
+| 14-uid-registry.nix | Central UID/GID registry for all services |
+| 15-services-spec.nix | Declarative service specification with port registry |
+| 16-boot-watchdog.nix | Systemd watchdog for boot failure detection |
+| 17-recovery-usb.nix | Recovery USB image generation |
+| 18-admin-triggers.nix | Trigger-based admin actions |
+| 19-user-preferences.nix | Central `my.core.*` namespace: identity, user, appearance, network |
 
 ---
 
